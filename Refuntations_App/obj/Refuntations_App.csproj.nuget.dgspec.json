@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\Refuntations_App.csproj": {}
+    "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\Refuntations_App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\Refuntations_App.csproj": {
+    "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\Refuntations_App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\Refuntations_App.csproj",
+        "projectUniqueName": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
         "projectName": "Refuntations_App",
-        "projectPath": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\Refuntations_App.csproj",
-        "packagesPath": "C:\\Users\\dste848075\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\obj\\",
+        "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
+        "packagesPath": "C:\\Users\\oziv508811\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dste848075\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\oziv508811\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

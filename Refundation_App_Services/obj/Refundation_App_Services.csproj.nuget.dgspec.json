@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oziv508811\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {}
+    "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oziv508811\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {
+    "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oziv508811\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj",
+        "projectUniqueName": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj",
         "projectName": "Refundation_App_Services",
-        "projectPath": "C:\\Users\\oziv508811\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj",
+        "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj",
         "packagesPath": "C:\\Users\\oziv508811\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oziv508811\\Desktop\\Refundacije\\Refundation_App_Services\\obj\\",
+        "outputPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\oziv508811\\AppData\\Roaming\\NuGet\\NuGet.Config",
