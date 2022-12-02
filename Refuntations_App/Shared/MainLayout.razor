@@ -1,0 +1,64 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>Refundacije</PageTitle>
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<AuthorizeView>
+    <Authorized>
+        <MudLayout>
+            <MudAppBar Elevation="4" Style="@($"color:{Colors.Grey.Lighten5}; background:#df144b;")">
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Style="@($"color:{Colors.Grey.Lighten5};")" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+                <MudImage ObjectFit="ObjectFit.Cover" Height="30" Width="30" Src="mercator_logo.png" Alt="Mercator logo" Elevation="25" Class="rounded-lg" />
+                <MudText Typo="Typo.h6" Class="ml-4">
+                    Mercator refundacije
+                </MudText>
+                <MudSpacer />
+                <MudForm method="post" action="Identity/Account/LogOut">
+                    <MudFab Size="Size.Small" StartIcon="@Icons.Filled.Logout" Label="Odjava" Style="background-color: #eee6ea; color: black;" ButtonType="ButtonType.Submit" />
+                </MudForm>
+            </MudAppBar>
+            <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="4">
+                <NavMenu />
+            </MudDrawer>
+            <MudMainContent>
+                <ErrorBoundary @ref="errorBoundary">
+                    <ChildContent>
+                        @Body
+                    </ChildContent>
+                    <ErrorContent Context="Exeption">
+                        <ErrorPage />
+                    </ErrorContent>
+                </ErrorBoundary>
+                @*<ChildContent>
+                @Body
+                </ChildContent>*@
+            </MudMainContent>
+        </MudLayout>
+    </Authorized>
+
+    <NotAuthorized>
+       <Refuntations_App.Pages.LoginRedirect></Refuntations_App.Pages.LoginRedirect>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+    private MudTheme _theme = new();
+    private bool _isDarkMode;
+    bool _drawerOpen = true;
+    private ErrorBoundary? errorBoundary;
+
+
+    protected override void OnParametersSet()
+    {
+        errorBoundary?.Recover();
+    }
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+}

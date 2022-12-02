@@ -1,0 +1,21 @@
+﻿
+<MudNavMenu Rounded="true" Margin="Margin.Dense" Color=Color.Inherit Class="pa-2">
+    <MudDivider Class="my-2" />
+    <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.VpnKeyOff" IconColor="Color.Inherit" Href="">Privremeni izveštaji</MudNavLink>
+    <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.VpnKey" IconColor="Color.Inherit" Href="">Konačni izveštaji</MudNavLink>
+    <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Filled.Book"  IconColor="Color.Inherit" Href="">Odobrenja</MudNavLink>
+    <AuthorizeView Roles="Admin"
+        >
+        <MudNavLink Match="NavLinkMatch.All" IconColor="Color.Inherit" Href="">Admin stanica</MudNavLink>
+    </AuthorizeView>
+
+</MudNavMenu>
+@code{
+    private bool collapseNavMenu = true;
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
+}

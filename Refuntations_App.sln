@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refuntations_App", "Refuntations_App\Refuntations_App.csproj", "{253FD35D-A8E7-4499-B829-5300B53EB0F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refundation_App_Services", "Refundation_App_Services\Refundation_App_Services.csproj", "{8549D534-E117-4EB2-BE5D-4FC1F340C886}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{253FD35D-A8E7-4499-B829-5300B53EB0F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{253FD35D-A8E7-4499-B829-5300B53EB0F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{253FD35D-A8E7-4499-B829-5300B53EB0F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{253FD35D-A8E7-4499-B829-5300B53EB0F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8549D534-E117-4EB2-BE5D-4FC1F340C886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8549D534-E117-4EB2-BE5D-4FC1F340C886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8549D534-E117-4EB2-BE5D-4FC1F340C886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8549D534-E117-4EB2-BE5D-4FC1F340C886}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {159141A8-26AF-4493-9EAD-0FD2F22825A7}
+	EndGlobalSection
+EndGlobal
