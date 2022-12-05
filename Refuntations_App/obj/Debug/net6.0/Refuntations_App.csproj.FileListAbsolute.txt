@@ -580,3 +580,7 @@ C:\Users\oziv508811\Documents\Refundacije\Refuntations_App\obj\Debug\net6.0\refi
 C:\Users\oziv508811\Documents\Refundacije\Refuntations_App\obj\Debug\net6.0\Refuntations_App.pdb
 C:\Users\oziv508811\Documents\Refundacije\Refuntations_App\obj\Debug\net6.0\Refuntations_App.genruntimeconfig.cache
 C:\Users\oziv508811\Documents\Refundacije\Refuntations_App\obj\Debug\net6.0\ref\Refuntations_App.dll
+C:\Users\oziv508811\Documents\Refundacije\Refuntations_App\bin\Debug\net6.0\Refuntations_App_Data.dll
+C:\Users\oziv508811\Documents\Refundacije\Refuntations_App\bin\Debug\net6.0\Refuntations_App_Data.pdb
+C:\Users\oziv508811\Documents\Refundacije\Refuntations_App\bin\Debug\net6.0\Refundation_App_Services.dll
+C:\Users\oziv508811\Documents\Refundacije\Refuntations_App\bin\Debug\net6.0\Refundation_App_Services.pdb

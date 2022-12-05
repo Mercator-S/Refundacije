@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Build.Framework;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 
-namespace Refuntations_App.Model
+namespace Refuntations_App_Data.Model
 {
     public class OnlineUser: IdentityUser
     {

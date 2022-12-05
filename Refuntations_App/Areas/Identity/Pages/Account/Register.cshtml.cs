@@ -8,10 +8,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Refuntations_App.Model;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
+using Refuntations_App_Data.Model;
 
 namespace Refuntations_App.Areas.Identity.Pages.Account
 {

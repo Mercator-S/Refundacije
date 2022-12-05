@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
+using Refundation_App_Services.Repositories;
+using Refundation_App_Services.Services;
 using Refuntations_App.Areas.Identity;
 using Refuntations_App.Data;
-using Refuntations_App.Model;
+using Refuntations_App_Data.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,10 +34,13 @@ builder.Services.AddDefaultIdentity<OnlineUser>(options => {
 } )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineUser>>();
 builder.Services.AddMudServices();
+
+builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineUser>>();
+builder.Services.AddTransient<IProcedureExecutor, ProcedureExecutor>();
 
 
 var app = builder.Build();

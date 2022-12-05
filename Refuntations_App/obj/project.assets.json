@@ -3804,6 +3804,37 @@
             "related": ".xml"
           }
         }
+      },
+      "Refundation_App_Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.10",
+          "Refuntations_App_Data": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Refundation_App_Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Refundation_App_Services.dll": {}
+        }
+      },
+      "Refuntations_App_Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.UI": "6.0.10",
+          "Microsoft.EntityFrameworkCore": "6.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10"
+        },
+        "compile": {
+          "bin/placeholder/Refuntations_App_Data.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Refuntations_App_Data.dll": {}
+        }
       }
     }
   },
@@ -10633,6 +10664,16 @@
         "xunit.extensibility.core.2.4.2.nupkg.sha512",
         "xunit.extensibility.core.nuspec"
       ]
+    },
+    "Refundation_App_Services/1.0.0": {
+      "type": "project",
+      "path": "../Refundation_App_Services/Refundation_App_Services.csproj",
+      "msbuildProject": "../Refundation_App_Services/Refundation_App_Services.csproj"
+    },
+    "Refuntations_App_Data/1.0.0": {
+      "type": "project",
+      "path": "../Refuntations_App_Data/Refuntations_App_Data.csproj",
+      "msbuildProject": "../Refuntations_App_Data/Refuntations_App_Data.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -10645,6 +10686,8 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.10",
       "MudBlazor >= 6.1.2",
       "QuickGrid >= 2.0.0",
+      "Refundation_App_Services >= 1.0.0",
+      "Refuntations_App_Data >= 1.0.0",
       "xunit.extensibility.core >= 2.4.2"
     ]
   },
@@ -10674,7 +10717,14 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {
+              "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj"
+            },
+            "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj": {
+              "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

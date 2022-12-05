@@ -16,6 +16,8 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.10",
           "MudBlazor": "6.1.2",
           "QuickGrid": "2.0.0",
+          "Refundation_App_Services": "1.0.0",
+          "Refuntations_App_Data": "1.0.0",
           "xunit.extensibility.core": "2.4.2"
         },
         "runtime": {
@@ -2448,6 +2450,27 @@
             "fileVersion": "2.4.2.0"
           }
         }
+      },
+      "Refundation_App_Services/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.10",
+          "Refuntations_App_Data": "1.0.0"
+        },
+        "runtime": {
+          "Refundation_App_Services.dll": {}
+        }
+      },
+      "Refuntations_App_Data/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.UI": "6.0.10",
+          "Microsoft.EntityFrameworkCore": "6.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10"
+        },
+        "runtime": {
+          "Refuntations_App_Data.dll": {}
+        }
       }
     }
   },
@@ -3786,6 +3809,16 @@
       "sha512": "sha512-W1BoXTIN1C6kpVSMw25huSet25ky6IAQUNovu3zGOGN/jWnbgSoTyCrlIhmXSg0tH5nEf8q7h3OjNHOjyu5PfA==",
       "path": "xunit.extensibility.core/2.4.2",
       "hashPath": "xunit.extensibility.core.2.4.2.nupkg.sha512"
+    },
+    "Refundation_App_Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Refuntations_App_Data/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
