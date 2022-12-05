@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Components;
+
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
+using Refundation_App_Services.Services;
+using Refundation_App_Services.Services.Impl;
 using Refuntations_App.Areas.Identity;
 using Refuntations_App.Data;
 using Refuntations_App.Model;
@@ -39,6 +39,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineUser>>();
 builder.Services.AddMudServices();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 
 var app = builder.Build();

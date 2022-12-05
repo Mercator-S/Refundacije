@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hVoB6YdE4eLxZHJ5KlYpoLE/T4Zl5YfbTxncBsn8zZ0=",
+  "Hash": "07G9O32W607RsR8Mh8l+rMG7kUGStXKo7wQeBG556r0=",
   "Source": "Refuntations_App",
   "BasePath": "_content/Refuntations_App",
   "Mode": "Default",
@@ -10,7 +10,7 @@
     {
       "Name": "Refuntations_App\\wwwroot",
       "Source": "Refuntations_App",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "Pattern": "**"
     }
@@ -1071,10 +1071,10 @@
       "OriginalItemSpec": "C:\\Users\\dste848075\\.nuget\\packages\\mudblazor\\6.1.2\\staticwebassets\\MudBlazor.min.js"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Refuntations_App.styles.css",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Refuntations_App.styles.css",
       "SourceId": "Refuntations_App",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "Refuntations_App.styles.css",
       "AssetKind": "All",
@@ -1085,13 +1085,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Refuntations_App.styles.css"
+      "OriginalItemSpec": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\bundle\\Refuntations_App.styles.css"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Refuntations_App.bundle.scp.css",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Refuntations_App.bundle.scp.css",
       "SourceId": "Refuntations_App",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "Refuntations_App.bundle.scp.css",
       "AssetKind": "All",
@@ -1102,13 +1102,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Refuntations_App.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Refuntations_App.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -1122,10 +1122,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -1139,10 +1139,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -1156,10 +1156,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -1173,10 +1173,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -1190,10 +1190,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -1207,10 +1207,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -1224,10 +1224,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -1241,10 +1241,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -1258,10 +1258,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -1275,10 +1275,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -1292,10 +1292,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\css\\site.css",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -1309,10 +1309,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\favicon.ico",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -1326,10 +1326,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\mercator_logo.png",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\mercator_logo.png",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "mercator_logo.png",
       "AssetKind": "All",
@@ -1343,10 +1343,10 @@
       "OriginalItemSpec": "wwwroot\\mercator_logo.png"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\mercator_s.png",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\mercator_s.png",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "mercator_s.png",
       "AssetKind": "All",
@@ -1360,10 +1360,10 @@
       "OriginalItemSpec": "wwwroot\\mercator_s.png"
     },
     {
-      "Identity": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\not-found.jpg",
+      "Identity": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\not-found.jpg",
       "SourceId": "Refuntations_App",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\wwwroot\\",
       "BasePath": "_content/Refuntations_App",
       "RelativePath": "not-found.jpg",
       "AssetKind": "All",

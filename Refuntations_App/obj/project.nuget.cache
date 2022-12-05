@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DlNZRUX2wqrCF9/qapfQ32jS3ZfQXW+rJ07rsrYgakMCk4dl8uVTtwWoNUsytbnYhauxHyMVS7zU1Kgp0av6Ow==",
+  "dgSpecHash": "4j53afKm8HN3EXcRwNIzApfn+wFjqqRJJw6T9QH+ZYnEJLL+2nATpj86o9opUDz5xb1RiTkt2L3q8q6o8wm9Og==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\Refuntations_App.csproj",
+  "projectFilePath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dste848075\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\dste848075\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",

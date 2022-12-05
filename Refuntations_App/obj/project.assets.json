@@ -3804,6 +3804,16 @@
             "related": ".xml"
           }
         }
+      },
+      "Refundation_App_Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/Refundation_App_Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Refundation_App_Services.dll": {}
+        }
       }
     }
   },
@@ -10633,6 +10643,11 @@
         "xunit.extensibility.core.2.4.2.nupkg.sha512",
         "xunit.extensibility.core.nuspec"
       ]
+    },
+    "Refundation_App_Services/1.0.0": {
+      "type": "project",
+      "path": "../Refundation_App_Services/Refundation_App_Services.csproj",
+      "msbuildProject": "../Refundation_App_Services/Refundation_App_Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -10645,6 +10660,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.10",
       "MudBlazor >= 6.1.2",
       "QuickGrid >= 2.0.0",
+      "Refundation_App_Services >= 1.0.0",
       "xunit.extensibility.core >= 2.4.2"
     ]
   },
@@ -10654,11 +10670,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\Refuntations_App.csproj",
+      "projectUniqueName": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
       "projectName": "Refuntations_App",
-      "projectPath": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\Refuntations_App.csproj",
+      "projectPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
       "packagesPath": "C:\\Users\\dste848075\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dste848075\\source\\repos\\Refuntations_App\\Refuntations_App\\obj\\",
+      "outputPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dste848075\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10674,7 +10690,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {
+              "projectPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
