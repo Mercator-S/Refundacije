@@ -1,14 +1,22 @@
 ﻿@page "/"
 @using Refundation_App_Services.Extensions;
 @using Refundation_App_Services.Services;
+@using System.Net.Http.Json;
+@using System.Reflection;
 @inject IEmailSender e;
 
-<PageTitle>Index</PageTitle>
+<FinalCalculations></FinalCalculations>
 
-<LoginDisplay></LoginDisplay>
-@code{
+
+
+
+
+
+
+
+@code {
     /* protected override Task OnInitializedAsync()
-    {
+        {
         List<Person> people = new List<Person>();
          Person p = new Person();
          p.Name = "Dragana";
@@ -19,15 +27,14 @@
          p2.LastName = "Stefanovic";
          people.Add(p2);
          e.sendMail("stefanoviic.dragana@gmail.com", "dragana.stefanovic@mercator.rs", "Test", people.ToHtmlTable());
-         return null;
+    return null;
 
 
     }
     public class Person
-    {
+        {
         public string Name{ get; set; }
         public String LastName { get; set; }
     }
-     */
+    */
 }
-

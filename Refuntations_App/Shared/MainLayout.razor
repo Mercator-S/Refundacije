@@ -1,9 +1,11 @@
 ﻿@inherits LayoutComponentBase
 
 <PageTitle>Refundacije</PageTitle>
-<MudThemeProvider />
+<MudThemeProvider Theme="@_theme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
+
+
 
 
 <AuthorizeView>
@@ -32,9 +34,6 @@
                         <ErrorPage />
                     </ErrorContent>
                 </ErrorBoundary>
-                @*<ChildContent>
-                @Body
-                </ChildContent>*@
             </MudMainContent>
         </MudLayout>
     </Authorized>
@@ -51,7 +50,11 @@
     bool _drawerOpen = true;
     private ErrorBoundary? errorBoundary;
 
-
+    protected override void OnInitialized()
+    {
+          _theme.Palette.Primary = new MudBlazor.Utilities.MudColor("#d90142");
+          _theme.Palette.Secondary = new MudBlazor.Utilities.MudColor("#4a4a4a");
+    }
     protected override void OnParametersSet()
     {
         errorBoundary?.Recover();
