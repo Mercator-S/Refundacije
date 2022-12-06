@@ -4,6 +4,6 @@ namespace Refundation_App_Services.Services
 {
     public interface IProcedureExecutor
     {
-        Task<List<FinalSettlement>> GetFinalSettlement();
+        Task<List<FinalSettlements>> GetFinalSettlement(int Year, int Month);
     }
 }

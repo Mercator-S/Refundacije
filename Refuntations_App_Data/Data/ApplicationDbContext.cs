@@ -12,7 +12,7 @@ namespace Refuntations_App.Data
         {
         }
         //public DbSet<OnlineUser> users => Set<OnlineUser>();
-        public DbSet<FinalSettlement> finalSettlement => Set<FinalSettlement>();
+        public DbSet<FinalSettlements> finalSettlement => Set<FinalSettlements>();
 
 
         //protected override void OnModelCreating(ModelBuilder builder)

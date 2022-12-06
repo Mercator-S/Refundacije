@@ -1,5 +1,92 @@
-﻿@page "/"
+﻿@inject IDialogService DialogService
+@page "/FinalSettlement"
+@using Refuntations_App.Pages.Components;
 
 <PageTitle>Konačni obračun</PageTitle>
 
+<MudContainer Class="mt-5" MaxWidth="MaxWidth.ExtraLarge">
+    <MudGrid Class="d-flex justify-center mt-10">
+        <MudItem hidden="@(finalSettlements!=null?true:false)" xs="12" md="4" lg="5">
+            <DisplayFinalSettlement @bind-finalSettlements="finalSettlements" />
+        </MudItem>
+    </MudGrid>
+    <MudGrid Class="d-flex justify-center">
+        <MudItem xs="12" md="8" lg="12">
+            <MudTable Items="@finalSettlements" Dense="true" Hover="true">
+                <ToolBarContent>
+                    <MudText Typo="Typo.h6">Konacni obracun</MudText>
+                    <MudSpacer />
+                    <MudItem Class="justify-center" xs="7">
+                        <MudTextField @bind-Value="TextValue" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />
+                    </MudItem>
+                    <MudSpacer />
+                    <MudButton OnClick="@(async ()=>await ShowDialog())" Class="align-self-center" Variant="Variant.Text" IconColor="Color.Info" Size="Size.Small" StartIcon="@Icons.Filled.ReadMore">Prikaz</MudButton>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh Style="color:white;background-color:#dc3545">Dobavljač</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Kategorije</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Sifra AA</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Vrsta AA</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Period</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Iznos refundacije PDV 10</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Iznos refundacije PDV 20</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Iznos realizovano PDV 10</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Iznos realizovano PDV 20</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Datum realizovano</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Status</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Tip obrade</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545;text-align:center">I</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545;text-align:center">NP</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="Dobavljač">
+                        @context.Dobavljac
+                    </MudTd>
+                    <MudTd DataLabel="Kategorije">
+                        @context.Kategorija
+                    </MudTd>
+                    <MudTd DataLabel="Sifra AA">
+                        @context.Sifra_AA
+                    </MudTd>
+                    <MudTd DataLabel="Vrsta AA">
+                        @context.Vrsta_AA
+                    </MudTd>
+                    <MudTd DataLabel="Period">
+                        @context.Period
+                    </MudTd>
+                    <MudTd DataLabel="Iznos refundacije PDV 10">
+                        @context.Iznos_refundacije_stopa_1.Value.ToString("N")
+                    </MudTd>
+                    <MudTd DataLabel="Iznos refundacije PDV 20">
+                        @context.Iznos_refundacije_stopa_2.Value.ToString("N")
+                    </MudTd>
+                    <MudTd DataLabel="Iznos realizovano PDV 10">
+                        @context.Iznos_realizovano_stopa_1.Value.ToString("N")
+                    </MudTd>
+                    <MudTd DataLabel="Iznos realizovano PDV 20">
+                        @context.Iznos_realizovano_stopa_2.Value.ToString("N")
+                    </MudTd>
+                    <MudTd DataLabel="Datum realizovano">
+                        @context.Datum_realizovano
+                    </MudTd>
+                    <MudTd DataLabel="Status">
+                        @context.status_stavke_obracuna
+                    </MudTd>
+                    <MudTd DataLabel="Tip obrade">
+                        @context.obrada
+                    </MudTd>
+                    <MudTd Style="text-align:center" DataLabel="I">
+                        <MudIcon Icon="@(context.I==true?@Icons.Filled.CheckCircleOutline:@Icons.Filled.Block)" Size="Size.Small" Color="@(context.I==true?Color.Success:Color.Error)"></MudIcon>
+                    </MudTd>
+                    <MudTd Style="text-align:center" DataLabel="NP">
+                        <MudIcon Icon="@(context.NP==true?@Icons.Filled.CheckCircleOutline:@Icons.Filled.Block)" Size="Size.Small" Color="@(context.NP==true?Color.Success:Color.Error)"></MudIcon>
+                    </MudTd>
+                </RowTemplate>
+                <PagerContent>
+                    <MudTablePager HorizontalAlignment="HorizontalAlignment.Center" />
+                </PagerContent>
+            </MudTable>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
 

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Refuntations_App_Data.Model
 {
     [Keyless]
-    public class FinalSettlement
+    public class FinalSettlements
     {
         public int? id_iznos_stopa_1 { get; set; }
         public int? id_iznos_stopa_2 { get; set; }
