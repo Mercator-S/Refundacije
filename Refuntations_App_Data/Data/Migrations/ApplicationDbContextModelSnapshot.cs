@@ -51,15 +51,15 @@ namespace Refuntations_App.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b9e5c46d-2c44-4c82-b3a0-d2bcf74357eb",
-                            ConcurrencyStamp = "dfba0811-8d37-459c-9c6c-a7ffc875f2b9",
+                            Id = "a5507fc4-169b-4d7f-adf2-b14ebd4b8f1f",
+                            ConcurrencyStamp = "0fd3a8dc-af5a-441a-ba13-8e6630414d07",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "0fc66576-f26c-41a1-81b4-2cc4f62ca364",
-                            ConcurrencyStamp = "0382a3b9-981d-4ea5-bbef-2a4abfd7ac0f",
+                            Id = "691c2361-0d10-40e5-8aa5-827b29be65f7",
+                            ConcurrencyStamp = "1701793a-4bd7-4b5f-a55c-1ad46cc9c572",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -246,7 +246,88 @@ namespace Refuntations_App.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Refuntations_App.Model.OnlineUser", b =>
+            modelBuilder.Entity("Refuntations_App_Data.Model.FinalSettlement", b =>
+                {
+                    b.Property<DateTime?>("Datum_realizovano")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Dobavljac")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("I")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("Iznos_realizovano_stopa_1")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Iznos_realizovano_stopa_2")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Iznos_refundacije_stopa_1")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Iznos_refundacije_stopa_2")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Kategorija")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("NP")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Period")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Sifra_AA")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Vrsta_AA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("datum_do_aa")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("datum_od_aa")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("id_iznos_stopa_1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("id_iznos_stopa_2")
+                        .HasColumnType("int");
+
+                    b.Property<string>("obrada")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("sifra_dob")
+                        .HasColumnType("int");
+
+                    b.Property<string>("sifra_kat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short?>("status_stavke_obracuna")
+                        .HasColumnType("smallint");
+
+                    b.ToTable("finalSettlement");
+                });
+
+            modelBuilder.Entity("Refuntations_App_Data.Model.InternalSupplier", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
+
+                    b.Property<string>("sifra_kat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("tab_refundacije_sif_interni_dobavljaci");
+                });
+
+            modelBuilder.Entity("Refuntations_App_Data.Model.OnlineUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -266,6 +347,7 @@ namespace Refuntations_App.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("OnlineUser");

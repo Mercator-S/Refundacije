@@ -9,5 +9,76 @@ Refuntations_App/bin/Debug/net6.0/Refuntations_App.dll
 Refuntations_App/bin/Debug/net6.0/Refuntations_App.pdb
 Refuntations_App/obj/Debug/net6.0/Refuntations_App.csproj.AssemblyReference.cache
 vs/VSWorkspaceState.json
+.vs/Refundacije/FileContentIndex/60718f1d-6b1c-4335-83de-b38ced3eef16.vsidx
+.vs/Refundacije/FileContentIndex/66d3c2dc-73ae-4cf1-9ba3-37144047eb18.vsidx
+.vs/Refundacije/FileContentIndex/c075c1ba-4ad7-44ce-9f2d-ecbcdd8ce7b8.vsidx
+.vs/Refundacije/FileContentIndex/e66ee002-a70e-4540-b133-400d65cca449.vsidx
+           .vs/Refundacije/v17/.wsuo
+.vs/Refuntations_App/FileContentIndex/09aca222-46f7-4fc1-b665-f3d4bcc50467.vsidx
+.vs/Refuntations_App/FileContentIndex/12ba410e-757e-42de-a317-2821c25be661.vsidx
+.vs/Refuntations_App/FileContentIndex/4eb82cf7-9527-4b82-bee8-076d5bfc0f35.vsidx
+.vs/Refuntations_App/FileContentIndex/8b332817-5a8e-47e2-bdea-044f91157643.vsidx
+.vs/Refuntations_App/FileContentIndex/911a54ad-5acc-41d2-ac45-d9dc40924e79.vsidx
+.vs/Refuntations_App/FileContentIndex/93dff7b5-319d-4539-a3bc-686d5cda863f.vsidx
+.vs/Refuntations_App/FileContentIndex/a73407ab-81d0-476a-96ac-7485f4d8fa83.vsidx
+.vs/Refuntations_App/FileContentIndex/a917b569-2bd5-4c64-b65e-457ed793fa0e.vsidx
+.vs/Refuntations_App/FileContentIndex/b416f26c-f199-4bca-9c9e-c94b22af1998.vsidx
+.vs/Refuntations_App/FileContentIndex/d5382fe1-e92a-4125-8d1a-33c1843da7bf.vsidx
+.vs/Refuntations_App/FileContentIndex/fbd51357-7c04-4511-8eac-33b272660ac6.vsidx
+           .vs/VSWorkspaceState.json
+           Refundation_App_Services/bin/Debug/net6.0/Refundation_App_Services.dll
+           Refundation_App_Services/bin/Debug/net6.0/Refundation_App_Services.pdb
+           Refundation_App_Services/bin/Debug/net6.0/Refuntations_App_Data.dll
+           Refundation_App_Services/bin/Debug/net6.0/Refuntations_App_Data.pdb
+           Refundation_App_Services/obj/Debug/net6.0/Refundation_App_Services.assets.cache
+           Refundation_App_Services/obj/Debug/net6.0/Refundation_App_Services.csproj.AssemblyReference.cache
+           Refundation_App_Services/obj/Debug/net6.0/Refundation_App_Services.csproj.CoreCompileInputs.cache
+           Refundation_App_Services/obj/Debug/net6.0/Refundation_App_Services.csproj.FileListAbsolute.txt
+           Refundation_App_Services/obj/Debug/net6.0/Refundation_App_Services.dll
+           Refundation_App_Services/obj/Debug/net6.0/Refundation_App_Services.pdb
+           Refundation_App_Services/obj/Debug/net6.0/ref/Refundation_App_Services.dll
+           Refundation_App_Services/obj/Debug/net6.0/refint/Refundation_App_Services.dll
+           Refundation_App_Services/obj/Refundation_App_Services.csproj.nuget.dgspec.json
+           Refundation_App_Services/obj/project.assets.json
+           Refundation_App_Services/obj/project.nuget.cache
+           Refuntations_App/Pages/CodeBooks.razor
+           Refuntations_App/Pages/CodeBooks.razor.cs
+           Refuntations_App/Pages/FinalCalculations.razor
+           Refuntations_App/Pages/FinalSettlement.razor
+           Refuntations_App/Pages/Table.razor
+           Refuntations_App/Program.cs
+           Refuntations_App/Shared/MainLayout.razor
+           Refuntations_App/appsettings.json
+           Refuntations_App/bin/Debug/net6.0/Refundation_App_Services.dll
+           Refuntations_App/bin/Debug/net6.0/Refundation_App_Services.pdb
+           Refuntations_App/bin/Debug/net6.0/Refuntations_App.deps.json
+           Refuntations_App/bin/Debug/net6.0/Refuntations_App_Data.dll
+           Refuntations_App/bin/Debug/net6.0/Refuntations_App_Data.pdb
+           Refuntations_App/bin/Debug/net6.0/appsettings.json
+           Refuntations_App/obj/Debug/net6.0/Refuntations_App.GeneratedMSBuildEditorConfig.editorconfig
+           Refuntations_App/obj/Debug/net6.0/Refuntations_App.assets.cache
+           Refuntations_App/obj/Debug/net6.0/project.razor.vs.json
+           Refuntations_App/obj/Refuntations_App.csproj.nuget.dgspec.json
+           Refuntations_App/obj/Refuntations_App.csproj.nuget.g.props
+           Refuntations_App/obj/project.assets.json
+           Refuntations_App/obj/project.nuget.cache
+           Refuntations_App_Data/Data/ApplicationDbContext.cs
+           Refuntations_App_Data/Data/Migrations/ApplicationDbContextModelSnapshot.cs
+           Refuntations_App_Data/bin/Debug/net6.0/Refuntations_App_Data.dll
+           Refuntations_App_Data/bin/Debug/net6.0/Refuntations_App_Data.pdb
+           Refuntations_App_Data/obj/Debug/net6.0/Refuntations_App_Data.GeneratedMSBuildEditorConfig.editorconfig
+           Refuntations_App_Data/obj/Debug/net6.0/Refuntations_App_Data.assets.cache
+           Refuntations_App_Data/obj/Debug/net6.0/Refuntations_App_Data.csproj.AssemblyReference.cache
+           Refuntations_App_Data/obj/Debug/net6.0/Refuntations_App_Data.csproj.CoreCompileInputs.cache
+           Refuntations_App_Data/obj/Debug/net6.0/Refuntations_App_Data.csproj.FileListAbsolute.txt
+           Refuntations_App_Data/obj/Debug/net6.0/Refuntations_App_Data.dll
+           Refuntations_App_Data/obj/Debug/net6.0/Refuntations_App_Data.genruntimeconfig.cache
+           Refuntations_App_Data/obj/Debug/net6.0/Refuntations_App_Data.pdb
+           Refuntations_App_Data/obj/Debug/net6.0/ref/Refuntations_App_Data.dll
+           Refuntations_App_Data/obj/Debug/net6.0/refint/Refuntations_App_Data.dll
+           Refuntations_App_Data/obj/Refuntations_App_Data.csproj.nuget.dgspec.json
+           Refuntations_App_Data/obj/Refuntations_App_Data.csproj.nuget.g.props
+           Refuntations_App_Data/obj/project.assets.json
+           Refuntations_App_Data/obj/project.nuget.cache
 
 

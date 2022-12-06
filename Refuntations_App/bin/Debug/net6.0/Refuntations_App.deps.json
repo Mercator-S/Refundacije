@@ -2451,8 +2451,24 @@
         }
       },
       "Refundation_App_Services/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.10",
+          "Refuntations_App_Data": "1.0.0"
+        },
         "runtime": {
           "Refundation_App_Services.dll": {}
+        }
+      },
+      "Refuntations_App_Data/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.10",
+          "Microsoft.AspNetCore.Identity.UI": "6.0.10",
+          "Microsoft.EntityFrameworkCore": "6.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.10"
+        },
+        "runtime": {
+          "Refuntations_App_Data.dll": {}
         }
       }
     }
@@ -3794,6 +3810,11 @@
       "hashPath": "xunit.extensibility.core.2.4.2.nupkg.sha512"
     },
     "Refundation_App_Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Refuntations_App_Data/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

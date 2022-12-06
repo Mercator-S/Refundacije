@@ -28,8 +28,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/dste848075/Desktop/Refundacije/Refuntations_App/Pages/Dialogs/DeleteCodeBookEntityDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlhbG9nc1xEZWxldGVDb2RlQm9va0VudGl0eURpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/dste848075/Desktop/Refundacije/Refuntations_App/Pages/FinalCalculations.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmluYWxDYWxjdWxhdGlvbnMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dste848075/Desktop/Refundacije/Refuntations_App/Pages/FinalSettlement.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmluYWxTZXR0bGVtZW50LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dste848075/Desktop/Refundacije/Refuntations_App/Pages/Index.razor]
@@ -98,6 +106,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/dste848075/Desktop/Refundacije/Refuntations_App/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/dste848075/Desktop/Refundacije/Refuntations_App/Pages/Download.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG93bmxvYWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/dste848075/Desktop/Refundacije/Refuntations_App/Pages/Error.cshtml]

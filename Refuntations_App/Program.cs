@@ -7,7 +7,7 @@ using Refundation_App_Services.Services;
 using Refundation_App_Services.Services.Impl;
 using Refuntations_App.Areas.Identity;
 using Refuntations_App.Data;
-using Refuntations_App.Model;
+using Refuntations_App_Data.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +40,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineUser>>();
 builder.Services.AddMudServices();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddMudServices();
 
 
 var app = builder.Build();

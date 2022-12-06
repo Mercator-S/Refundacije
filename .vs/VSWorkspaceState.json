@@ -4,8 +4,10 @@
     "\\Refundation_App_Services",
     "\\Refuntations_App",
     "\\Refuntations_App\\Pages",
-    "\\Refuntations_App\\Pages\\Shared"
+    "\\Refuntations_App\\Pages\\Shared",
+    "\\Refuntations_App_Data",
+    "\\Refuntations_App_Data\\Data"
   ],
-  "SelectedNode": "\\Refuntations_App\\Pages\\Shared\\_Layout.cshtml",
+  "SelectedNode": "\\Refuntations_App_Data\\Data\\ApplicationDbContext.cs",
   "PreviewInSolutionExplorer": false
 }

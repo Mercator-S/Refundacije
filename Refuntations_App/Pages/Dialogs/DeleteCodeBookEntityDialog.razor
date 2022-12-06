@@ -1,0 +1,40 @@
+﻿<MudDialog>
+    <DialogContent>
+       Klikom na Potvrdi, selektovani entitet će biti obrisan.
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Otkaži</MudButton>
+        <MudButton Color="Color.Primary" OnClick="DeleteTargetEntity">Potvrdi</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public Object TargetEntity { get; set; }
+    [Parameter] public string SelectedValue { get; set; }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+
+    public void DeleteTargetEntity()
+    {
+        switch (SelectedValue)
+        {
+            case "Interni dobavljači":
+              
+                break;
+            case "Inostrani dobavljači":
+              
+                break;
+            case "Kategorija - Interni nalog - mesto troška":
+               
+                break;
+            case "Akcijska aktivnost - PDV - SAP ključ - Materijal":
+              
+                break;
+            case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
+              
+                break;
+
+        }
+    }
+}

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refuntations_App", "Refunta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refundation_App_Services", "Refundation_App_Services\Refundation_App_Services.csproj", "{8549D534-E117-4EB2-BE5D-4FC1F340C886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refuntations_App_Data", "Refuntations_App_Data\Refuntations_App_Data.csproj", "{48938D58-D47E-418E-94D0-9F6E31CA3961}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Refuntations_App_Data", "Refuntations_App_Data\Refuntations_App_Data.csproj", "{48938D58-D47E-418E-94D0-9F6E31CA3961}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

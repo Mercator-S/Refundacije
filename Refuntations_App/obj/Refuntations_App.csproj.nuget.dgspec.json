@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\Refuntations_App.csproj": {}
+    "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\Refuntations_App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {
+    "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj",
+        "projectUniqueName": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj",
         "projectName": "Refundation_App_Services",
-        "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj",
-        "packagesPath": "C:\\Users\\oziv508811\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\obj\\",
+        "projectPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj",
+        "packagesPath": "C:\\Users\\dste848075\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refundation_App_Services\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\oziv508811\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dste848075\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj": {
-                "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj"
+              "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj": {
+                "projectPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj"
               }
             }
           }
@@ -69,17 +69,17 @@
         }
       }
     },
-    "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\Refuntations_App.csproj": {
+    "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\Refuntations_App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
+        "projectUniqueName": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
         "projectName": "Refuntations_App",
-        "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
-        "packagesPath": "C:\\Users\\oziv508811\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App\\obj\\",
+        "projectPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\Refuntations_App.csproj",
+        "packagesPath": "C:\\Users\\dste848075\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\oziv508811\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dste848075\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -93,11 +93,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {
-                "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj"
-              },
-              "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj": {
-                "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj"
+              "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj": {
+                "projectPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refundation_App_Services\\Refundation_App_Services.csproj"
               }
             }
           }
@@ -172,17 +169,17 @@
         }
       }
     },
-    "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj": {
+    "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj",
+        "projectUniqueName": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj",
         "projectName": "Refuntations_App_Data",
-        "projectPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj",
-        "packagesPath": "C:\\Users\\oziv508811\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\oziv508811\\Documents\\Refundacije\\Refuntations_App_Data\\obj\\",
+        "projectPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App_Data\\Refuntations_App_Data.csproj",
+        "packagesPath": "C:\\Users\\dste848075\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dste848075\\Desktop\\Refundacije\\Refuntations_App_Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\oziv508811\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dste848075\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
