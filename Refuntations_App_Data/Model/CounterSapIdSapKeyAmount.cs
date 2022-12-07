@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Refuntations_App_Data.Model
 {
     [Table("tab_refundacije_sif_Brojac_SAPkljuc")]
-    public class CounterSapIdSadKeyAmount
+    public class CounterSapIdSapKeyAmount
     {
         [Key]
         public int id { get; set; }

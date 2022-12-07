@@ -21,6 +21,9 @@
                 </MudButton>
             </ButtonTemplate>
         </MudFileUpload>
+        <MudButton Variant="Variant.Filled" Color="Color.Secondary" Class="mt-4" Style="height: 45px" OnClick="HandleRefreshPage">
+            <MudIcon Icon="@Icons.Filled.Refresh" Title="Osveži" />
+        </MudButton>
         <MudButton Variant="Variant.Filled" Color="Color.Secondary" Class="mt-4" Style="height: 45px" Disabled="@IsDeletingAllowed()" OnClick="OpenDialog">
             <MudIcon Icon="@Icons.Filled.Delete" Title="Importuj" />&nbsp;Brisanje
         </MudButton>

@@ -13,12 +13,12 @@ namespace Refuntations_App_Data.Model
     [Keyless]
     public class AAPdvSAPKeyMaterial
     {
-        private int id { get; set; }
-        private int? sifra_aa { get; set; }
-        private string? naziv_aa { get; set; }
-        private decimal? PDV { get; set; }
-        private string? SAP_Kljuc { get; set; }
-        private string? Materijal { get; set; }
+        public int id { get; set; }
+        public int? sifra_aa { get; set; }
+        public string? naziv_aa { get; set; }
+        public decimal? PDV { get; set; }
+        public string? SAP_Kljuc { get; set; }
+        public string? Materijal { get; set; }
         public string? k_ins { set; get; }
         public DateTime? d_ins { set; get; }
         public string? k_uns { set; get; }

@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
+using Refundation_App_Services.Repositories;
+using Refundation_App_Services.Repositories.Impl;
 using Refundation_App_Services.Services;
 using Refundation_App_Services.Services.Impl;
 using Refuntations_App.Areas.Identity;
@@ -41,6 +43,8 @@ builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuth
 builder.Services.AddMudServices();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddMudServices();
+builder.Services.AddScoped<ICodeBookService, CodeBookService>();
+builder.Services.AddScoped<ICodeBookRepository, CodeBookRepository>();
 
 
 var app = builder.Build();

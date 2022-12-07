@@ -1,4 +1,5 @@
-﻿<MudDialog>
+﻿@using Refundation_App_Services.Services;
+<MudDialog>
     <DialogContent>
        Klikom na Potvrdi, selektovani entitet će biti obrisan.
     </DialogContent>
@@ -12,29 +13,23 @@
     [Parameter] public Object TargetEntity { get; set; }
     [Parameter] public string SelectedValue { get; set; }
 
+    [Inject]
+    private ICodeBookService _codeBookService { get; set; }
+
     void Submit() => MudDialog.Close(DialogResult.Ok(true));
     void Cancel() => MudDialog.Cancel();
 
     public void DeleteTargetEntity()
     {
-        switch (SelectedValue)
+        try
         {
-            case "Interni dobavljači":
-              
-                break;
-            case "Inostrani dobavljači":
-              
-                break;
-            case "Kategorija - Interni nalog - mesto troška":
-               
-                break;
-            case "Akcijska aktivnost - PDV - SAP ključ - Materijal":
-              
-                break;
-            case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
-              
-                break;
-
+            var entity= _codeBookService.DeleteEntity(TargetEntity, SelectedValue);
+             MudDialog.Close(DialogResult.Ok(entity));
+        }
+        catch(Exception e)
+        {
+   
+         //show some error dialog   
         }
     }
 }

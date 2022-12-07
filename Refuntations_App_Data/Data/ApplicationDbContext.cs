@@ -17,7 +17,7 @@ namespace Refuntations_App.Data
         public DbSet<ForeignSupplier> foreingSuppliers => Set<ForeignSupplier>();
         public DbSet<AAPdvSAPKeyMaterial> aaPdvSapKeyMaterijals => Set<AAPdvSAPKeyMaterial>();
         public DbSet<CategoryInternalOrderCostLocation> categoryInternalOrderCostLocations => Set<CategoryInternalOrderCostLocation>();
-        public DbSet<CounterSapIdSadKeyAmount> counterSapIdSadKeyAmounts => Set<CounterSapIdSadKeyAmount>();
+        public DbSet<CounterSapIdSapKeyAmount> counterSapIdSadKeyAmounts => Set<CounterSapIdSapKeyAmount>();
 
 
         protected override void OnModelCreating(ModelBuilder builder)
