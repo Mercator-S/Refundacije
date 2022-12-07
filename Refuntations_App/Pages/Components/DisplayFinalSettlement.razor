@@ -1,7 +1,7 @@
 ﻿<MudPaper Elevation="3">
     <MudGrid Class="d-flex justify-center">
         <MudItem>
-            <MudText Typo="Typo.h5"><b>Kreirajte konacni obracun</b></MudText>
+            <MudText Typo="Typo.h5"><b>Konačni obračun</b></MudText>
         </MudItem>
     </MudGrid>
     <MudGrid Class="d-flex justify-center">
@@ -30,9 +30,8 @@
         </MudItem>
     </MudGrid>
     <MudGrid Class="d-flex justify-center">
-        <MudItem Class="mb-3">
-            <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Error">Zatvori</MudButton>
-            <MudButton Variant="Variant.Filled" Size="Size.Small" OnClick="@(async ()=> await GetFinalSettlements(Year,Month))" Color="Color.Success">Kreiraj obracun</MudButton>
+        <MudItem Class="mb-3 mt-3">
+            <MudButton Variant="Variant.Filled" Size="Size.Small" OnClick="@(async ()=> await GetFinalSettlements(Year,Month))" Color="Color.Success">Konačni obračun</MudButton>
         </MudItem>
     </MudGrid>
 </MudPaper>

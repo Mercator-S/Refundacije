@@ -9,9 +9,9 @@
     </AuthorizeView>
 </MudNavMenu>
 @code {
-    private bool collapseNavMenu = true;
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-    private void ToggleNavMenu()
+    public bool collapseNavMenu = true;
+    public string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    public void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
