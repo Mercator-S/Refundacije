@@ -38,6 +38,9 @@ namespace Refundation_App_Services.Services.Impl
                 case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
                     result = _codeBookRepository.DeleteCounterSAPIdAmount(((CounterSapIdSapKeyAmount)entity).id);
                     break;
+                case "Dobavljači - Email adrese":
+                    result = _codeBookRepository.DeleteSuppliersEmail(((Email)entity).id);
+                    break;
 
             }
             return result;
@@ -76,6 +79,12 @@ namespace Refundation_App_Services.Services.Impl
                     List<CounterSapIdSapKeyAmount> dbACounter = (await _codeBookRepository.GetCountersWithSAPIdAndAmount()).ToList();
                     Elements = new List<object>();
                     dbACounter.ForEach(p => Elements.Add(p));
+                    break;
+
+                case "Dobavljači - Email adrese":
+                    List<Email> dbEmails = (await _codeBookRepository.GetEmails()).ToList();
+                    Elements = new List<object>();
+                    dbEmails.ForEach(p => Elements.Add(p));
                     break;
             }
             return Elements;

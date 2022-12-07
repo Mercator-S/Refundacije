@@ -24,6 +24,8 @@ namespace Refundation_App_Services.Repositories
         public Task AddAAPdvSAPKeyMaterials(List<AAPdvSAPKeyMaterial> entities);
         public Task AddCategoryInternalOrderCostLocation(List<CategoryInternalOrderCostLocation> entites);
         public Task AddCounterSAPIdAmount(List<CounterSapIdSapKeyAmount> entities);
-
+        public Task<IEnumerable<Email>> GetEmails();
+        public Task<Email> DeleteSuppliersEmail(int id);
+        public Task AddEmails(List<Email> mails);
     }
 }

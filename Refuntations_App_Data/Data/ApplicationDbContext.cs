@@ -18,7 +18,7 @@ namespace Refuntations_App.Data
         public DbSet<AAPdvSAPKeyMaterial> aaPdvSapKeyMaterijals => Set<AAPdvSAPKeyMaterial>();
         public DbSet<CategoryInternalOrderCostLocation> categoryInternalOrderCostLocations => Set<CategoryInternalOrderCostLocation>();
         public DbSet<CounterSapIdSapKeyAmount> counterSapIdSadKeyAmounts => Set<CounterSapIdSapKeyAmount>();
-
+        public DbSet<Email> emails => Set<Email>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

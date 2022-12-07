@@ -84,6 +84,15 @@ namespace Refuntations_App.Pages
                     TargetedElement = null;
                     StateHasChanged();
                     break;
+                case "Dobavljači - Email adrese":
+                    Columns = new List<string>(
+     new string[] { "Šifra dobavljača", "SAP šifra dobavljača", "Naziv dobavljača", "Email"});
+                    ColumnsToShow = new List<string>(
+                         new string[] { "sifra", "sap_sifra", "naziv", "mail"});
+                    ExcelTemplateLocation = "./IMPORT - INTERNI DOBAVLJACI - EMAIL ADRESE.xlsx";
+                    TargetedElement = null;
+                    StateHasChanged();
+                    break;
 
             }
         }
@@ -165,6 +174,10 @@ namespace Refuntations_App.Pages
                 case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
                     List<CounterSapIdSapKeyAmount> counters = fileLoader.loadCounterSAPIdAndAmountFromExcel(fileInfo);
                     codeBookRepository.AddCounterSAPIdAmount(counters);
+                    break;
+                case "Dobavljači - Email adrese":
+                    List<Email> mails = fileLoader.loadEmailsFromExcel(fileInfo);
+                    codeBookRepository.AddEmails(mails);
                     break;
             }
             Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;

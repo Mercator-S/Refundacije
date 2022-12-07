@@ -63,6 +63,32 @@ namespace Refundation_App_Services.Services.Impl
             }
         }
 
+        public List<Email> loadEmailsFromExcel(FileInfo fileInfo)
+        {
+            try
+            {
+                ExcelWorksheet worksheet = null;
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+                {
+                    worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
+                    if (worksheet == null)
+                    {
+                        throw new Exception("Excel document has no worksheets!");
+                    }
+
+                    int totalColumn = worksheet.Dimension.End.Column;
+                    int totalRow = worksheet.Dimension.End.Row;
+                    List<Email> res = extractEmails(worksheet, totalColumn, totalRow);
+                    return res;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
 
         public List<CounterSapIdSapKeyAmount> loadCounterSAPIdAndAmountFromExcel(FileInfo fileInfo)
         {
@@ -361,6 +387,52 @@ namespace Refundation_App_Services.Services.Impl
                                 break;
                             case 5:
                                 item.Materijal = worksheet.Cells[row, column].Value.ToString();
+                                break;
+                        }
+                    }
+                    item.active = true;
+                    item.d_ins = DateTime.Now;
+                    items.Add(item);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Row " + row + " is invalid");
+                }
+
+            }
+            return items;
+        }
+        private List<Email> extractEmails(ExcelWorksheet worksheet, int totalColumn, int totalRow)
+        {
+            if (totalColumn == 0 || totalRow == 0)
+            {
+                throw new Exception("Excel document is empty!");
+            }
+            if (totalColumn != 4)
+            {
+                throw new Exception("Excel document is of unappropriate format!");
+            }
+            List<Email> items = new List<Email>();
+            for (int row = 2; row <= totalRow; row++)
+            {
+                try
+                {
+                    Email item = new Email();
+                    for (int column = 1; column <= totalColumn; column++)
+                    {
+                        switch (column)
+                        {
+                            case 1:
+                                item.sifra = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
+                                break;
+                            case 2:
+                                item.sap_sifra = worksheet.Cells[row, column].Value.ToString();
+                                break;
+                            case 3:
+                                item.naziv = worksheet.Cells[row, column].Value.ToString();
+                                break;
+                            case 4:
+                                item.mail = worksheet.Cells[row, column].Value.ToString();
                                 break;
                         }
                     }

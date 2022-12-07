@@ -38,6 +38,13 @@ namespace Refundation_App_Services.Repositories.Impl
             return Task.CompletedTask;
         }
 
+        public Task AddEmails(List<Email> mails)
+        {
+            _context.emails.AddRange(mails);
+            _context.SaveChanges();
+            return Task.CompletedTask;
+        }
+
         public Task AddForeignSuppliers(List<ForeignSupplier> suppliersList)
         {
             _context.foreingSuppliers.AddRange(suppliersList);
@@ -93,6 +100,14 @@ namespace Refundation_App_Services.Repositories.Impl
             return dbentity;
         }
 
+        public async Task<Email> DeleteSuppliersEmail(int id)
+        {
+            Email dbentity = _context.emails.Find(id);
+            dbentity.active = false;
+            _context.SaveChanges();
+            return dbentity;
+        }
+
         public async Task<IEnumerable<AAPdvSAPKeyMaterial>> GetActivitiesWithSAPKeyAndMaterial()
         {
             return _context.aaPdvSapKeyMaterijals.Where(e => e.active == true)
@@ -108,6 +123,12 @@ namespace Refundation_App_Services.Repositories.Impl
         public async Task<IEnumerable<CounterSapIdSapKeyAmount>> GetCountersWithSAPIdAndAmount()
         {
             return _context.counterSapIdSadKeyAmounts.Where(e => e.active == true)
+                .ToList();
+        }
+
+        public async Task<IEnumerable<Email>> GetEmails()
+        {
+            return _context.emails.Where(e => e.active == true)
                 .ToList();
         }
 
