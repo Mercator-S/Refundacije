@@ -13,7 +13,7 @@
         <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" Style="height: 45px" Disabled="@IsImportAndExportAllowed()" Href="@GetDownloadPath()">
             <MudIcon Icon="@Icons.Outlined.SimCardDownload" Title="Importuj"/>&nbsp;Preuzmi Excel template
         </MudButton>
-        <MudFileUpload T="IBrowserFile" FilesChanged="UploadFile" Class="d-inline">
+        <MudFileUpload T="IBrowserFile" FilesChanged="UploadFileAsync" Class="d-inline" Accept=".xlsx" MaximumFileCount="1">
             <ButtonTemplate>
                 <MudButton HtmlTag="label"
                             for="@context" Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" Style="height: 45px" Disabled="@IsImportAndExportAllowed()">

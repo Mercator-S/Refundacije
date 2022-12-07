@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace Refuntations_App_Data.Model
 {
     [Table("tab_refundacije_sif_AA_PDV_SAPKljuc_Materijal_NEW")]
-    [Keyless]
     public class AAPdvSAPKeyMaterial
     {
+        [Key]
         public int id { get; set; }
         public int? sifra_aa { get; set; }
         public string? naziv_aa { get; set; }

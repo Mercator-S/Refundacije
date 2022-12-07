@@ -44,6 +44,7 @@ builder.Services.AddMudServices();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 builder.Services.AddMudServices();
 builder.Services.AddScoped<ICodeBookService, CodeBookService>();
+builder.Services.AddScoped<IFileLoader, FileLoader>();
 builder.Services.AddScoped<ICodeBookRepository, CodeBookRepository>();
 
 

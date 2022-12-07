@@ -17,7 +17,7 @@ namespace Refuntations_App_Data.Model
         public string? SAP_sifra_dobavljac { set; get; }
         public string? br_knjiznog_zaduzenja { set; get; }
         public string? SAP_kljuc { set; get; }
-        public int? iznos { get; set; }
+        public double? iznos { get; set; }
         public string? k_ins { set; get; }
         public DateTime? d_ins { set; get; }
         public string? k_uns { set; get; }

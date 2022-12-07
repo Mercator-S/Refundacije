@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using MudBlazor;
+using Refundation_App_Services.Repositories;
 using Refundation_App_Services.Services;
-using Refuntations_App.Data;
 using Refuntations_App.Pages.Dialogs;
 using Refuntations_App_Data.Model;
-using System.Reflection.Metadata;
-using static MudBlazor.CategoryTypes;
+using System.ComponentModel;
+
 
 namespace Refuntations_App.Pages
 {
@@ -23,6 +22,10 @@ namespace Refuntations_App.Pages
         public MudSelect<string> mudSelect { get; set; }
         [Inject]
         public ICodeBookService codeBookService { get; set; }
+        [Inject]
+        public ICodeBookRepository codeBookRepository { get; set; }
+        [Inject]
+        public IFileLoader fileLoader { get; set; }
 
 
         public object TargetedElement { get;set; }
@@ -30,10 +33,6 @@ namespace Refuntations_App.Pages
         protected override async Task OnInitializedAsync()
         {
             Columns = new List<string>();
-            Columns.Add("First");
-            Columns.Add("Second");
-            Columns.Add("Third");
-            Columns.Add("Fourth");
         }
         public void HandleSelectionChange(string selected)
         {
@@ -120,10 +119,58 @@ namespace Refuntations_App.Pages
             }
 
         }
-        public void UploadFile(IBrowserFile  file)
+        public async Task UploadFileAsync(IBrowserFile  file)
         {
-            Console.WriteLine(file.LastModified);
+            FileInfo? FileInfo = null;
+            try
+            {
+                string filePath = "";
+                filePath = file.Name;
+                await using FileStream fs = new FileStream(filePath, FileMode.Create);
+                await file.OpenReadStream().CopyToAsync(fs);
+                
+                FileInfo = new FileInfo(filePath);
+                LoadAndSaveItems(FileInfo);
+            }
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                if (FileInfo != null)
+                    File.Delete(FileInfo.FullName);
+            }
         }
+
+        private void LoadAndSaveItems(FileInfo fileInfo)
+        {
+           switch(SelectedValue)
+            {
+                case "Interni dobavljači":
+                  List<InternalSupplier> internalSuppliers= fileLoader.loadInternalSuppliersFromExcel(fileInfo);
+                  codeBookRepository.AddInternalSuppliers(internalSuppliers);
+                    break;
+                case "Inostrani dobavljači":
+                    List<ForeignSupplier> foreignSuppliers = fileLoader.loadForeignSuppliersFromExcel(fileInfo);
+                    codeBookRepository.AddForeignSuppliers(foreignSuppliers);
+                    break;
+                case "Kategorija - Interni nalog - mesto troška":
+                    List<CategoryInternalOrderCostLocation> categories = fileLoader.loadCategoryInternalOrderAndCostLocationFromExcel(fileInfo);
+                    codeBookRepository.AddCategoryInternalOrderCostLocation(categories);
+                    break;
+                case "Akcijska aktivnost - PDV - SAP ključ - Materijal":
+                    List<AAPdvSAPKeyMaterial> activities = fileLoader.loadActitiviesWithPDVAndSAPKeyAndMaterialFromExcel(fileInfo);
+                    codeBookRepository.AddAAPdvSAPKeyMaterials(activities);
+                    break;
+                case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
+                    List<CounterSapIdSapKeyAmount> counters = fileLoader.loadCounterSAPIdAndAmountFromExcel(fileInfo);
+                    codeBookRepository.AddCounterSAPIdAmount(counters);
+                    break;
+            }
+            Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;
+            StateHasChanged();
+        }
+
         public void HandleRefreshPage()
         {
             Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;

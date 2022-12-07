@@ -19,27 +19,37 @@ namespace Refundation_App_Services.Repositories.Impl
 
         public Task AddAAPdvSAPKeyMaterials(List<AAPdvSAPKeyMaterial> entities)
         {
-            throw new NotImplementedException();
+            _context.aaPdvSapKeyMaterijals.AddRange(entities);
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
 
-        public Task AddCategoryInternalOrderCostLocation(List<CategoryInternalOrderCostLocation> entites)
+        public Task AddCategoryInternalOrderCostLocation(List<CategoryInternalOrderCostLocation> entities)
         {
-            throw new NotImplementedException();
+            _context.categoryInternalOrderCostLocations.AddRange(entities);
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
 
         public Task AddCounterSAPIdAmount(List<CounterSapIdSapKeyAmount> entities)
         {
-            throw new NotImplementedException();
+            _context.counterSapIdSadKeyAmounts.AddRange(entities);
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
 
         public Task AddForeignSuppliers(List<ForeignSupplier> suppliersList)
         {
-            throw new NotImplementedException();
+            _context.foreingSuppliers.AddRange(suppliersList);
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
 
         public Task AddInternalSuppliers(List<InternalSupplier> suppliersList)
         {
-            throw new NotImplementedException();
+            _context.internalSuppliers.AddRange(suppliersList);
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
 
         public async Task<AAPdvSAPKeyMaterial> DeleteAAPdvSAPKeyMaterial(int id)
