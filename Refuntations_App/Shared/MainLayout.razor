@@ -42,27 +42,20 @@
        <Refuntations_App.Pages.LoginRedirect></Refuntations_App.Pages.LoginRedirect>
     </NotAuthorized>
 </AuthorizeView>
-
-
-
+</AuthorizeView>*@
 
 
 @code {
     private MudTheme _theme = new();
     private bool _isDarkMode;
     bool _drawerOpen = true;
-    private ErrorBoundary? errorBoundary;
+    EventCallback closeNavMenu => EventCallback.Factory.Create(this, DrawerToggle);
 
-    protected override void OnInitialized()
-    {
-          _theme.Palette.Primary = new MudBlazor.Utilities.MudColor("#d90142");
-          _theme.Palette.Secondary = new MudBlazor.Utilities.MudColor("#4a4a4a");
-    }
     protected override void OnParametersSet()
     {
         errorBoundary?.Recover();
     }
-    void DrawerToggle()
+    public void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
     }
