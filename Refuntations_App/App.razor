@@ -1,0 +1,14 @@
+﻿<CascadingAuthenticationState>
+    <Router AppAssembly="@typeof(App).Assembly">
+        <Found Context="routeData">
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        </Found>
+        <NotFound>
+            <PageTitle>Stranica nije pronađena</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <Refuntations_App.Pages.NotFound></Refuntations_App.Pages.NotFound>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</CascadingAuthenticationState>
