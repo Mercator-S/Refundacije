@@ -1,0 +1,103 @@
+﻿@using System.Reflection;
+
+
+<MudTable HorizontalScrollbar="true" Class="m-5" @ref="mudTable" Items="@Elements" Hover="true" Breakpoint="Breakpoint.Sm" Loading="false" LoadingProgressColor="Color.Info" RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filter="new Func<Object,bool>(FilterFunc)">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Rezultat</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        @foreach (string column in Columns)
+        {
+           
+            <MudTh>@column</MudTh>
+        }
+    </HeaderContent>
+    <RowTemplate>
+        @{
+            Type type = context.GetType();
+            PropertyInfo[] properties = type.GetProperties();
+        }
+        @foreach (PropertyInfo property in properties)
+        {
+            if (ColumnsToShow == null || ColumnsToShow.Contains(property.Name))
+            {
+                <MudTd DataLabel="@property.Name">@property.GetValue(context, null)</MudTd>
+            }
+            
+        }
+
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+<style>
+    .selected {
+        background-color: #f0e8ec !important;
+    }
+
+        .selected > td .mud-input {
+            color: white !important;
+        }
+</style>
+
+@code {
+    /*Table component is created as generic to be used for showing different element values*/
+
+    public MudTable<Object> mudTable { get; set; }
+
+    [Parameter]
+    public IEnumerable<Object> Elements { get; set; }
+    [Parameter]
+    public List<string> Columns { get; set; }
+    [Parameter]
+    public List<string> ColumnsToShow { get; set; }
+    public string searchString{ get; set; }
+    public int selectedRowNumber { get; set; } = -1;
+
+    /*Delegate for passing element to parent component for further manipulation*/
+    [Parameter]
+    public EventCallback<TableRowClickEventArgs<Object>> ElementChanged { get; set; }
+
+    public string SelectedRowClassFunc(Object element, int rowNumber)
+    {
+        if (selectedRowNumber == rowNumber)
+        {
+            selectedRowNumber = -1;
+            return string.Empty;
+        }else 
+        if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
+        {
+            selectedRowNumber = rowNumber;
+            return "selected";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+    public void RowClickEvent(TableRowClickEventArgs<Object> tableRowClickEventArgs)
+    {  
+        ElementChanged.InvokeAsync(tableRowClickEventArgs);
+
+    }
+    public bool FilterFunc(Object element) => FilterFuncWithString(element, searchString);
+
+    public bool FilterFuncWithString(Object element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        Type type = element.GetType();
+        PropertyInfo[] properties = type.GetProperties();
+
+        foreach (PropertyInfo property in properties)
+        {
+            if (property.GetValue(element, null).ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+        }
+        return false;
+    }
+}
