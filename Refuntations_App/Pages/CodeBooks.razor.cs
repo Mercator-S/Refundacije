@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Options;
 using MudBlazor;
 using Refundation_App_Services.Repositories;
 using Refundation_App_Services.Services;
@@ -28,7 +29,7 @@ namespace Refuntations_App.Pages
         public IFileLoader fileLoader { get; set; }
 
 
-        public object TargetedElement { get;set; }
+        public object TargetedElement { get; set; } = null;
 
         protected override async Task OnInitializedAsync()
         {
@@ -45,8 +46,6 @@ namespace Refuntations_App.Pages
                     ColumnsToShow = new List<string>(
                          new string[] {"sifra_int_dobavljac", "naziv_int_dobavljac"});
                     ExcelTemplateLocation = "./IMPORT - INTERNI DOBAVLJACI.xlsx";
-                    TargetedElement = null;
-                    StateHasChanged();
                     break;
                 case "Inostrani dobavljači":
                     Columns = new List<string>(
@@ -54,8 +53,6 @@ namespace Refuntations_App.Pages
                     ColumnsToShow = new List<string>(
                          new string[] { "sifra_ino_dobavljac", "naziv_ino_dobavljac" });
                     ExcelTemplateLocation="./IMPORT - INOSTRANI DOBAVLJACI.xlsx";
-                    TargetedElement = null;
-                    StateHasChanged();
                     break;
                 case "Kategorija - Interni nalog - mesto troška":
                     Columns = new List<string>(
@@ -63,8 +60,6 @@ namespace Refuntations_App.Pages
                     ColumnsToShow = new List<string>(
                          new string[] { "sifra_kat", "naziv_kat", "interni_nalog", "mesto_troska"});
                     ExcelTemplateLocation = "./IMPORT - KATEGORIJA - INTERNI NALOG - MESTO TROSKA.xlsx";
-                    TargetedElement = null;
-                    StateHasChanged();
                     break;
                 case "Akcijska aktivnost - PDV - SAP ključ - Materijal":
                     Columns = new List<string>(
@@ -72,8 +67,6 @@ namespace Refuntations_App.Pages
                     ColumnsToShow = new List<string>(
                          new string[] { "sifra_aa", "naziv_aa", "PDV", "SAP_Kljuc", "Materijal"});
                     ExcelTemplateLocation = "./IMPORT - Akcijska aktivnost - PDV - SAP Kljuc - MATERIJAL - BANER.xlsx";
-                    TargetedElement = null;
-                    StateHasChanged();
                     break;
                 case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
                     Columns = new List<string>(
@@ -81,8 +74,6 @@ namespace Refuntations_App.Pages
                     ColumnsToShow = new List<string>(
                          new string[] { "brojac", "SAP_sifra_dobavljac", "br_knjiznog_zaduzenja", "SAP_kljuc", "iznos", "mesec", "godina" });
                     ExcelTemplateLocation = "./IMPORT - BROJAC KONACNI OBRACUN - SAP SIFRA - BR KNJIZNOG ZADUZENJA - SAP KLJUC - IZNOS.xlsx";
-                    TargetedElement = null;
-                    StateHasChanged();
                     break;
                 case "Dobavljači - Email adrese":
                     Columns = new List<string>(
@@ -90,11 +81,11 @@ namespace Refuntations_App.Pages
                     ColumnsToShow = new List<string>(
                          new string[] { "sifra", "sap_sifra", "naziv", "mail"});
                     ExcelTemplateLocation = "./IMPORT - INTERNI DOBAVLJACI - EMAIL ADRESE.xlsx";
-                    TargetedElement = null;
-                    StateHasChanged();
                     break;
 
             }
+            TargetedElement = null;
+            StateHasChanged();
         }
         public bool IsImportAndExportAllowed()
         {
@@ -116,7 +107,7 @@ namespace Refuntations_App.Pages
 
             public async void OpenDialog()
         {
-            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Medium, FullWidth = true  };
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true  };
             var parameters = new DialogParameters();
             parameters.Add("TargetEntity", TargetedElement);
             parameters.Add("SelectedValue", mudSelect.SelectedValues.First());
@@ -124,6 +115,7 @@ namespace Refuntations_App.Pages
             
             if (result.Data != null) {
                 Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;
+                TargetedElement = null;
                 StateHasChanged();
             }
 
@@ -149,37 +141,84 @@ namespace Refuntations_App.Pages
                 if (FileInfo != null)
                     File.Delete(FileInfo.FullName);
             }
+
         }
 
-        private void LoadAndSaveItems(FileInfo fileInfo)
+        private async void LoadAndSaveItems(FileInfo fileInfo)
         {
-           switch(SelectedValue)
+            List<int> fails = new List<int>();
+            var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true };
+            var parameters = new DialogParameters();
+            string error;
+            DialogResult result;
+            switch (SelectedValue)
             {
                 case "Interni dobavljači":
-                  List<InternalSupplier> internalSuppliers= fileLoader.loadInternalSuppliersFromExcel(fileInfo);
-                  codeBookRepository.AddInternalSuppliers(internalSuppliers);
+                  List<InternalSupplier> internalSuppliers= fileLoader.loadInternalSuppliersFromExcel(fileInfo, out fails, out error);
+                    parameters.Add("Fails", fails);
+                    parameters.Add("Error", error);
+                    result =await  DialogService.Show<MessageDialog>("", parameters, options).Result;
+                    if (result != null && !result.Cancelled)
+                    {
+                        codeBookRepository.AddInternalSuppliers(internalSuppliers);
+                    }
+                  
                     break;
                 case "Inostrani dobavljači":
-                    List<ForeignSupplier> foreignSuppliers = fileLoader.loadForeignSuppliersFromExcel(fileInfo);
-                    codeBookRepository.AddForeignSuppliers(foreignSuppliers);
+                    List<ForeignSupplier> foreignSuppliers = fileLoader.loadForeignSuppliersFromExcel(fileInfo, out fails, out error);
+                    parameters.Add("Fails", fails);
+                    result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
+                    if (result != null && !result.Cancelled)
+                    {
+                        codeBookRepository.AddForeignSuppliers(foreignSuppliers);
+                    }
                     break;
                 case "Kategorija - Interni nalog - mesto troška":
-                    List<CategoryInternalOrderCostLocation> categories = fileLoader.loadCategoryInternalOrderAndCostLocationFromExcel(fileInfo);
-                    codeBookRepository.AddCategoryInternalOrderCostLocation(categories);
+                    List<CategoryInternalOrderCostLocation> categories = fileLoader.loadCategoryInternalOrderAndCostLocationFromExcel(fileInfo, out fails, out error);
+                    parameters.Add("Fails", fails);
+                    parameters.Add("Error", error);
+                    result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
+                    if (result != null && !result.Cancelled)
+                    {
+                       codeBookRepository.AddCategoryInternalOrderCostLocation(categories);
+                    }
+                    
                     break;
                 case "Akcijska aktivnost - PDV - SAP ključ - Materijal":
-                    List<AAPdvSAPKeyMaterial> activities = fileLoader.loadActitiviesWithPDVAndSAPKeyAndMaterialFromExcel(fileInfo);
-                    codeBookRepository.AddAAPdvSAPKeyMaterials(activities);
+                    List<AAPdvSAPKeyMaterial> activities = fileLoader.loadActitiviesWithPDVAndSAPKeyAndMaterialFromExcel(fileInfo, out fails, out error);
+                    parameters.Add("Fails", fails);
+                    parameters.Add("Error", error);
+                    result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
+                    if (result != null && !result.Cancelled)
+                    {
+                        codeBookRepository.AddAAPdvSAPKeyMaterials(activities);
+                    }
                     break;
                 case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
-                    List<CounterSapIdSapKeyAmount> counters = fileLoader.loadCounterSAPIdAndAmountFromExcel(fileInfo);
-                    codeBookRepository.AddCounterSAPIdAmount(counters);
+                    List<CounterSapIdSapKeyAmount> counters = fileLoader.loadCounterSAPIdAndAmountFromExcel(fileInfo, out fails, out error);
+                    parameters.Add("Fails", fails);
+                    parameters.Add("Error", error);
+                    result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
+                    if (result != null && !result.Cancelled)
+                    {
+                        codeBookRepository.AddCounterSAPIdAmount(counters);
+                    }
+
                     break;
                 case "Dobavljači - Email adrese":
-                    List<Email> mails = fileLoader.loadEmailsFromExcel(fileInfo);
-                    codeBookRepository.AddEmails(mails);
+                    List<Email> mails = fileLoader.loadEmailsFromExcel(fileInfo, out fails, out error);
+                    parameters.Add("Fails", fails);
+                    parameters.Add("Error", error);
+                    result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
+                    if (result != null && !result.Cancelled)
+                    {
+                        codeBookRepository.AddEmails(mails);
+                    }
+
                     break;
             }
+          
+      
             Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;
             StateHasChanged();
         }
@@ -187,7 +226,9 @@ namespace Refuntations_App.Pages
         public void HandleRefreshPage()
         {
             Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;
+            TargetedElement = null;
             StateHasChanged();
+            
         }
     }
 }
