@@ -3,4 +3,6 @@ Refuntations_App/bin/Debug/net6.0/Refuntations_App.pdb
 .vs/
 Refundation_App_Services/obj/
 Refuntations_App/obj/
-Refuntations_App_Data/obj/  
+Refuntations_App_Data/obj/
+Refuntations_App_Data/bin/  
+Refuntations_App/bin/
