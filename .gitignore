@@ -3,8 +3,9 @@
 **/bin
 **/*.dll
 **/*.pdb
-obj/
-bin/
+Refuntations_App/obj/
+Refuntations_App/bin/
+.vs/Refuntations_App/
 .vs/ProjectEvaluation/refuntations_app.metadata.v5.2
 .vs/ProjectEvaluation/refuntations_app.projects.v5.2
 .vs/Refuntations_App/DesignTimeBuild/.dtbcache.v2
