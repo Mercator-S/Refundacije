@@ -1,0 +1,46 @@
+﻿@using MudBlazor;
+<AuthorizeView>
+    <Authorized>
+     <div class="card" style="margin-top: 15px;">
+            <a href="Identity/Account/Manage">Hello, @context.User.Identity?.Name!</a>
+           
+        </div>
+      
+    </Authorized>
+    <NotAuthorized>
+            <Refuntations_App.Pages.LoginRedirect />
+    </NotAuthorized>
+</AuthorizeView>
+<p>
+    @authMessage
+</p>
+<p>
+   <button onclick="@LogUsername"> Log username</button>
+</p>
+
+
+
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    private string authMessage;
+
+    private async Task LogUsername()
+    {
+        var authState = await authenticationStateTask;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            authMessage = $"{user.Identity.Name} is authenticated.";
+        }
+        else
+        {
+            authMessage = "The user is NOT authenticated.";
+        }
+    }
+}
+
