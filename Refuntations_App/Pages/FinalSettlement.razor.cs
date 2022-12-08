@@ -1,4 +1,5 @@
-﻿using MudBlazor;
+﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Refuntations_App.Dialog;
 using Refuntations_App.Pages.Components;
 using Refuntations_App_Data.Model;
@@ -10,6 +11,7 @@ namespace Refuntations_App.Pages
     {
         public List<FinalSettlementsViewModel> finalSettlements { get; set; }
         private FilterFinalSettlement? filter;
+        public List<FinalSettlementsViewModel> finalSettlementsList = new List<FinalSettlementsViewModel>();
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.Center, DisableBackdropClick = true };
         public bool Hide { get; set; } = true;
         public bool managementSettlements { get; set; } = true;
@@ -24,11 +26,18 @@ namespace Refuntations_App.Pages
                 finalSettlements = (List<FinalSettlementsViewModel>)dialogResult[0];
             }
         }
-        public async Task CheckedCheckBox(FinalSettlementsViewModel finalSettlements)
+        public async Task CheckedCheckBox(FinalSettlementsViewModel FinalSettlements)
         {
-            List<FinalSettlementsViewModel> finalSettlementsList = new List<FinalSettlementsViewModel>();
-            finalSettlementsList.Add(finalSettlements);
-            managementSettlements = !managementSettlements;
+            if (FinalSettlements.Checked == false)
+            {
+                FinalSettlements.Checked = true;
+                finalSettlementsList.Add(FinalSettlements);
+            }
+            else if (FinalSettlements.Checked == true)
+            {
+                FinalSettlements.Checked = false;
+                finalSettlementsList.Remove(FinalSettlements);
+            }
         }
         public async Task ManagementSettlements()
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace Refuntations_App_Data.ViewModel
 {
     public class FinalSettlementsViewModel
     {
+        public int fk_obracun { get; set; }
         public int? id_iznos_stopa_1 { get; set; }
         public int? id_iznos_stopa_2 { get; set; }
         public int? sifra_dob { get; set; }

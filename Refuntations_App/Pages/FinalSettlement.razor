@@ -95,7 +95,7 @@
                         <MudIcon Icon="@(context.NP==true?@Icons.Filled.CheckCircleOutline:@Icons.Filled.Block)" Size="Size.Small" Color="@(context.NP==true?Color.Success:Color.Error)"></MudIcon>
                     </MudTd>
                     <MudTd Style="text-align:center" hidden="@(managementSettlements)" DataLabel="">
-                        <MudCheckBox @bind-Checked="context.Checked" Color="Color.Default" UnCheckedColor="Color.Success"></MudCheckBox>
+                        <MudCheckBox @bind-Checked="context.Checked"  @oninput="(async ()=>await CheckedCheckBox(context))" Color="Color.Success" UnCheckedColor="Color.Default"></MudCheckBox>
                     </MudTd>
                 </RowTemplate>
                 <PagerContent>
