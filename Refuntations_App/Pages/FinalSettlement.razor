@@ -10,12 +10,17 @@
             <DisplayFinalSettlement @bind-finalSettlements="finalSettlements" />
         </MudItem>
     </MudGrid>
-    <MudGrid Class="d-flex justify-center mt-10">
-        <MudPaper Elevation="3">
-            <MudItem hidden="@(managementSettlements)" xs="12" md="4" lg="5">
-                <MudButton OnClick="@(async ()=>await ManagementSettlements())" Class="align-self-center" Variant="Variant.Filled" Color="Color.Surface" Size="Size.Small" StartIcon="@Icons.Filled.Edit">Upravljanje obracunima</MudButton>
-            </MudItem>
-        </MudPaper>
+    <MudGrid Class="d-flex justify-center mt-5 mb-5">
+        <MudItem hidden="@(managementSettlements)">
+            <MudButton Class="align-self-center" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium" StartIcon="@Icons.Filled.AddCircleOutline">Unos</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium" StartIcon="@Icons.Filled.CheckCircle">Prihvati terecenja</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.ImportExport">Export obracuna</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.Edit">Izmena dobavljaca</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.Delete">Brisanje</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveCircle">Ponisti terecenja</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.StopCircle">Storniraj terecenja</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveRedEye">Pregled naplate</MudButton>
+        </MudItem>
     </MudGrid>
     <MudGrid Class="d-flex justify-center">
         <MudItem xs="12" md="8" lg="@(Hide==true?12:10)">
@@ -46,6 +51,7 @@
                     <MudTh Style="color:white;background-color:#dc3545">Tip obrade</MudTh>
                     <MudTh Style="color:white;background-color:#dc3545;text-align:center">I</MudTh>
                     <MudTh Style="color:white;background-color:#dc3545;text-align:center">NP</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545;text-align:center" hidden="@(managementSettlements)"></MudTh>
                 </HeaderContent>
                 <RowTemplate>
                     <MudTd DataLabel="Dobavljač">
@@ -89,6 +95,9 @@
                     </MudTd>
                     <MudTd Style="text-align:center" DataLabel="NP">
                         <MudIcon Icon="@(context.NP==true?@Icons.Filled.CheckCircleOutline:@Icons.Filled.Block)" Size="Size.Small" Color="@(context.NP==true?Color.Success:Color.Error)"></MudIcon>
+                    </MudTd>
+                    <MudTd Style="text-align:center" hidden="@(managementSettlements)" DataLabel="">
+                        <MudCheckBox @bind-Checked="context.NP"></MudCheckBox>
                     </MudTd>
                 </RowTemplate>
                 <PagerContent>
