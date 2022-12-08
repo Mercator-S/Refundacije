@@ -10,6 +10,13 @@
             <DisplayFinalSettlement @bind-finalSettlements="finalSettlements" />
         </MudItem>
     </MudGrid>
+    <MudGrid Class="d-flex justify-center mt-10">
+        <MudPaper Elevation="3">
+            <MudItem hidden="@(managementSettlements)" xs="12" md="4" lg="5">
+                <MudButton OnClick="@(async ()=>await ManagementSettlements())" Class="align-self-center" Variant="Variant.Filled" Color="Color.Surface" Size="Size.Small" StartIcon="@Icons.Filled.Edit">Upravljanje obracunima</MudButton>
+            </MudItem>
+        </MudPaper>
+    </MudGrid>
     <MudGrid Class="d-flex justify-center">
         <MudItem xs="12" md="8" lg="@(Hide==true?12:10)">
             <MudTable Items="@finalSettlements" Dense="true" Hover="true">
@@ -20,7 +27,8 @@
                         @*<MudTextField @bind-Value="TextValue" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />*@
                     </MudItem>
                     <MudSpacer />
-                    <MudButton OnClick="@(async ()=>await ShowFilter())" Class="align-self-center" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Small" StartIcon="@Icons.Filled.FilterAlt">Filter</MudButton>
+                    <MudButton OnClick="@(async ()=>await ManagementSettlements())" Class="align-self-center" Variant="Variant.Filled" Color="Color.Surface" Size="Size.Small" StartIcon="@Icons.Filled.Edit">Upravljanje obracunima</MudButton>
+                    <MudButton OnClick="@(async ()=>await ShowFilter())" Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Small" StartIcon="@Icons.Filled.FilterAlt">Filter</MudButton>
                     <MudButton OnClick="@(async ()=>await ShowDialog())" Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" StartIcon="@Icons.Filled.ReadMore">Prikaz</MudButton>
                 </ToolBarContent>
                 <HeaderContent>
@@ -89,92 +97,7 @@
             </MudTable>
         </MudItem>
         <MudItem lg="2" hidden="@Hide">
-            <MudCard>
-                <MudCardHeader>
-                    <MudItem Class="d-flex flex-1">
-                        <MudText Typo="Typo.h5">Filter</MudText>
-                    </MudItem>
-                    <MudItem Class="d-flex" Style="align-items:flex-end">
-                        <MudTooltip Text="Resetuj Filter">
-                            <MudIconButton Class="ml-auto" OnClick="(async()=>await ResetFilter())" Icon="@Icons.Filled.RestartAlt" Color="Color.Warning"></MudIconButton>
-                        </MudTooltip>
-                    </MudItem>
-                </MudCardHeader>
-                <MudCardContent>
-                    <MudGrid>
-                        <MudItem xs="12">
-                            <MudSelect T="string" Label="Dobavljac" @bind-Value="filterModel.partnerName" For="(()=>filterModel.partnerName)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var partner in partnerName)
-                                {
-                                    <MudSelectItem Value="partner" />
-                                }
-                            </MudSelect>
-                        </MudItem>
-                    </MudGrid>
-                    <MudGrid>
-                        <MudItem xs="12">
-                            <MudSelect T="string" Label="Kategorija" @bind-Value="filterModel.categoryName" For="(()=>filterModel.categoryName)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var category in category)
-                                {
-                                    <MudSelectItem Value="category" />
-                                }
-                            </MudSelect>
-                        </MudItem>
-                    </MudGrid>
-                    <MudGrid>
-                        <MudItem xs="12">
-                            <MudSelect T="int?" Label="Sifra AA" @bind-Value="filterModel.codeAa" For="(()=>filterModel.codeAa)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var code in codeAA)
-                                {
-                                    <MudSelectItem Value="code" />
-                                }
-                            </MudSelect>
-                        </MudItem>
-                    </MudGrid>
-                    <MudGrid>
-                        <MudItem xs="12">
-                            <MudSelect T="DateTime?" Label="Period od AA" @bind-Value="filterModel.periodOf" For="(()=>filterModel.periodOf)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var periodOf in periodOfAA)
-                                {
-                                    <MudSelectItem Value="periodOf" />
-                                }
-                            </MudSelect>
-                        </MudItem>
-                    </MudGrid>
-                    <MudGrid>
-                        <MudItem xs="12">
-                            <MudSelect T="DateTime?" Label="Period do AA" @bind-Value="filterModel.periodTo" For="(()=>filterModel.periodTo)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var periodTo in periodToAA)
-                                {
-                                    <MudSelectItem Value="periodTo" />
-                                }
-                            </MudSelect>
-                        </MudItem>
-                    </MudGrid>
-                    <MudGrid>
-                        <MudItem xs="12">
-                            <MudSelect T="short?" Label="Status" @bind-Value="filterModel.Status" For="(()=>filterModel.Status)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
-                                @foreach (var status in Status)
-                                {
-                                    <MudSelectItem Value="status" />
-                                }
-                            </MudSelect>
-                        </MudItem>
-                    </MudGrid>
-                    @*<MudGrid>
-                        <MudItem xs="6">
-                            <MudCheckBox @bind-Checked="filterModel.PDV10" For="(()=>filterModel.PDV10)" Label="PDV 10%"></MudCheckBox>
-                        </MudItem>
-                        <MudItem xs="6">
-                            <MudCheckBox @bind-Checked="filterModel.PDV20" For="(()=>filterModel.PDV20)" Label="PDV 20%"></MudCheckBox>
-                        </MudItem>
-                    </MudGrid>*@
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" OnClick="(async ()=> await ApplyFilter(filterModel))" Color="Color.Info" Size="Size.Small">Primeni filter</MudButton>
-                    <MudButton Variant="Variant.Filled" Class="ml-auto" ButtonType="ButtonType.Submit" OnClick="(async ()=> await CloseFilter())" StartIcon="@Icons.Filled.Close" Color="Color.Error" Size="Size.Small">Zatvori</MudButton>
-                </MudCardActions>
-            </MudCard>
+            <FilterFinalSettlement @ref="filter" @bind-finalSettlements="finalSettlements" @bind-Hide="Hide" />
         </MudItem>
     </MudGrid>
 </MudContainer>
