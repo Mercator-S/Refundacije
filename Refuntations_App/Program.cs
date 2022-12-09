@@ -46,6 +46,9 @@ builder.Services.AddMudServices();
 builder.Services.AddScoped<ICodeBookService, CodeBookService>();
 builder.Services.AddScoped<IFileLoader, FileLoader>();
 builder.Services.AddScoped<ICodeBookRepository, CodeBookRepository>();
+builder.Services.AddScoped<IProcedureExecutor, ProcedureExecutor>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 
 var app = builder.Build();

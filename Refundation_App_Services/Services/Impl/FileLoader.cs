@@ -1,4 +1,5 @@
 ﻿using OfficeOpenXml;
+using Refundation_App_Services.Repositories;
 using Refuntations_App_Data.Data;
 using Refuntations_App_Data.Model;
 
@@ -6,6 +7,12 @@ namespace Refundation_App_Services.Services.Impl
 {
     public class FileLoader : IFileLoader
     {
+        private readonly IUserRepository userRepository;
+        public FileLoader(IUserRepository userRepository)
+        {
+            this.userRepository = userRepository;
+        }
+
         public List<AAPdvSAPKeyMaterial> loadActitiviesWithPDVAndSAPKeyAndMaterialFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
         {
             error = "";
@@ -26,7 +33,7 @@ namespace Refundation_App_Services.Services.Impl
                     {
                         int totalColumn = worksheet.Dimension.End.Column;
                         int totalRow = worksheet.Dimension.End.Row;
-                        res = extractAAPdvSADKeyMaterial(worksheet, totalColumn, totalRow, out fails, out error);
+                        res = extractAAPdvSADKeyMaterialAsync(worksheet, totalColumn, totalRow, out fails, out error);
                     }
                     return res;
                 }
@@ -57,7 +64,7 @@ namespace Refundation_App_Services.Services.Impl
                     {
                         int totalColumn = worksheet.Dimension.End.Column;
                         int totalRow = worksheet.Dimension.End.Row;
-                         res = extractCategories(worksheet, totalColumn, totalRow, out fails, out error);
+                        res = extractCategoriesAsync(worksheet, totalColumn, totalRow, out fails, out error);
                     }
                     return res;
                 }
@@ -68,11 +75,11 @@ namespace Refundation_App_Services.Services.Impl
             }
         }
 
-        public List<Email> loadEmailsFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
+        public List<EmailImport> loadEmailsFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
         {
             error = "";
             fails = new List<int>();
-            List<Email> res = new List<Email>();
+            List<EmailImport> res = new List<EmailImport>();
             try
             {
                 ExcelWorksheet worksheet = null;
@@ -82,13 +89,13 @@ namespace Refundation_App_Services.Services.Impl
                     worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
                     if (worksheet == null)
                     {
-                         error = Constants.NO_WORKSHEETS;
+                        error = Constants.NO_WORKSHEETS;
                     }
                     else
                     {
                         int totalColumn = worksheet.Dimension.End.Column;
                         int totalRow = worksheet.Dimension.End.Row;
-                         res = extractEmails(worksheet, totalColumn, totalRow, out fails, out error);
+                        res = extractEmailsAsync(worksheet, totalColumn, totalRow, out fails, out error);
 
                     }
                     return res;
@@ -115,14 +122,14 @@ namespace Refundation_App_Services.Services.Impl
                     worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
                     if (worksheet == null)
                     {
-                         error = Constants.NO_WORKSHEETS;
+                        error = Constants.NO_WORKSHEETS;
                     }
                     else
                     {
 
                         int totalColumn = worksheet.Dimension.End.Column;
                         int totalRow = worksheet.Dimension.End.Row;
-                        res = extractCounterSapIdAndAmount(worksheet, totalColumn, totalRow, out fails, out error);
+                        res = extractCounterSapIdAndAmountAsync(worksheet, totalColumn, totalRow, out fails, out error);
                     }
 
                     return res;
@@ -155,7 +162,7 @@ namespace Refundation_App_Services.Services.Impl
                     {
                         int totalColumn = worksheet.Dimension.End.Column;
                         int totalRow = worksheet.Dimension.End.Row;
-                        res = extractForeignSuppliers(worksheet, totalColumn, totalRow, out fails, out error);
+                        res = extractForeignSuppliersAsync(worksheet, totalColumn, totalRow, out fails, out error);
                     }
                     return res;
                 }
@@ -166,7 +173,7 @@ namespace Refundation_App_Services.Services.Impl
             }
         }
 
-       
+
         public List<InternalSupplier> loadInternalSuppliersFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
         {
             error = "";
@@ -189,8 +196,8 @@ namespace Refundation_App_Services.Services.Impl
                         int totalRow = worksheet.Dimension.End.Row;
                         res = extractInternalSuppliers(worksheet, totalColumn, totalRow, out fails, out error);
                     }
-              
-                return res;
+
+                    return res;
                 }
             }
             catch (Exception e)
@@ -204,10 +211,10 @@ namespace Refundation_App_Services.Services.Impl
             fails = new List<int>();
             error = "";
             List<InternalSupplier> items = new List<InternalSupplier>();
-            if (totalColumn == 0 || totalRow <2)
+            if (totalColumn == 0 || totalRow < 2)
             {
                 error = Constants.EMPTY_DOCUMENT;
-                
+
             }
             else if (totalColumn != 2)
             {
@@ -233,8 +240,12 @@ namespace Refundation_App_Services.Services.Impl
                                     break;
                             }
                         }
+                        OnlineUser user = userRepository.GetLoggedUser().Result;
                         item.active = true;
                         item.d_ins = DateTime.Now;
+                        item.d_upd = DateTime.Now;
+                        item.k_ins = user.UserName;
+                        item.k_upd = user.UserName;
                         items.Add(item);
                     }
                     catch (Exception e)
@@ -245,11 +256,11 @@ namespace Refundation_App_Services.Services.Impl
 
                 }
             }
-           
-          
+
+
             return items;
         }
-        private List<ForeignSupplier> extractForeignSuppliers(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<ForeignSupplier> extractForeignSuppliersAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
@@ -263,7 +274,8 @@ namespace Refundation_App_Services.Services.Impl
                 error = Constants.UNAPPROPRIATE_FORMAT;
 
             }
-            else {
+            else
+            {
                 for (int row = 2; row <= totalRow; row++)
                 {
                     try
@@ -282,8 +294,12 @@ namespace Refundation_App_Services.Services.Impl
                                     break;
                             }
                         }
+                        OnlineUser user = userRepository.GetLoggedUser().Result;
                         item.active = true;
                         item.d_ins = DateTime.Now;
+                        item.d_upd = DateTime.Now;
+                        item.k_ins = user.UserName;
+                        item.k_upd = user.UserName;
                         items.Add(item);
                     }
                     catch (Exception e)
@@ -295,14 +311,14 @@ namespace Refundation_App_Services.Services.Impl
                 }
             }
 
-           
+
             return items;
         }
-        private List<CounterSapIdSapKeyAmount> extractCounterSapIdAndAmount(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<CounterSapIdSapKeyAmount> extractCounterSapIdAndAmountAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
-            if (totalColumn == 0 || totalRow <2)
+            if (totalColumn == 0 || totalRow < 2)
             {
                 error = Constants.EMPTY_DOCUMENT;
             }
@@ -344,20 +360,25 @@ namespace Refundation_App_Services.Services.Impl
                                 break;
                         }
                     }
+                    OnlineUser user = userRepository.GetLoggedUser().Result;
                     item.active = true;
                     item.d_ins = DateTime.Now;
+                    item.d_upd = DateTime.Now;
+                    item.k_ins = user.UserName;
+                    item.k_upd = user.UserName;
                     items.Add(item);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine("Row " + row + " is invalid");
                     fails.Add(row);
                 }
-               
+
             }
             return items;
         }
-        private List<CategoryInternalOrderCostLocation> extractCategories(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+
+        private List<CategoryInternalOrderCostLocation> extractCategoriesAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
@@ -396,8 +417,12 @@ namespace Refundation_App_Services.Services.Impl
                                     break;
                             }
                         }
+                        OnlineUser user = userRepository.GetLoggedUser().Result;
                         item.active = true;
                         item.d_ins = DateTime.Now;
+                        item.d_upd = DateTime.Now;
+                        item.k_ins = user.UserName;
+                        item.k_upd = user.UserName;
                         items.Add(item);
                     }
                     catch (Exception e)
@@ -409,10 +434,10 @@ namespace Refundation_App_Services.Services.Impl
                 }
             }
 
-           
+
             return items;
         }
-        private List<AAPdvSAPKeyMaterial> extractAAPdvSADKeyMaterial(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<AAPdvSAPKeyMaterial> extractAAPdvSADKeyMaterialAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
@@ -426,7 +451,8 @@ namespace Refundation_App_Services.Services.Impl
                 error = Constants.UNAPPROPRIATE_FORMAT;
 
             }
-            else {
+            else
+            {
                 for (int row = 2; row <= totalRow; row++)
                 {
                     try
@@ -453,8 +479,12 @@ namespace Refundation_App_Services.Services.Impl
                                     break;
                             }
                         }
+                        OnlineUser user = userRepository.GetLoggedUser().Result;
                         item.active = true;
                         item.d_ins = DateTime.Now;
+                        item.d_upd = DateTime.Now;
+                        item.k_ins = user.UserName;
+                        item.k_upd = user.UserName;
                         items.Add(item);
                     }
                     catch (Exception e)
@@ -465,65 +495,60 @@ namespace Refundation_App_Services.Services.Impl
 
                 }
             }
-           
+
 
             return items;
         }
-        private List<Email> extractEmails(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<EmailImport> extractEmailsAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
-            List<Email> items = new List<Email>();
+            List<EmailImport> items = new List<EmailImport>();
             if (totalColumn == 0 || totalRow < 2)
             {
                 error = Constants.EMPTY_DOCUMENT;
             }
-            else if (totalColumn != 4)
+            else if (totalColumn != 2)
             {
                 error = Constants.UNAPPROPRIATE_FORMAT;
 
             }
-            else {    
-            for (int row = 2; row <= totalRow; row++)
+            else
             {
-                try
+                for (int row = 2; row <= totalRow; row++)
                 {
-                    Email item = new Email();
-                    for (int column = 1; column <= totalColumn; column++)
+                    try
                     {
-                        switch (column)
+                        EmailImport item = new EmailImport();
+                        for (int column = 1; column <= totalColumn; column++)
                         {
-                            case 1:
-                                item.sifra = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
-                                break;
-                            case 2:
-                                item.sap_sifra = worksheet.Cells[row, column].Value.ToString();
-                                break;
-                            case 3:
-                                item.naziv = worksheet.Cells[row, column].Value.ToString();
-                                break;
-                            case 4:
-                                item.mail = worksheet.Cells[row, column].Value.ToString();
-                                break;
-                        }
-                    }
-                    item.active = true;
-                    item.d_ins = DateTime.Now;
-                    items.Add(item);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Row " + row + " is invalid");
-                    fails.Add(row);
-                }
+                            switch (column)
+                            {
+                                case 1:
+                                    item.sap_sifra = worksheet.Cells[row, column].Value.ToString();
+                                    break;
+                                case 2:
 
+                                    item.mail = worksheet.Cells[row, column].Value.ToString();
+
+                                    break;
+                            }
+                        }
+                        items.Add(item);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Row " + row + " is invalid");
+                        fails.Add(row);
+                    }
+
+                }
             }
-            }
-        
+
             return items;
         }
 
-    
+
 
     }
 }

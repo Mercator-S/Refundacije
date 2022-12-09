@@ -7,15 +7,24 @@ namespace Refundation_App_Services.Repositories
 {
     public class ProcedureExecutor : IProcedureExecutor
     {
+        private IUserRepository userRepository { get; set; }
         
         private ApplicationDbContext _context { get; set; }
-        public ProcedureExecutor(ApplicationDbContext contextFactory)
+        public ProcedureExecutor(ApplicationDbContext contextFactory, IUserRepository userRepository)
         {
             _context = contextFactory;
+            this.userRepository= userRepository;
         }
         public async Task<List<FinalSettlements>> GetFinalSettlement(int Year,int Month)
         {
             return _context.finalSettlement.FromSqlRaw("EXECUTE  usp_refundacije_Prikaz_Konacni_Obracun_v2 {0},{1}", Year, Month).ToList();
+        }
+
+        public Task HandleNewEmailsAdded()
+        {
+            OnlineUser loggedUser = userRepository.GetLoggedUser().Result;
+            _context.Database.ExecuteSqlRaw("EXEC usp_import_mailova {0}", loggedUser.UserName);
+            return null;
         }
     }
 }

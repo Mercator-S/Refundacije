@@ -26,6 +26,6 @@ namespace Refundation_App_Services.Repositories
         public Task AddCounterSAPIdAmount(List<CounterSapIdSapKeyAmount> entities);
         public Task<IEnumerable<Email>> GetEmails();
         public Task<Email> DeleteSuppliersEmail(int id);
-        public Task AddEmails(List<Email> mails);
+        public Task AddEmails(List<EmailImport> mails);
     }
 }

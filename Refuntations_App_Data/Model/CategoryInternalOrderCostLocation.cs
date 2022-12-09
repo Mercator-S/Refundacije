@@ -19,7 +19,7 @@ namespace Refuntations_App_Data.Model
         public string mesto_troska { get; set; }
         public string? k_ins { set; get; }
         public DateTime? d_ins { set; get; }
-        public string? k_uns { set; get; }
+        public string? k_upd { set; get; }
         public DateTime? d_upd { set; get; }
         public bool? active { set; get; }
     }

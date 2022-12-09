@@ -1,20 +1,22 @@
-﻿using Refuntations_App.Data;
+﻿using Refundation_App_Services.Services;
+using Refuntations_App.Data;
 using Refuntations_App_Data.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Refundation_App_Services.Repositories.Impl
 {
     public class CodeBookRepository : ICodeBookRepository
     {
         private readonly ApplicationDbContext _context;
-        public CodeBookRepository(ApplicationDbContext context)
+        private readonly IUserRepository userRepository;
+        private OnlineUser loggedUser;
+        private readonly IProcedureExecutor procedureExeturor;
+        public CodeBookRepository(ApplicationDbContext context, IUserRepository userRepository, IProcedureExecutor procedureExecutor)
         {
             _context = context;
+            this.userRepository = userRepository;
+            loggedUser = userRepository.GetLoggedUser().Result;
+            this.procedureExeturor= procedureExecutor;
         }
 
         public Task AddAAPdvSAPKeyMaterials(List<AAPdvSAPKeyMaterial> entities)
@@ -38,9 +40,11 @@ namespace Refundation_App_Services.Repositories.Impl
             return Task.CompletedTask;
         }
 
-        public Task AddEmails(List<Email> mails)
+        public Task AddEmails(List<EmailImport> mails)
         {
-            _context.emails.AddRange(mails);
+            _context.emailsImport.AddRange(mails);
+            procedureExeturor.HandleNewEmailsAdded();
+            _context.emailsImport.RemoveRange(mails);
             _context.SaveChanges();
             return Task.CompletedTask;
         }
@@ -63,6 +67,8 @@ namespace Refundation_App_Services.Repositories.Impl
         {
             AAPdvSAPKeyMaterial dbEntity = _context.aaPdvSapKeyMaterijals.Find(id);
             dbEntity.active = false;
+            dbEntity.d_upd= DateTime.Now;
+            dbEntity.k_upd = loggedUser.UserName;
             _context.SaveChanges();
             return dbEntity;
         }
@@ -71,6 +77,8 @@ namespace Refundation_App_Services.Repositories.Impl
         {
             CategoryInternalOrderCostLocation dbEntity = _context.categoryInternalOrderCostLocations.Find(id);
             dbEntity.active = false;
+            dbEntity.d_upd = DateTime.Now;
+            dbEntity.k_upd = loggedUser.UserName;
             _context.SaveChanges();
             return dbEntity;
         }
@@ -79,6 +87,8 @@ namespace Refundation_App_Services.Repositories.Impl
         {
             CounterSapIdSapKeyAmount dbEntity= _context.counterSapIdSadKeyAmounts.Find(id);
             dbEntity.active = false;
+            dbEntity.d_upd = DateTime.Now;
+            dbEntity.k_upd = loggedUser.UserName;
             _context.SaveChanges();
             return dbEntity;
 
@@ -88,6 +98,8 @@ namespace Refundation_App_Services.Repositories.Impl
         {
             ForeignSupplier dbentity = _context.foreingSuppliers.Find(id);
             dbentity.active = false;
+            dbentity.d_upd = DateTime.Now;
+            dbentity.k_upd = loggedUser.UserName;
             _context.SaveChanges();
             return dbentity;
         }
@@ -96,6 +108,8 @@ namespace Refundation_App_Services.Repositories.Impl
         {
             InternalSupplier dbentity= _context.internalSuppliers.Find(id);
             dbentity.active = false;
+            dbentity.d_upd = DateTime.Now;
+            dbentity.k_upd = loggedUser.UserName;
             _context.SaveChanges();
             return dbentity;
         }
@@ -104,6 +118,8 @@ namespace Refundation_App_Services.Repositories.Impl
         {
             Email dbentity = _context.emails.Find(id);
             dbentity.active = false;
+            dbentity.d_upd = DateTime.Now;
+            dbentity.k_upd = loggedUser.UserName;
             _context.SaveChanges();
             return dbentity;
         }

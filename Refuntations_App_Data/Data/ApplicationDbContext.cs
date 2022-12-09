@@ -11,8 +11,18 @@ namespace Refuntations_App.Data
             : base(options)
         {
         }
-        //public DbSet<OnlineUser> users => Set<OnlineUser>();
-        public DbSet<FinalSettlement> finalSettlement => Set<FinalSettlement>();
+        public DbSet<OnlineUser> users => Set<OnlineUser>();
+        public DbSet<FinalSettlements> finalSettlement => Set<FinalSettlements>();
+        public DbSet<Email> emails => Set<Email>();
+        public DbSet<EmailImport> emailsImport => Set<EmailImport>();
+        public DbSet<InternalSupplier> internalSuppliers => Set<InternalSupplier>();
+        public DbSet<ForeignSupplier> foreingSuppliers => Set<ForeignSupplier>();
+        public DbSet<AAPdvSAPKeyMaterial> aaPdvSapKeyMaterijals => Set<AAPdvSAPKeyMaterial>();
+        public DbSet<CategoryInternalOrderCostLocation> categoryInternalOrderCostLocations => Set<CategoryInternalOrderCostLocation>();
+        public DbSet<CounterSapIdSapKeyAmount> counterSapIdSadKeyAmounts => Set<CounterSapIdSapKeyAmount>();
+
+
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

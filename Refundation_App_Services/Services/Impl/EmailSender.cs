@@ -9,7 +9,7 @@ namespace Refundation_App_Services.Services.Impl
 {
     public class EmailSender : IEmailSender
     {
-        public void sendMail(string sendFrom, string sendTo, string subject, string body)
+        public void sendMail(string sendFrom, string sendTo, string subject, string body, bool isBodyHtml=true)
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.agrokor.hr", 25);
@@ -17,7 +17,7 @@ namespace Refundation_App_Services.Services.Impl
             mail.From = new MailAddress(sendFrom);
             mail.To.Add(sendTo);
             mail.Subject = subject;
-            mail.IsBodyHtml = true;
+            mail.IsBodyHtml = isBodyHtml;
             mail.Body = body;
            
             try

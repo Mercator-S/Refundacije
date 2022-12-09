@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Refundation_App_Services\Refundation_App_Services.csproj" />
+    <ProjectReference Include="..\Refuntations_App_Data\Refuntations_App_Data.csproj" />
   </ItemGroup>
 
 </Project>

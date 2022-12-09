@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
@@ -12,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using Refuntations_App_Data.Model;
+using Refundation_App_Services.Services;
 
 namespace Refuntations_App.Areas.Identity.Pages.Account
 {
@@ -102,7 +102,7 @@ namespace Refuntations_App.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/FinalSettlement");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -129,9 +129,9 @@ namespace Refuntations_App.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
+                 
+                   // _emailSender.sendMail("it.centralne.aplikacije@mercator.rs", Input.Email, "Registracija - Kredencijali za logovanje na  Mercator Refundacije", "Dobrodošli u Mercator Refundacije. Vaši kredencijali za pristup su:\nEmail: "+Input.Email+"\nPassword: "+Input.Password+".", false);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Potvrda naloga:",
-                        $"Molimo Vas potvrdite nalog klikom na <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>sledeći link</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

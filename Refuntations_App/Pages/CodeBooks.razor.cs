@@ -160,7 +160,7 @@ namespace Refuntations_App.Pages
                     result =await  DialogService.Show<MessageDialog>("", parameters, options).Result;
                     if (result != null && !result.Cancelled)
                     {
-                        codeBookRepository.AddInternalSuppliers(internalSuppliers);
+                       await codeBookRepository.AddInternalSuppliers(internalSuppliers);
                     }
                   
                     break;
@@ -170,7 +170,7 @@ namespace Refuntations_App.Pages
                     result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
                     if (result != null && !result.Cancelled)
                     {
-                        codeBookRepository.AddForeignSuppliers(foreignSuppliers);
+                        await codeBookRepository.AddForeignSuppliers(foreignSuppliers);
                     }
                     break;
                 case "Kategorija - Interni nalog - mesto troška":
@@ -180,7 +180,7 @@ namespace Refuntations_App.Pages
                     result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
                     if (result != null && !result.Cancelled)
                     {
-                       codeBookRepository.AddCategoryInternalOrderCostLocation(categories);
+                        await codeBookRepository.AddCategoryInternalOrderCostLocation(categories);
                     }
                     
                     break;
@@ -191,7 +191,7 @@ namespace Refuntations_App.Pages
                     result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
                     if (result != null && !result.Cancelled)
                     {
-                        codeBookRepository.AddAAPdvSAPKeyMaterials(activities);
+                        await codeBookRepository.AddAAPdvSAPKeyMaterials(activities);
                     }
                     break;
                 case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
@@ -201,18 +201,18 @@ namespace Refuntations_App.Pages
                     result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
                     if (result != null && !result.Cancelled)
                     {
-                        codeBookRepository.AddCounterSAPIdAmount(counters);
+                        await codeBookRepository.AddCounterSAPIdAmount(counters);
                     }
 
                     break;
                 case "Dobavljači - Email adrese":
-                    List<Email> mails = fileLoader.loadEmailsFromExcel(fileInfo, out fails, out error);
+                    List<EmailImport> mails = fileLoader.loadEmailsFromExcel(fileInfo, out fails, out error);
                     parameters.Add("Fails", fails);
                     parameters.Add("Error", error);
                     result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
                     if (result != null && !result.Cancelled)
                     {
-                        codeBookRepository.AddEmails(mails);
+                        await codeBookRepository.AddEmails(mails);
                     }
 
                     break;
