@@ -109,7 +109,7 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
         return false;
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
+    { if(!firstRender)
         clickedElement = null;
     }
 }

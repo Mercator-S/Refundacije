@@ -17,7 +17,15 @@ namespace Refundation_App_Services.Repositories
         }
         public async Task<List<FinalSettlements>> GetFinalSettlement(int Year,int Month)
         {
-            return _context.finalSettlement.FromSqlRaw("EXECUTE  usp_refundacije_Prikaz_Konacni_Obracun_v2 {0},{1}", Year, Month).ToList();
+            try {
+                var res = _context.finalSettlement.FromSqlRaw("EXECUTE  usp_refundacije_prikaz_konacni_obracun {0},{1}", Year, Month).ToList();
+                return res;
+            }
+            catch(Exception ex) {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
         }
 
         public Task HandleNewEmailsAdded()

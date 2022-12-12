@@ -22,8 +22,6 @@ namespace Refuntations_App.Data
         public DbSet<CounterSapIdSapKeyAmount> counterSapIdSadKeyAmounts => Set<CounterSapIdSapKeyAmount>();
 
 
-
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

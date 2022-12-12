@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Options;
 using MudBlazor;
 using Refundation_App_Services.Repositories;
 using Refundation_App_Services.Services;
 using Refuntations_App.Pages.Dialogs;
 using Refuntations_App_Data.Model;
-using System.ComponentModel;
-using System.Linq.Expressions;
+
 
 namespace Refuntations_App.Pages
 {
@@ -102,9 +100,7 @@ namespace Refuntations_App.Pages
         public async void ElementChangedHandler(TableRowClickEventArgs<Object> e)
         {
             TargetedElement = e.Row.Item;
-
         }
-
             public async void OpenDialog()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true  };
@@ -118,7 +114,6 @@ namespace Refuntations_App.Pages
                 TargetedElement = null;
                 StateHasChanged();
             }
-
         }
         public async Task UploadFileAsync(IBrowserFile  file)
         {
@@ -230,7 +225,6 @@ namespace Refuntations_App.Pages
             Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;
             TargetedElement = null;
             StateHasChanged();
-            
         }
     }
 }
