@@ -24,12 +24,14 @@ namespace Refuntations_App_Data.ViewModel
         public decimal? Iznos_realizovano_stopa_1 { get; set; }
         public decimal? Iznos_realizovano_stopa_2 { get; set; }
         public DateTime? Datum_realizovano { get; set; }
-        public short? status_stavke_obracuna { get; set; }
+        public string? status_stavke_obracuna { get; set; }
         public bool? I { get; set; }
         public bool NP { get; set; }
         public DateTime? datum_od_aa { get; set; }
         public DateTime? datum_do_aa { get; set; }
         public string? obrada { get; set; }
         public bool Checked { get; set; }
+        public bool ir_stopa_1 { get; set; }
+        public bool ir_stopa_2 { get; set; }
     }
 }

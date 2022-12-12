@@ -23,7 +23,7 @@ namespace Refuntations_App.Pages.Components
         public List<int?> codeAA = new List<int?>();
         public List<DateTime?> periodOfAA = new List<DateTime?>();
         public List<DateTime?> periodToAA = new List<DateTime?>();
-        public List<short?> Status = new List<short?>();
+        public List<string?> Status = new List<string?>();
 
         public async Task ShowFilter()
         {
@@ -41,7 +41,7 @@ namespace Refuntations_App.Pages.Components
                 codeAA = finalSettlements.Select(x => x.Sifra_AA).Distinct().OrderBy(x => x.Value).ToList();
                 periodOfAA = finalSettlements.Select(x => x.datum_od_aa).Distinct().OrderBy(x => x.Value).ToList();
                 periodToAA = finalSettlements.Select(x => x.datum_do_aa).Distinct().OrderBy(x => x.Value).ToList();
-                Status = finalSettlements.Select(x => x.status_stavke_obracuna).Distinct().OrderBy(x => x.Value).ToList();
+                Status = finalSettlements.Select(x => x.status_stavke_obracuna).Distinct().OrderBy(x => x).ToList();
             }
         }
         public async Task ApplyFilter(FilterModel? filterModel)
@@ -50,6 +50,8 @@ namespace Refuntations_App.Pages.Components
             && x.Kategorija == (filterModel.categoryName != null ? filterModel.categoryName : x.Kategorija)
             && x.Sifra_AA == (filterModel.codeAa != null ? filterModel.codeAa : x.Sifra_AA)
             && x.datum_od_aa == (filterModel.periodOf != null ? filterModel.periodOf : x.datum_od_aa)
+            && x.ir_stopa_1 == (filterModel.PDV10 != null ? filterModel.PDV10 : x.ir_stopa_1)
+            && x.ir_stopa_2 == (filterModel.PDV20 != null ? filterModel.PDV20 : x.ir_stopa_2)
             && x.datum_do_aa == (filterModel.periodTo != null ? filterModel.periodTo : x.datum_do_aa)).ToList();
             await finalSettlementsChanged.InvokeAsync(finalSettlements);
         }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Refundation_App_Services.Services;
 using Refuntations_App.Data;
@@ -19,7 +20,22 @@ namespace Refundation_App_Services.Repositories
         }
         public async Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Year, int Month)
         {
-            return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXECUTE  usp_refundacije_Prikaz_Konacni_Obracun_v2 {0},{1}", Year, Month).ToList());
+            return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXECUTE  usp_refundacije_prikaz_konacni_obracun {0},{1}", Year, Month).ToList());
+        }
+        public async Task<bool> CheckFinalSettlement(int Year, int Month)
+        {
+            var godina = new SqlParameter("@godina", Year);
+            var mesec = new SqlParameter("@mesec", Month);
+            var parameterReturn = new SqlParameter
+            {
+                ParameterName = "ReturnValue",
+                SqlDbType = System.Data.SqlDbType.Int,
+                Direction = System.Data.ParameterDirection.Output,
+            };
+            var a = _context.Database.ExecuteSqlRaw("exec @returnValue = usp_provera_zaglavlja {0},{1}", parameterReturn,2022,11);
+            var k = (int)parameterReturn.Value;
+
+            return true;
         }
     }
 }

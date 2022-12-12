@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
-using MudBlazor;
+﻿using MudBlazor;
 using Refuntations_App.Dialog;
 using Refuntations_App.Pages.Components;
-using Refuntations_App_Data.Model;
 using Refuntations_App_Data.ViewModel;
 
 namespace Refuntations_App.Pages
@@ -18,7 +16,7 @@ namespace Refuntations_App.Pages
 
         public async Task ShowDialog()
         {
-            DialogResult result = await DialogService.Show<FinalSettlementDialog>("Kreiranje obracuna refundacija", dialogOptions).Result;
+            DialogResult result = await DialogService.Show<FinalSettlementDialog>("Konačni obračun", dialogOptions).Result;
             DialogParameters ReturnParameteres = (DialogParameters)result.Data;
             if (ReturnParameteres != null)
             {
@@ -28,12 +26,12 @@ namespace Refuntations_App.Pages
         }
         public async Task CheckedCheckBox(FinalSettlementsViewModel FinalSettlements)
         {
-            if (FinalSettlements.Checked == false)
+            if (!FinalSettlements.Checked)
             {
                 FinalSettlements.Checked = true;
                 finalSettlementsList.Add(FinalSettlements);
             }
-            else if (FinalSettlements.Checked == true)
+            else if (FinalSettlements.Checked)
             {
                 FinalSettlements.Checked = false;
                 finalSettlementsList.Remove(FinalSettlements);

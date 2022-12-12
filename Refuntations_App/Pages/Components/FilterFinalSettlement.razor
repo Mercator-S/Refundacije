@@ -62,7 +62,7 @@
         </MudGrid>
         <MudGrid>
             <MudItem xs="12">
-                <MudSelect T="short?" Label="Status" @bind-Value="filterModel.Status" For="(()=>filterModel.Status)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
+                <MudSelect T="string?" Label="Status" @bind-Value="filterModel.Status" For="(()=>filterModel.Status)" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter">
                     @foreach (var status in Status)
                     {
                         <MudSelectItem Value="status" />
@@ -70,14 +70,14 @@
                 </MudSelect>
             </MudItem>
         </MudGrid>
-        @*<MudGrid>
-        <MudItem xs="6">
-        <MudCheckBox @bind-Checked="filterModel.PDV10" For="(()=>filterModel.PDV10)" Label="PDV 10%"></MudCheckBox>
-        </MudItem>
-        <MudItem xs="6">
-        <MudCheckBox @bind-Checked="filterModel.PDV20" For="(()=>filterModel.PDV20)" Label="PDV 20%"></MudCheckBox>
-        </MudItem>
-        </MudGrid>*@
+        <MudGrid>
+            <MudItem xs="6">
+                <MudCheckBox @bind-Checked="filterModel.PDV10" For="(()=>filterModel.PDV10)" Label="PDV 10%"></MudCheckBox>
+            </MudItem>
+            <MudItem xs="6">
+                <MudCheckBox @bind-Checked="filterModel.PDV20" For="(()=>filterModel.PDV20)" Label="PDV 20%"></MudCheckBox>
+            </MudItem>
+        </MudGrid>
     </MudCardContent>
     <MudCardActions>
         <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" OnClick="(async ()=> await ApplyFilter(filterModel))" Color="Color.Info" Size="Size.Small">Primeni filter</MudButton>
