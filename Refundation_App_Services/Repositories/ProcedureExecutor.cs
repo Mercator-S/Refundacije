@@ -13,10 +13,11 @@ namespace Refundation_App_Services.Repositories
     {
         private readonly IMapper _mapper;
         private ApplicationDbContext _context { get; set; }
-        public ProcedureExecutor(ApplicationDbContext contextFactory, IMapper mapper)
+        public ProcedureExecutor(ApplicationDbContext contextFactory)
         {
             _mapper = mapper;
             _context = contextFactory;
+            this.userRepository= userRepository;
         }
         public async Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Year, int Month)
         {

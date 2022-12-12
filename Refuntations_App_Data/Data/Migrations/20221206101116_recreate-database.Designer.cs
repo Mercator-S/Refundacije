@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Refuntations_App.Data;
 
@@ -11,9 +12,10 @@ using Refuntations_App.Data;
 namespace Refuntations_App.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221206101116_recreate-database")]
+    partial class recreatedatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace Refuntations_App.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c031643f-5501-4892-a622-521959efb873",
-                            ConcurrencyStamp = "ce0296b2-cadc-4fff-a2f8-fed5feaf0389",
+                            Id = "a5507fc4-169b-4d7f-adf2-b14ebd4b8f1f",
+                            ConcurrencyStamp = "0fd3a8dc-af5a-441a-ba13-8e6630414d07",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "0959f863-544f-48eb-a025-cb1c36e6cf12",
-                            ConcurrencyStamp = "1b6255a0-f2dd-4040-8631-114f72e4188d",
+                            Id = "691c2361-0d10-40e5-8aa5-827b29be65f7",
+                            ConcurrencyStamp = "1701793a-4bd7-4b5f-a55c-1ad46cc9c572",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -246,194 +248,7 @@ namespace Refuntations_App.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Refuntations_App_Data.Model.AAPdvSAPKeyMaterial", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
-
-                    b.Property<string>("Materijal")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("PDV")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("SAP_Kljuc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("d_ins")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("d_upd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("k_ins")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("k_upd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("naziv_aa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("sifra_aa")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("tab_refundacije_sif_AA_PDV_SAPKljuc_Materijal_NEW");
-                });
-
-            modelBuilder.Entity("Refuntations_App_Data.Model.CategoryInternalOrderCostLocation", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("d_ins")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("d_upd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("interni_nalog")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("k_ins")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("k_upd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("mesto_troska")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("naziv_kat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("sifra_kat")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("tab_refundacije_sif_Kategorija_InterniNalog_MestoTroska");
-                });
-
-            modelBuilder.Entity("Refuntations_App_Data.Model.CounterSapIdSapKeyAmount", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
-
-                    b.Property<string>("SAP_kljuc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SAP_sifra_dobavljac")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("br_knjiznog_zaduzenja")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("brojac")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("d_ins")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("d_upd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("godina")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("iznos")
-                        .HasColumnType("float");
-
-                    b.Property<string>("k_ins")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("k_upd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("mesec")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("tab_refundacije_sif_Brojac_SAPkljuc");
-                });
-
-            modelBuilder.Entity("Refuntations_App_Data.Model.Email", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("d_ins")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("d_upd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("k_ins")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("k_upd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("mail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("naziv")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("sap_sifra")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("sifra")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("tab_refundacije_sif_dobavljaci_mail");
-                });
-
-            modelBuilder.Entity("Refuntations_App_Data.Model.EmailImport", b =>
-                {
-                    b.Property<string>("sap_sifra")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("mail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("sap_sifra");
-
-                    b.ToTable("tab_refundacije_sif_dobavljaci_mail_import");
-                });
-
-            modelBuilder.Entity("Refuntations_App_Data.Model.FinalSettlements", b =>
+            modelBuilder.Entity("Refuntations_App_Data.Model.FinalSettlement", b =>
                 {
                     b.Property<DateTime?>("Datum_realizovano")
                         .HasColumnType("datetime2");
@@ -498,40 +313,6 @@ namespace Refuntations_App.Data.Migrations
                     b.ToTable("finalSettlement");
                 });
 
-            modelBuilder.Entity("Refuntations_App_Data.Model.ForeignSupplier", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
-
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("d_ins")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("d_upd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("k_ins")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("k_upd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("naziv_ino_dobavljac")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("sifra_ino_dobavljac")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("tab_refundacije_sif_inO_dobavljaci");
-                });
-
             modelBuilder.Entity("Refuntations_App_Data.Model.InternalSupplier", b =>
                 {
                     b.Property<int>("id")
@@ -540,26 +321,8 @@ namespace Refuntations_App.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
-                    b.Property<bool?>("active")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("d_ins")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("d_upd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("k_ins")
+                    b.Property<string>("sifra_kat")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("k_upd")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("naziv_int_dobavljac")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("sifra_int_dobavljac")
-                        .HasColumnType("int");
 
                     b.HasKey("id");
 

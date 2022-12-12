@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using Refundation_App_Services.Repositories;
+using Refundation_App_Services.Repositories.Impl;
 using Refundation_App_Services.Services;
+using Refundation_App_Services.Services.Impl;
 using Refuntations_App.Areas.Identity;
 using Refuntations_App.Data;
 using Refuntations_App_Data.AutoMapperProfile;
@@ -36,10 +38,17 @@ builder.Services.AddDefaultIdentity<OnlineUser>(options => {
 } )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
-
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineUser>>();
 builder.Services.AddMudServices();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddMudServices();
+builder.Services.AddScoped<ICodeBookService, CodeBookService>();
+builder.Services.AddScoped<IFileLoader, FileLoader>();
+builder.Services.AddScoped<ICodeBookRepository, CodeBookRepository>();
+builder.Services.AddScoped<IProcedureExecutor, ProcedureExecutor>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var mapperConfiguration = new MapperConfiguration(configuration =>
 {
@@ -64,6 +73,7 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
