@@ -233,7 +233,7 @@ namespace Refundation_App_Services.Services.Impl
                             {
                                 //first column is Id and should be blank
                                 case 1:
-                                    item.sifra_int_dobavljac = Int16.Parse(worksheet.Cells[row, column].Value.ToString());
+                                    item.sifra_int_dobavljac = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
                                     break;
                                 case 2:
                                     item.naziv_int_dobavljac = worksheet.Cells[row, column].Value.ToString();
@@ -287,7 +287,7 @@ namespace Refundation_App_Services.Services.Impl
                             {
                                 //first column is Id and should be blank
                                 case 1:
-                                    item.sifra_ino_dobavljac = Int16.Parse(worksheet.Cells[row, column].Value.ToString());
+                                    item.sifra_ino_dobavljac = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
                                     break;
                                 case 2:
                                     item.naziv_ino_dobavljac = worksheet.Cells[row, column].Value.ToString();

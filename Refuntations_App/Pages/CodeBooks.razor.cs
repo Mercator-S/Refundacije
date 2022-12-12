@@ -7,7 +7,7 @@ using Refundation_App_Services.Services;
 using Refuntations_App.Pages.Dialogs;
 using Refuntations_App_Data.Model;
 using System.ComponentModel;
-
+using System.Linq.Expressions;
 
 namespace Refuntations_App.Pages
 {
@@ -99,7 +99,7 @@ namespace Refuntations_App.Pages
         {
             return "/download?fileName=" + ExcelTemplateLocation;
         }
-        public void ElementChangedHandler(TableRowClickEventArgs<Object> e)
+        public async void ElementChangedHandler(TableRowClickEventArgs<Object> e)
         {
             TargetedElement = e.Row.Item;
 
@@ -141,6 +141,7 @@ namespace Refuntations_App.Pages
                 if (FileInfo != null)
                     File.Delete(FileInfo.FullName);
             }
+            
 
         }
 
@@ -167,6 +168,7 @@ namespace Refuntations_App.Pages
                 case "Inostrani dobavljači":
                     List<ForeignSupplier> foreignSuppliers = fileLoader.loadForeignSuppliersFromExcel(fileInfo, out fails, out error);
                     parameters.Add("Fails", fails);
+                    parameters.Add("Error", error);
                     result = await DialogService.Show<MessageDialog>("", parameters, options).Result;
                     if (result != null && !result.Cancelled)
                     {

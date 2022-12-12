@@ -1,7 +1,8 @@
 ﻿@using System.Reflection;
 
 
-<MudTable HorizontalScrollbar="true" Class="m-5" @ref="mudTable" Items="@Elements" Hover="true" Breakpoint="Breakpoint.Sm" Loading="false" LoadingProgressColor="Color.Info" RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filter="new Func<Object,bool>(FilterFunc)">
+<MudTable  HorizontalScrollbar="true" Class="m-5" @ref="mudTable" Items="@Elements" Hover="true" Breakpoint="Breakpoint.Sm" Loading="false" LoadingProgressColor="Color.Info"
+RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filter="new Func<Object,bool>(FilterFunc)">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Rezultat</MudText>
         <MudSpacer />
@@ -23,7 +24,7 @@
         {
             if (ColumnsToShow == null || ColumnsToShow.Contains(property.Name))
             {
-                <MudTd DataLabel="@property.Name">@property.GetValue(context, null)</MudTd>
+                <MudTd Class="" DataLabel="@property.Name">@property.GetValue(context, null)</MudTd>
             }
             
         }
@@ -51,6 +52,7 @@
 
     [Parameter]
     public IEnumerable<Object> Elements { get; set; }
+    public Object clickedElement { get; set; } = null;
     [Parameter]
     public List<string> Columns { get; set; }
     [Parameter]
@@ -64,6 +66,11 @@
 
     public string SelectedRowClassFunc(Object element, int rowNumber)
     {
+        if(clickedElement!=null && clickedElement.Equals(element))
+        {
+            selectedRowNumber = rowNumber;
+            return "selected";
+        }
         if (selectedRowNumber == rowNumber)
         {
             selectedRowNumber = -1;
@@ -71,6 +78,7 @@
         }else 
         if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
         {
+
             selectedRowNumber = rowNumber;
             return "selected";
         }
@@ -79,10 +87,10 @@
             return string.Empty;
         }
     }
-    public void RowClickEvent(TableRowClickEventArgs<Object> tableRowClickEventArgs)
-    {  
+    public async Task RowClickEvent(TableRowClickEventArgs<Object> tableRowClickEventArgs)
+    {
+        clickedElement = tableRowClickEventArgs.Row.Item;
         ElementChanged.InvokeAsync(tableRowClickEventArgs);
-
     }
     public bool FilterFunc(Object element) => FilterFuncWithString(element, searchString);
 
@@ -99,5 +107,9 @@
                 return true;
         }
         return false;
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        clickedElement = null;
     }
 }
