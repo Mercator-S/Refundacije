@@ -9,7 +9,7 @@
         public DateTime? periodTo { get; set; }
         public bool PDV10 { get; set; }
         public bool PDV20 { get; set; }
-        public short? Status { get; set; }
+        public string? Status { get; set; }
 
     }
 }
