@@ -5,7 +5,6 @@ using Refundation_App_Services.Services;
 using Refuntations_App.Data;
 using Refuntations_App_Data.Model;
 using Refuntations_App_Data.ViewModel;
-using System.Collections.Generic;
 
 namespace Refundation_App_Services.Repositories
 {
@@ -22,6 +21,7 @@ namespace Refundation_App_Services.Repositories
         }
         public async Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Year, int Month)
         {
+            await CheckFinalSettlement(Year, Month);
             return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXECUTE  usp_refundacije_prikaz_konacni_obracun {0},{1}", Year, Month).ToList());
         }
         public async Task<bool> CheckFinalSettlement(int Year, int Month)
@@ -34,8 +34,16 @@ namespace Refundation_App_Services.Repositories
                 SqlDbType = System.Data.SqlDbType.Int,
                 Direction = System.Data.ParameterDirection.Output,
             };
-            var a = _context.Database.ExecuteSqlRaw("exec @returnValue = usp_provera_zaglavlja {0},{1}", parameterReturn,2022,11);
-            var k = (int)parameterReturn.Value;
+            string commaneed = "select count(*) from [Refundacije].[dbo].[tab_refundacije_konacni_obracun_zaglavlje] where active = 1 and godina = 2022 and mesec = 11";
+            using (var cmd = _context.Database.GetDbConnection().CreateCommand())
+            {
+                cmd.Connection.Open();
+                cmd.CommandType=System.Data.CommandType.Text;
+                cmd.CommandText= commaneed;
+                var a= cmd.ExecuteScalar();
+            }
+            
+            //var k = (int)parameterReturn.Value;
 
             return true;
         }

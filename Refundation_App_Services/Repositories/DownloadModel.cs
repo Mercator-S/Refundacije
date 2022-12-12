@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Components;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Refuntations_App.Pages
 {

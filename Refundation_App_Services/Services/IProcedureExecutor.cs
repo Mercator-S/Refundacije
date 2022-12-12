@@ -1,5 +1,4 @@
-﻿using Refuntations_App_Data.Model;
-using Refuntations_App_Data.ViewModel;
+﻿using Refuntations_App_Data.ViewModel;
 
 namespace Refundation_App_Services.Services
 {

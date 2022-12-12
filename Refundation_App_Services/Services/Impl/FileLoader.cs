@@ -140,8 +140,6 @@ namespace Refundation_App_Services.Services.Impl
                 throw;
             }
         }
-
-
         public List<ForeignSupplier> loadForeignSuppliersFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
         {
             error = "";
@@ -172,8 +170,6 @@ namespace Refundation_App_Services.Services.Impl
                 throw;
             }
         }
-
-
         public List<InternalSupplier> loadInternalSuppliersFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
         {
             error = "";
@@ -205,7 +201,6 @@ namespace Refundation_App_Services.Services.Impl
                 throw;
             }
         }
-
         private List<InternalSupplier> extractInternalSuppliers(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
@@ -256,8 +251,6 @@ namespace Refundation_App_Services.Services.Impl
 
                 }
             }
-
-
             return items;
         }
         private List<ForeignSupplier> extractForeignSuppliersAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
@@ -307,11 +300,8 @@ namespace Refundation_App_Services.Services.Impl
                         Console.WriteLine("Row " + row + " is invalid");
                         fails.Add(row);
                     }
-
                 }
             }
-
-
             return items;
         }
         private List<CounterSapIdSapKeyAmount> extractCounterSapIdAndAmountAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
@@ -377,7 +367,6 @@ namespace Refundation_App_Services.Services.Impl
             }
             return items;
         }
-
         private List<CategoryInternalOrderCostLocation> extractCategoriesAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
