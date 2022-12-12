@@ -1,6 +1,6 @@
 ﻿@page "/sifarnici"
-<MudGrid Class="m-3">
-    <MudItem xs="12" sm="4" Class="ms-2">
+<MudGrid Class="m-0" Style="width: 100%">
+    <MudItem xs="10" sm="2" Class="ms-2">
             <MudSelect @ref="mudSelect" Class="d-inline ml-6 mt-3" T="string" Label="Izaberi" Variant="Variant.Filled" AnchorOrigin="Origin.BottomCenter" ValueChanged="HandleSelectionChange" >
                 <MudSelectItem Value="@("Interni dobavljači")" />
                 <MudSelectItem Value="@("Inostrani dobavljači")" />
@@ -10,7 +10,7 @@
                 <MudSelectItem Value="@("Dobavljači - Email adrese")" />
              </MudSelect>
     </MudItem>
-    <MudItem xs="12" sm="6">
+    <MudItem xs="12" lg="8" sm="4">
         <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" Style="height: 45px" Disabled="@IsImportAndExportAllowed()" Href="@GetDownloadPath()">
             <MudIcon Icon="@Icons.Outlined.SimCardDownload" Title="Importuj"/>&nbsp;Preuzmi Excel template
         </MudButton>
