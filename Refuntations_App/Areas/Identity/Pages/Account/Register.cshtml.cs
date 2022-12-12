@@ -4,14 +4,15 @@
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Refuntations_App.Model;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
+using Refuntations_App_Data.Model;
+using Refundation_App_Services.Services;
+using Refuntations_App_Data.Data;
 
 namespace Refuntations_App.Areas.Identity.Pages.Account
 {
@@ -102,7 +103,7 @@ namespace Refuntations_App.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/FinalSettlement");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
@@ -110,6 +111,7 @@ namespace Refuntations_App.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                await _emailStore.SetEmailConfirmedAsync(user, true, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -130,8 +132,8 @@ namespace Refuntations_App.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Potvrda naloga:",
-                        $"Molimo Vas potvrdite nalog klikom na <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>sledeći link</a>.");
+                    // _emailSender.sendMail(Constants.IT_SUPPORT_MAIL, Input.Email, "Registracija - Kredencijali za logovanje na  Mercator Refundacije", "Dobrodošli u Mercator Refundacije. Vaši kredencijali za pristup su:\nEmail: "+Input.Email+"\nPassword: "+Input.Password+".", false);
+
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

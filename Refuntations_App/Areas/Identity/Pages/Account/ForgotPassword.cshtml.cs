@@ -1,19 +1,14 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
-// The .NET Foundation licenses this file to you under the MIT license.
-#nullable disable
-
-using System;
+﻿#nullable disable
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Refuntations_App.Model;
+using Refundation_App_Services.Services;
+using Refuntations_App_Data.Data;
+using Refuntations_App_Data.Model;
 
 namespace Refuntations_App.Areas.Identity.Pages.Account
 {
@@ -55,10 +50,10 @@ namespace Refuntations_App.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return RedirectToPage("./EmailNotFound");
                 }
 
                 // For more information on how to enable account confirmation and password reset please
@@ -70,12 +65,7 @@ namespace Refuntations_App.Areas.Identity.Pages.Account
                     pageHandler: null,
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
-
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
+                _emailSender.sendMail(Constants.IT_SUPPORT_MAIL, Input.Email, "Mercator Refundacije - Izmena lozinke", $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.", true);
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }
 
