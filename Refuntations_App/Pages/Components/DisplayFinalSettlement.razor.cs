@@ -17,8 +17,7 @@ namespace Refuntations_App.Pages.Components
         public int Month { get; set; } = DateTime.Now.Month - 1;
         public async Task GetFinalSettlements(int Year, int Month)
         {
-            List<FinalSettlements> res =  procedureExecutor.GetFinalSettlement(Year, Month).Result;
-            var resu= finalSettlementsChanged.InvokeAsync(await procedureExecutor.GetFinalSettlement(Year, Month));
+            await finalSettlementsChanged.InvokeAsync(await procedureExecutor.GetFinalSettlement(Year, Month));
         }
     }
 }

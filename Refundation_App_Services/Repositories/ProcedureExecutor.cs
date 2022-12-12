@@ -13,7 +13,8 @@ namespace Refundation_App_Services.Repositories
     {
         private readonly IMapper _mapper;
         private ApplicationDbContext _context { get; set; }
-        public ProcedureExecutor(ApplicationDbContext contextFactory)
+        private IUserRepository userRepository { get; set; }
+        public ProcedureExecutor(ApplicationDbContext contextFactory, IMapper mapper, IUserRepository userRepository)
         {
             _mapper = mapper;
             _context = contextFactory;
@@ -37,6 +38,13 @@ namespace Refundation_App_Services.Repositories
             var k = (int)parameterReturn.Value;
 
             return true;
+        }
+
+        public Task HandleNewEmailsAdded()
+        {
+            OnlineUser loggedUser = userRepository.GetLoggedUser().Result;
+            _context.Database.ExecuteSqlRaw("EXEC usp_import_mailova {0}", loggedUser.UserName);
+            return null;
         }
     }
 }

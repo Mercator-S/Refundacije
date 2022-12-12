@@ -5,7 +5,7 @@ namespace Refundation_App_Services.Services
 {
     public interface IProcedureExecutor
     {
-        Task<List<Fin   public Task HandleNewEmailsAdded();alSettlements>> GetFinalSettlement(int Year, int Month);
+        Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Year, int Month);
         public Task HandleNewEmailsAdded();
     }
 }
