@@ -5,7 +5,6 @@ using Refundation_App_Services.Services;
 using Refuntations_App.Data;
 using Refuntations_App_Data.Model;
 using Refuntations_App_Data.ViewModel;
-using System.Collections.Generic;
 
 namespace Refundation_App_Services.Repositories
 {
@@ -18,28 +17,39 @@ namespace Refundation_App_Services.Repositories
         {
             _mapper = mapper;
             _context = contextFactory;
-            this.userRepository= userRepository;
+            this.userRepository = userRepository;
         }
         public async Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Year, int Month)
         {
-            return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXECUTE  usp_refundacije_prikaz_konacni_obracun {0},{1}", Year, Month).ToList());
+            return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXEC  usp_refundacije_prikaz_konacni_obracun {0},{1}", Year, Month).ToList());
         }
-        public async Task<bool> CheckFinalSettlement(int Year, int Month)
+        public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month)
         {
             var godina = new SqlParameter("@godina", Year);
             var mesec = new SqlParameter("@mesec", Month);
+            var korisnik = new SqlParameter("@korisnik", "administrator");
+
             var parameterReturn = new SqlParameter
             {
                 ParameterName = "ReturnValue",
                 SqlDbType = System.Data.SqlDbType.Int,
                 Direction = System.Data.ParameterDirection.Output,
             };
-            var a = _context.Database.ExecuteSqlRaw("exec @returnValue = usp_provera_zaglavlja {0},{1}", parameterReturn,2022,11);
-            var k = (int)parameterReturn.Value;
-
-            return true;
+            _context.Database.ExecuteSqlRaw("exec @returnValue = usp_refundacije_konacni_obracun @godina, @mesec, @korisnik ", parameterReturn, godina, mesec, korisnik);
+            int returnValue = (int)parameterReturn.Value;
+            if (returnValue == 1)
+                return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXEC  usp_refundacije_prikaz_konacni_obracun {0},{1}", Year, Month).ToList());
+            else
+                return new List<FinalSettlementsViewModel>();
         }
-
+        public async Task<bool> CheckFinalSettlement(int Year, int Month)
+        {
+            var checkResult = _context.finalSettlementHeader.
+                FromSqlRaw($"select id from tab_refundacije_konacni_obracun_zaglavlje where active = 1 and godina={Year} and mesec={Month}").Count();
+            if (checkResult != 0)
+                return true;
+            return false;
+        }
         public Task HandleNewEmailsAdded()
         {
             OnlineUser loggedUser = userRepository.GetLoggedUser().Result;

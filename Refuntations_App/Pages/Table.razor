@@ -1,8 +1,8 @@
 ﻿@using System.Reflection;
 
 
-<MudTable  HorizontalScrollbar="true" Class="m-5" @ref="mudTable" Items="@Elements" Hover="true" Breakpoint="Breakpoint.Sm" Loading="false" LoadingProgressColor="Color.Info"
-RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filter="new Func<Object,bool>(FilterFunc)">
+<MudTable HorizontalScrollbar="true" Class="m-5" @ref="mudTable" Items="@Elements" Hover="true" Breakpoint="Breakpoint.Sm" Loading="false" LoadingProgressColor="Color.Info"
+          RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filter="new Func<Object,bool>(FilterFunc)">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Rezultat</MudText>
         <MudSpacer />
@@ -11,7 +11,6 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
     <HeaderContent>
         @foreach (string column in Columns)
         {
-           
             <MudTh>@column</MudTh>
         }
     </HeaderContent>
@@ -26,9 +25,8 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
             {
                 <MudTd Class="" DataLabel="@property.Name">@property.GetValue(context, null)</MudTd>
             }
-            
-        }
 
+        }
     </RowTemplate>
     <PagerContent>
         <MudTablePager />
@@ -57,7 +55,7 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
     public List<string> Columns { get; set; }
     [Parameter]
     public List<string> ColumnsToShow { get; set; }
-    public string searchString{ get; set; }
+    public string searchString { get; set; }
     public int selectedRowNumber { get; set; } = -1;
 
     /*Delegate for passing element to parent component for further manipulation*/
@@ -66,7 +64,7 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
 
     public string SelectedRowClassFunc(Object element, int rowNumber)
     {
-        if(clickedElement!=null && clickedElement.Equals(element))
+        if (clickedElement != null && clickedElement.Equals(element))
         {
             selectedRowNumber = rowNumber;
             return "selected";
@@ -75,7 +73,8 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
         {
             selectedRowNumber = -1;
             return string.Empty;
-        }else 
+        }
+        else
         if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
         {
 
@@ -109,7 +108,8 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
         return false;
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
-    { if(!firstRender)
-        clickedElement = null;
+    {
+        if (!firstRender)
+            clickedElement = null;
     }
 }

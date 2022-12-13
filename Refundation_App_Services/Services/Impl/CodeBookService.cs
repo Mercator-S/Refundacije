@@ -1,11 +1,5 @@
 ﻿using Refundation_App_Services.Repositories;
 using Refuntations_App_Data.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Refundation_App_Services.Services.Impl
 {
@@ -19,11 +13,11 @@ namespace Refundation_App_Services.Services.Impl
 
         public object DeleteEntity(object entity, string targetGroup)
         {
-            object result=null;
+            object result = null;
             switch (targetGroup)
             {
                 case "Interni dobavljači":
-                    result=_codeBookRepository.DeleteInternalSupplier(((InternalSupplier)entity).id);
+                    result = _codeBookRepository.DeleteInternalSupplier(((InternalSupplier)entity).id);
                     break;
                 case "Inostrani dobavljači":
                     result = _codeBookRepository.DeleteForeignSupplier(((ForeignSupplier)entity).id);
@@ -41,7 +35,6 @@ namespace Refundation_App_Services.Services.Impl
                 case "Dobavljači - Email adrese":
                     result = _codeBookRepository.DeleteSuppliersEmail(((Email)entity).id);
                     break;
-
             }
             return result;
         }
@@ -52,7 +45,7 @@ namespace Refundation_App_Services.Services.Impl
             switch (targetGroup)
             {
                 case "Interni dobavljači":
-                    List<InternalSupplier> dbInternal=(await _codeBookRepository.GetInternalSuppliers()).ToList();
+                    List<InternalSupplier> dbInternal = (await _codeBookRepository.GetInternalSuppliers()).ToList();
                     Elements = new List<object>();
                     dbInternal.ForEach(p => Elements.Add(p));
                     break;
