@@ -19,5 +19,11 @@ namespace Refundation_App_Services.Repositories
         public  Task<object> Delete(CounterSapIdSapKeyAmount entity);
         public  Task<object> Delete(CategoryInternalOrderCostLocation entity);
         public  Task<object> Delete(Email entity);
+        public Task<List<object>> DeleteRange(List<InternalSupplier> entities, string targetGroup);
+        public Task<List<object>> DeleteRange(List<ForeignSupplier> entities, string targetGroup);
+        public Task<List<object>> DeleteRange(List<AAPdvSAPKeyMaterial> entities, string targetGroup);
+        public Task<List<object>> DeleteRange(List<CounterSapIdSapKeyAmount> entities, string targetGroup);
+        public Task<List<object>> DeleteRange(List<CategoryInternalOrderCostLocation> entities, string targetGroup);
+        public Task<List<object>> DeleteRange(List<Email> entities, string targetGroup);
     }
 }

@@ -111,6 +111,96 @@ namespace Refundation_App_Services.Repositories.Impl
             _context.SaveChanges();
             return dbEntity;
         }
+
+        public async Task<List<object>> DeleteRange(List<InternalSupplier> entities, string targetGroup)
+        {
+            List<object> dbEntities = new List<object>();
+           foreach(InternalSupplier entity in entities)
+            {
+                InternalSupplier dbEntity = (InternalSupplier)_context.Find(typeof(InternalSupplier), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);            
+            }
+            _context.SaveChanges();
+            return dbEntities;
+        }
+
+        public async Task<List<object>> DeleteRange(List<ForeignSupplier> entities, string targetGroup)
+        {
+            List<object> dbEntities = new List<object>();
+            foreach (ForeignSupplier entity in entities)
+            {
+                ForeignSupplier dbEntity = (ForeignSupplier)_context.Find(typeof(ForeignSupplier), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
+            _context.SaveChanges();
+            return dbEntities;
+        }
+
+        public async Task<List<object>> DeleteRange(List<AAPdvSAPKeyMaterial> entities, string targetGroup)
+        {
+            List<object> dbEntities = new List<object>();
+            foreach (AAPdvSAPKeyMaterial entity in entities)
+            {
+                AAPdvSAPKeyMaterial dbEntity = (AAPdvSAPKeyMaterial)_context.Find(typeof(AAPdvSAPKeyMaterial), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
+            _context.SaveChanges();
+            return dbEntities;
+        }
+
+        public async Task<List<object>> DeleteRange(List<CounterSapIdSapKeyAmount> entities, string targetGroup)
+        {
+            List<object> dbEntities = new List<object>();
+            foreach (CounterSapIdSapKeyAmount entity in entities)
+            {
+                CounterSapIdSapKeyAmount dbEntity = (CounterSapIdSapKeyAmount)_context.Find(typeof(CounterSapIdSapKeyAmount), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
+            _context.SaveChanges();
+            return dbEntities;
+        }
+
+        public async Task<List<object>> DeleteRange(List<CategoryInternalOrderCostLocation> entities, string targetGroup)
+        {
+            List<object> dbEntities = new List<object>();
+            foreach (CategoryInternalOrderCostLocation entity in entities)
+            {
+                CategoryInternalOrderCostLocation dbEntity = (CategoryInternalOrderCostLocation)_context.Find(typeof(CategoryInternalOrderCostLocation), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
+            _context.SaveChanges();
+            return dbEntities;
+        }
+
+        public async Task<List<object>> DeleteRange(List<Email> entities, string targetGroup)
+        {
+            List<object> dbEntities = new List<object>();
+            foreach (Email entity in entities)
+            {
+                Email dbEntity = (Email)_context.Find(typeof(Email), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
+            _context.SaveChanges();
+            return dbEntities;
+        }
     }
 
 }

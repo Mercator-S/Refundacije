@@ -25,9 +25,7 @@ namespace Refuntations_App.Pages
         public ICodeBookRepository codeBookRepository { get; set; }
         [Inject]
         public IFileLoader fileLoader { get; set; }
-
-
-        public object TargetedElement { get; set; } = null;
+        private List<object> selectedElements { get; set; } = new List<object>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -81,7 +79,7 @@ namespace Refuntations_App.Pages
                     break;
 
             }
-            TargetedElement = null;
+            selectedElements = new List<object>();
             StateHasChanged();
         }
         public bool IsImportAndExportAllowed()
@@ -90,7 +88,7 @@ namespace Refuntations_App.Pages
         }
         public bool IsDeletingAllowed()
         {
-            return TargetedElement == null;
+            return selectedElements.Count() == 0;
         }
         public string GetDownloadPath()
         {
@@ -98,20 +96,31 @@ namespace Refuntations_App.Pages
         }
         public async void ElementChangedHandler(TableRowClickEventArgs<Object> e)
         {
-            TargetedElement = e.Row.Item;
+            if (selectedElements.Contains(e.Row.Item))
+            {
+                selectedElements.Remove(e.Row.Item);
+            }
+            else
+            {
+                selectedElements.Add(e.Row.Item);
+
+            }
+            //TargetedElement = e.Row.Item;
+
+            StateHasChanged();
         }
         public async void OpenDialog()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true, MaxWidth = MaxWidth.Small, FullWidth = true };
             var parameters = new DialogParameters();
-            parameters.Add("TargetEntity", TargetedElement);
+            parameters.Add("TargetEntities", selectedElements);
             parameters.Add("SelectedValue", mudSelect.SelectedValues.First());
             var result = await DialogService.Show<DeleteCodeBookEntityDialog>("Da li ste sigurni?", parameters, options).Result;
 
             if (result.Data != null)
             {
                 Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;
-                TargetedElement = null;
+                selectedElements = new List<object>();
                 StateHasChanged();
             }
         }
@@ -183,7 +192,7 @@ namespace Refuntations_App.Pages
         public void HandleRefreshPage()
         {
             Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;
-            TargetedElement = null;
+            selectedElements = new List<object>();
             StateHasChanged();
         }
     }

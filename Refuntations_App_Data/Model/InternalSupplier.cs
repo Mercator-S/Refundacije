@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Refuntations_App_Data.Model
 {
     [Table("tab_refundacije_sif_interni_dobavljaci")]
-    public class InternalSupplier : CodeBookBase
+    public class InternalSupplier
     {
         [Key]
         public int id { get; set; }

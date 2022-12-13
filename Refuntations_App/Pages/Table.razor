@@ -52,7 +52,8 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
 
     [Parameter]
     public IEnumerable<Object> Elements { get; set; }
-    public Object clickedElement { get; set; } = null;
+    [Parameter]
+    public List<object> SelectedItems { get; set; }
     [Parameter]
     public List<string> Columns { get; set; }
     [Parameter]
@@ -62,11 +63,13 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
 
     /*Delegate for passing element to parent component for further manipulation*/
     [Parameter]
-    public EventCallback<TableRowClickEventArgs<Object>> ElementChanged { get; set; }
+    public EventCallback<TableRowClickEventArgs<Object>> ElementsChanged { get; set; }
+    [Parameter]
+    public EventCallback<HashSet<object>> SelectionChange { get; set; }
 
     public string SelectedRowClassFunc(Object element, int rowNumber)
     {
-        if(clickedElement!=null && clickedElement.Equals(element))
+        if(SelectedItems.Contains(element))
         {
             selectedRowNumber = rowNumber;
             return "selected";
@@ -75,12 +78,6 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
         {
             selectedRowNumber = -1;
             return string.Empty;
-        }else 
-        if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
-        {
-
-            selectedRowNumber = rowNumber;
-            return "selected";
         }
         else
         {
@@ -89,8 +86,7 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
     }
     public async Task RowClickEvent(TableRowClickEventArgs<Object> tableRowClickEventArgs)
     {
-        clickedElement = tableRowClickEventArgs.Row.Item;
-        ElementChanged.InvokeAsync(tableRowClickEventArgs);
+         ElementsChanged.InvokeAsync(tableRowClickEventArgs);
     }
     public bool FilterFunc(Object element) => FilterFuncWithString(element, searchString);
 
@@ -109,7 +105,17 @@ RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filte
         return false;
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
-    { if(!firstRender)
-        clickedElement = null;
+    {
+       /* if (!firstRender)
+        {
+            
+        }
+
+    else
+        {
+        SelectedItems = new List<object>();
+        }*/
     }
+
+
 }
