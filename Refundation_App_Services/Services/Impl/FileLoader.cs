@@ -2,6 +2,7 @@
 using Refundation_App_Services.Repositories;
 using Refuntations_App_Data.Data;
 using Refuntations_App_Data.Model;
+using System.Net.WebSockets;
 
 namespace Refundation_App_Services.Services.Impl
 {
@@ -12,12 +13,11 @@ namespace Refundation_App_Services.Services.Impl
         {
             this.userRepository = userRepository;
         }
-
-        public List<AAPdvSAPKeyMaterial> loadActitiviesWithPDVAndSAPKeyAndMaterialFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
+        public List<object> loadFromExcel(FileInfo fileInfo, out List<int> fails, out string error, Type type)
         {
             error = "";
             fails = new List<int>();
-            List<AAPdvSAPKeyMaterial> res = new List<AAPdvSAPKeyMaterial>();
+            List<object> res = new List<object>();
             try
             {
                 ExcelWorksheet worksheet = null;
@@ -33,7 +33,21 @@ namespace Refundation_App_Services.Services.Impl
                     {
                         int totalColumn = worksheet.Dimension.End.Column;
                         int totalRow = worksheet.Dimension.End.Row;
-                        res = extractAAPdvSADKeyMaterialAsync(worksheet, totalColumn, totalRow, out fails, out error);
+                        switch (type.FullName)
+                        {
+                            case "Refuntations_App_Data.Model.InternalSupplier":
+                                return extractInternalSuppliers(worksheet, totalColumn, totalRow, out fails, out error);
+                            case "Refuntations_App_Data.Model.ForeignSupplier":
+                                return extractForeignSuppliersAsync(worksheet, totalColumn, totalRow, out fails, out error);
+                            case "Refuntations_App_Data.Model.AAPdvSAPKeyMaterial":
+                                return extractAAPdvSADKeyMaterialAsync(worksheet, totalColumn, totalRow, out fails, out error);
+                            case "Refuntations_App_Data.Model.CategoryInternalOrderCostLocation":
+                                return extractCategoriesAsync(worksheet, totalColumn, totalRow, out fails, out error);
+                            case "Refuntations_App_Data.Model.CounterSapIdSapKeyAmount":
+                                return extractCounterSapIdAndAmountAsync(worksheet, totalColumn, totalRow, out fails, out error);
+                            case "Refuntations_App_Data.Model.EmailImport":
+                                return extractEmailsAsync(worksheet, totalColumn, totalRow, out fails, out error);
+                        }
                     }
                     return res;
                 }
@@ -43,174 +57,12 @@ namespace Refundation_App_Services.Services.Impl
                 throw;
             }
         }
-
-        public List<CategoryInternalOrderCostLocation> loadCategoryInternalOrderAndCostLocationFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
-        {
-            error = "";
-            fails = new List<int>();
-            List<CategoryInternalOrderCostLocation> res = new List<CategoryInternalOrderCostLocation>();
-            try
-            {
-                ExcelWorksheet worksheet = null;
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
-                {
-                    worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
-                    if (worksheet == null)
-                    {
-                        error = Constants.NO_WORKSHEETS;
-                    }
-                    else
-                    {
-                        int totalColumn = worksheet.Dimension.End.Column;
-                        int totalRow = worksheet.Dimension.End.Row;
-                        res = extractCategoriesAsync(worksheet, totalColumn, totalRow, out fails, out error);
-                    }
-                    return res;
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-
-        public List<EmailImport> loadEmailsFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
-        {
-            error = "";
-            fails = new List<int>();
-            List<EmailImport> res = new List<EmailImport>();
-            try
-            {
-                ExcelWorksheet worksheet = null;
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
-                {
-                    worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
-                    if (worksheet == null)
-                    {
-                        error = Constants.NO_WORKSHEETS;
-                    }
-                    else
-                    {
-                        int totalColumn = worksheet.Dimension.End.Column;
-                        int totalRow = worksheet.Dimension.End.Row;
-                        res = extractEmailsAsync(worksheet, totalColumn, totalRow, out fails, out error);
-
-                    }
-                    return res;
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-
-
-        public List<CounterSapIdSapKeyAmount> loadCounterSAPIdAndAmountFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
-        {
-            error = "";
-            fails = new List<int>();
-            List<CounterSapIdSapKeyAmount> res = new List<CounterSapIdSapKeyAmount>();
-            try
-            {
-                ExcelWorksheet worksheet = null;
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
-                {
-                    worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
-                    if (worksheet == null)
-                    {
-                        error = Constants.NO_WORKSHEETS;
-                    }
-                    else
-                    {
-
-                        int totalColumn = worksheet.Dimension.End.Column;
-                        int totalRow = worksheet.Dimension.End.Row;
-                        res = extractCounterSapIdAndAmountAsync(worksheet, totalColumn, totalRow, out fails, out error);
-                    }
-
-                    return res;
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-
-
-        public List<ForeignSupplier> loadForeignSuppliersFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
-        {
-            error = "";
-            fails = new List<int>();
-            List<ForeignSupplier> res = new List<ForeignSupplier>();
-            try
-            {
-                ExcelWorksheet worksheet = null;
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
-                {
-                    worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
-                    if (worksheet == null)
-                    {
-                        error = Constants.NO_WORKSHEETS;
-                    }
-                    else
-                    {
-                        int totalColumn = worksheet.Dimension.End.Column;
-                        int totalRow = worksheet.Dimension.End.Row;
-                        res = extractForeignSuppliersAsync(worksheet, totalColumn, totalRow, out fails, out error);
-                    }
-                    return res;
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-
-
-        public List<InternalSupplier> loadInternalSuppliersFromExcel(FileInfo fileInfo, out List<int> fails, out string error)
-        {
-            error = "";
-            fails = new List<int>();
-            List<InternalSupplier> res = new List<InternalSupplier>();
-            try
-            {
-                ExcelWorksheet worksheet = null;
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (ExcelPackage excelPackage = new ExcelPackage(fileInfo))
-                {
-                    worksheet = excelPackage.Workbook.Worksheets.FirstOrDefault();
-                    if (worksheet == null)
-                    {
-                        error = Constants.NO_WORKSHEETS;
-                    }
-                    else
-                    {
-                        int totalColumn = worksheet.Dimension.End.Column;
-                        int totalRow = worksheet.Dimension.End.Row;
-                        res = extractInternalSuppliers(worksheet, totalColumn, totalRow, out fails, out error);
-                    }
-
-                    return res;
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
-        }
-
-        private List<InternalSupplier> extractInternalSuppliers(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<object> extractInternalSuppliers(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
             List<InternalSupplier> items = new List<InternalSupplier>();
+            List<object> resp = new List<object>();
             if (totalColumn == 0 || totalRow < 2)
             {
                 error = Constants.EMPTY_DOCUMENT;
@@ -246,7 +98,8 @@ namespace Refundation_App_Services.Services.Impl
                         item.d_upd = DateTime.Now;
                         item.k_ins = user.UserName;
                         item.k_upd = user.UserName;
-                        items.Add(item);
+                       // items.Add(item);
+                        resp.Add(item);
                     }
                     catch (Exception e)
                     {
@@ -256,15 +109,15 @@ namespace Refundation_App_Services.Services.Impl
 
                 }
             }
+            return resp;
 
-
-            return items;
+           // return items;
         }
-        private List<ForeignSupplier> extractForeignSuppliersAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<object> extractForeignSuppliersAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
-            List<ForeignSupplier> items = new List<ForeignSupplier>();
+            List<object> items = new List<object>();
             if (totalColumn == 0 || totalRow < 2)
             {
                 error = Constants.EMPTY_DOCUMENT;
@@ -314,7 +167,7 @@ namespace Refundation_App_Services.Services.Impl
 
             return items;
         }
-        private List<CounterSapIdSapKeyAmount> extractCounterSapIdAndAmountAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<object> extractCounterSapIdAndAmountAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
@@ -327,7 +180,7 @@ namespace Refundation_App_Services.Services.Impl
                 error = Constants.UNAPPROPRIATE_FORMAT;
 
             }
-            List<CounterSapIdSapKeyAmount> items = new List<CounterSapIdSapKeyAmount>();
+            List<object> items = new List<object>();
             for (int row = 2; row <= totalRow; row++)
             {
                 try
@@ -377,12 +230,11 @@ namespace Refundation_App_Services.Services.Impl
             }
             return items;
         }
-
-        private List<CategoryInternalOrderCostLocation> extractCategoriesAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<object> extractCategoriesAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
-            List<CategoryInternalOrderCostLocation> items = new List<CategoryInternalOrderCostLocation>();
+            List<object> items = new List<object>();
             if (totalColumn == 0 || totalRow == 0)
             {
                 error = Constants.EMPTY_DOCUMENT;
@@ -437,11 +289,11 @@ namespace Refundation_App_Services.Services.Impl
 
             return items;
         }
-        private List<AAPdvSAPKeyMaterial> extractAAPdvSADKeyMaterialAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<object> extractAAPdvSADKeyMaterialAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
-            List<AAPdvSAPKeyMaterial> items = new List<AAPdvSAPKeyMaterial>();
+            List<object> items = new List<object>();
             if (totalColumn == 0 || totalRow == 0)
             {
                 error = Constants.EMPTY_DOCUMENT;
@@ -499,11 +351,11 @@ namespace Refundation_App_Services.Services.Impl
 
             return items;
         }
-        private List<EmailImport> extractEmailsAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
+        private List<object> extractEmailsAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
             fails = new List<int>();
             error = "";
-            List<EmailImport> items = new List<EmailImport>();
+            List<object> items = new List<object>();
             if (totalColumn == 0 || totalRow < 2)
             {
                 error = Constants.EMPTY_DOCUMENT;
@@ -547,8 +399,5 @@ namespace Refundation_App_Services.Services.Impl
 
             return items;
         }
-
-
-
     }
 }
