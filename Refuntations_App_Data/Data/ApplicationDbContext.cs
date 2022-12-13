@@ -5,13 +5,16 @@ using Refuntations_App_Data.Model;
 
 namespace Refuntations_App.Data
 {
+   
     public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            this.Database.SetCommandTimeout(9000);
         }
         public DbSet<OnlineUser> users => Set<OnlineUser>();
+        public DbSet<FinalSettlementHeader> finalSettlementHeader => Set<FinalSettlementHeader>();
         public DbSet<FinalSettlements> finalSettlement => Set<FinalSettlements>();
         public DbSet<Email> emails => Set<Email>();
         public DbSet<EmailImport> emailsImport => Set<EmailImport>();
@@ -21,7 +24,6 @@ namespace Refuntations_App.Data
         public DbSet<CategoryInternalOrderCostLocation> categoryInternalOrderCostLocations => Set<CategoryInternalOrderCostLocation>();
         public DbSet<CounterSapIdSapKeyAmount> counterSapIdSadKeyAmounts => Set<CounterSapIdSapKeyAmount>();
 
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -30,4 +32,5 @@ namespace Refuntations_App.Data
             builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
         }
     }
+   
 }
