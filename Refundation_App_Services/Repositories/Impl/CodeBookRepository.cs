@@ -1,6 +1,8 @@
 ﻿using Refundation_App_Services.Services;
+using Refundation_App_Services.Services.Impl;
 using Refuntations_App.Data;
 using Refuntations_App_Data.Model;
+using System.IO;
 
 
 namespace Refundation_App_Services.Repositories.Impl
@@ -16,66 +18,93 @@ namespace Refundation_App_Services.Repositories.Impl
             _context = context;
             this.userRepository = userRepository;
             loggedUser = userRepository.GetLoggedUser().Result;
-            this.procedureExeturor= procedureExecutor;
+            this.procedureExeturor = procedureExecutor;
         }
-
-        public Task AddAAPdvSAPKeyMaterials(List<AAPdvSAPKeyMaterial> entities)
+        public async Task<IEnumerable<object>> Get(string type)
         {
-            _context.aaPdvSapKeyMaterijals.AddRange(entities);
+            switch (type)
+            {
+                case "Interni dobavljači":
+                    return _context.internalSuppliers.Where(e => e.active == true)
+                   .ToList();
+                case "Inostrani dobavljači":
+                    return _context.foreingSuppliers.Where(e => e.active == true)
+                .ToList();
+                case "Kategorija - Interni nalog - mesto troška":
+                    return _context.categoryInternalOrderCostLocations.Where(e => e.active == true)
+                .ToList();
+                case "Akcijska aktivnost - PDV - SAP ključ - Materijal":
+                    return _context.aaPdvSapKeyMaterijals.Where(e => e.active == true)
+               .ToList();
+                case "Brojač - SAP šifra - Broj knjižnog zaduženja - SAP ključ - Iznos":
+                    return _context.counterSapIdSadKeyAmounts.Where(e => e.active == true)
+               .ToList();
+                case "Dobavljači - Email adrese":
+                    return _context.emails.Where(e => e.active == true)
+                .ToList();
+            }
+            return new List<Object> ();
+
+        }
+        public Task Add(List<object> entities, string type)
+        {
+            _context.AddRange(entities);
+            if (type.Equals("Dobavljači - Email adrese"))
+            {
+                procedureExeturor.HandleNewEmailsAdded();
+                _context.RemoveRange(entities);
+            }
             _context.SaveChanges();
             return Task.CompletedTask;
         }
-
-        public Task AddCategoryInternalOrderCostLocation(List<CategoryInternalOrderCostLocation> entities)
+        public async Task<object> Delete(InternalSupplier entity)
         {
-            _context.categoryInternalOrderCostLocations.AddRange(entities);
-            _context.SaveChanges();
-            return Task.CompletedTask;
-        }
-
-        public Task AddCounterSAPIdAmount(List<CounterSapIdSapKeyAmount> entities)
-        {
-            _context.counterSapIdSadKeyAmounts.AddRange(entities);
-            _context.SaveChanges();
-            return Task.CompletedTask;
-        }
-
-        public Task AddEmails(List<EmailImport> mails)
-        {
-            _context.emailsImport.AddRange(mails);
-            procedureExeturor.HandleNewEmailsAdded();
-            _context.emailsImport.RemoveRange(mails);
-            _context.SaveChanges();
-            return Task.CompletedTask;
-        }
-
-        public Task AddForeignSuppliers(List<ForeignSupplier> suppliersList)
-        {
-            _context.foreingSuppliers.AddRange(suppliersList);
-            _context.SaveChanges();
-            return Task.CompletedTask;
-        }
-
-        public Task AddInternalSuppliers(List<InternalSupplier> suppliersList)
-        {
-            _context.internalSuppliers.AddRange(suppliersList);
-            _context.SaveChanges();
-            return Task.CompletedTask;
-        }
-
-        public async Task<AAPdvSAPKeyMaterial> DeleteAAPdvSAPKeyMaterial(int id)
-        {
-            AAPdvSAPKeyMaterial dbEntity = _context.aaPdvSapKeyMaterijals.Find(id);
+            InternalSupplier dbEntity = (InternalSupplier) _context.Find(typeof(InternalSupplier),entity.id);
             dbEntity.active = false;
-            dbEntity.d_upd= DateTime.Now;
+            dbEntity.d_upd = DateTime.Now;
             dbEntity.k_upd = loggedUser.UserName;
             _context.SaveChanges();
             return dbEntity;
         }
-
-        public async Task<CategoryInternalOrderCostLocation> DeleteCategoryInternalOrderCostLocation(int id)
+        public async Task<object> Delete(ForeignSupplier entity)
         {
-            CategoryInternalOrderCostLocation dbEntity = _context.categoryInternalOrderCostLocations.Find(id);
+            ForeignSupplier dbEntity = (ForeignSupplier)_context.Find(typeof(ForeignSupplier), entity.id);
+            dbEntity.active = false;
+            dbEntity.d_upd = DateTime.Now;
+            dbEntity.k_upd = loggedUser.UserName;
+            _context.SaveChanges();
+            return dbEntity;
+        }
+        public async Task<object> Delete(AAPdvSAPKeyMaterial entity)
+        {
+            AAPdvSAPKeyMaterial dbEntity = (AAPdvSAPKeyMaterial)_context.Find(typeof(AAPdvSAPKeyMaterial), entity.id);
+            dbEntity.active = false;
+            dbEntity.d_upd = DateTime.Now;
+            dbEntity.k_upd = loggedUser.UserName;
+            _context.SaveChanges();
+            return dbEntity;
+        }
+        public async Task<object> Delete(CounterSapIdSapKeyAmount entity)
+        {
+            CounterSapIdSapKeyAmount dbEntity = (CounterSapIdSapKeyAmount)_context.Find(typeof(CounterSapIdSapKeyAmount), entity.id);
+            dbEntity.active = false;
+            dbEntity.d_upd = DateTime.Now;
+            dbEntity.k_upd = loggedUser.UserName;
+            _context.SaveChanges();
+            return dbEntity;
+        }
+        public async Task<object> Delete(CategoryInternalOrderCostLocation entity)
+        {
+            CategoryInternalOrderCostLocation dbEntity = (CategoryInternalOrderCostLocation)_context.Find(typeof(CategoryInternalOrderCostLocation), entity.id);
+            dbEntity.active = false;
+            dbEntity.d_upd = DateTime.Now;
+            dbEntity.k_upd = loggedUser.UserName;
+            _context.SaveChanges();
+            return dbEntity;
+        }
+        public async Task<object> Delete(Email entity)
+        {
+            Email dbEntity = _context.emails.Find(entity.id);
             dbEntity.active = false;
             dbEntity.d_upd = DateTime.Now;
             dbEntity.k_upd = loggedUser.UserName;
@@ -83,81 +112,95 @@ namespace Refundation_App_Services.Repositories.Impl
             return dbEntity;
         }
 
-        public async Task<CounterSapIdSapKeyAmount> DeleteCounterSAPIdAmount(int id)
+        public async Task<List<object>> DeleteRange(List<InternalSupplier> entities, string targetGroup)
         {
-            CounterSapIdSapKeyAmount dbEntity= _context.counterSapIdSadKeyAmounts.Find(id);
-            dbEntity.active = false;
-            dbEntity.d_upd = DateTime.Now;
-            dbEntity.k_upd = loggedUser.UserName;
+            List<object> dbEntities = new List<object>();
+           foreach(InternalSupplier entity in entities)
+            {
+                InternalSupplier dbEntity = (InternalSupplier)_context.Find(typeof(InternalSupplier), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);            
+            }
             _context.SaveChanges();
-            return dbEntity;
-
+            return dbEntities;
         }
 
-        public async Task<ForeignSupplier> DeleteForeignSupplier(int id)
+        public async Task<List<object>> DeleteRange(List<ForeignSupplier> entities, string targetGroup)
         {
-            ForeignSupplier dbentity = _context.foreingSuppliers.Find(id);
-            dbentity.active = false;
-            dbentity.d_upd = DateTime.Now;
-            dbentity.k_upd = loggedUser.UserName;
+            List<object> dbEntities = new List<object>();
+            foreach (ForeignSupplier entity in entities)
+            {
+                ForeignSupplier dbEntity = (ForeignSupplier)_context.Find(typeof(ForeignSupplier), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
             _context.SaveChanges();
-            return dbentity;
+            return dbEntities;
         }
 
-        public async Task<InternalSupplier> DeleteInternalSupplier(int id)
+        public async Task<List<object>> DeleteRange(List<AAPdvSAPKeyMaterial> entities, string targetGroup)
         {
-            InternalSupplier dbentity= _context.internalSuppliers.Find(id);
-            dbentity.active = false;
-            dbentity.d_upd = DateTime.Now;
-            dbentity.k_upd = loggedUser.UserName;
+            List<object> dbEntities = new List<object>();
+            foreach (AAPdvSAPKeyMaterial entity in entities)
+            {
+                AAPdvSAPKeyMaterial dbEntity = (AAPdvSAPKeyMaterial)_context.Find(typeof(AAPdvSAPKeyMaterial), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
             _context.SaveChanges();
-            return dbentity;
+            return dbEntities;
         }
 
-        public async Task<Email> DeleteSuppliersEmail(int id)
+        public async Task<List<object>> DeleteRange(List<CounterSapIdSapKeyAmount> entities, string targetGroup)
         {
-            Email dbentity = _context.emails.Find(id);
-            dbentity.active = false;
-            dbentity.d_upd = DateTime.Now;
-            dbentity.k_upd = loggedUser.UserName;
+            List<object> dbEntities = new List<object>();
+            foreach (CounterSapIdSapKeyAmount entity in entities)
+            {
+                CounterSapIdSapKeyAmount dbEntity = (CounterSapIdSapKeyAmount)_context.Find(typeof(CounterSapIdSapKeyAmount), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
             _context.SaveChanges();
-            return dbentity;
+            return dbEntities;
         }
 
-        public async Task<IEnumerable<AAPdvSAPKeyMaterial>> GetActivitiesWithSAPKeyAndMaterial()
+        public async Task<List<object>> DeleteRange(List<CategoryInternalOrderCostLocation> entities, string targetGroup)
         {
-            return _context.aaPdvSapKeyMaterijals.Where(e => e.active == true)
-                .ToList();
+            List<object> dbEntities = new List<object>();
+            foreach (CategoryInternalOrderCostLocation entity in entities)
+            {
+                CategoryInternalOrderCostLocation dbEntity = (CategoryInternalOrderCostLocation)_context.Find(typeof(CategoryInternalOrderCostLocation), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
+            _context.SaveChanges();
+            return dbEntities;
         }
 
-        public async Task<IEnumerable<CategoryInternalOrderCostLocation>> GetCategoriesWithInternalOrderAndCostLocation()
+        public async Task<List<object>> DeleteRange(List<Email> entities, string targetGroup)
         {
-            return _context.categoryInternalOrderCostLocations.Where(e => e.active == true)
-                .ToList();
-        }
-
-        public async Task<IEnumerable<CounterSapIdSapKeyAmount>> GetCountersWithSAPIdAndAmount()
-        {
-            return _context.counterSapIdSadKeyAmounts.Where(e => e.active == true)
-                .ToList();
-        }
-
-        public async Task<IEnumerable<Email>> GetEmails()
-        {
-            return _context.emails.Where(e => e.active == true)
-                .ToList();
-        }
-
-        public async Task<IEnumerable<ForeignSupplier>> GetForeignSuppliers()
-        {
-            return _context.foreingSuppliers.Where(e => e.active == true)
-                .ToList();
-        }
-
-        public async Task<IEnumerable<InternalSupplier>> GetInternalSuppliers()
-        {
-            return  _context.internalSuppliers.Where(e => e.active == true)
-                .ToList();
+            List<object> dbEntities = new List<object>();
+            foreach (Email entity in entities)
+            {
+                Email dbEntity = (Email)_context.Find(typeof(Email), entity.id);
+                dbEntity.active = false;
+                dbEntity.d_upd = DateTime.Now;
+                dbEntity.k_upd = loggedUser.UserName;
+                dbEntities.Add(dbEntity);
+            }
+            _context.SaveChanges();
+            return dbEntities;
         }
     }
+
 }
