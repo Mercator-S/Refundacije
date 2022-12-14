@@ -1,4 +1,4 @@
-
+using AutoMapper;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +9,7 @@ using Refundation_App_Services.Services;
 using Refundation_App_Services.Services.Impl;
 using Refuntations_App.Areas.Identity;
 using Refuntations_App.Data;
+using Refuntations_App_Data.AutoMapperProfile;
 using Refuntations_App_Data.Model;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,6 +50,17 @@ builder.Services.AddScoped<ICodeBookRepository, CodeBookRepository>();
 builder.Services.AddScoped<IProcedureExecutor, ProcedureExecutor>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+var mapperConfiguration = new MapperConfiguration(configuration =>
+{
+    configuration.AddProfile(new FinalSettlementsProfile());
+});
+
+var mapper = mapperConfiguration.CreateMapper();
+
+builder.Services.AddSingleton(mapper);
+
+builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineUser>>();
+builder.Services.AddTransient<IProcedureExecutor, ProcedureExecutor>();
 
 
 var app = builder.Build();

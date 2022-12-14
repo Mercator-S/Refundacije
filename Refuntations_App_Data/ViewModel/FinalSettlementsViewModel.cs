@@ -1,9 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Refuntations_App_Data.Model
+namespace Refuntations_App_Data.ViewModel
 {
-    [Keyless]
-    public class FinalSettlements
+    public class FinalSettlementsViewModel
     {
         public int fk_obracun { get; set; }
         public int? id_iznos_stopa_1 { get; set; }
@@ -26,6 +30,7 @@ namespace Refuntations_App_Data.Model
         public DateTime? datum_od_aa { get; set; }
         public DateTime? datum_do_aa { get; set; }
         public string? obrada { get; set; }
+        public bool Checked { get; set; }
         public bool ir_stopa_1 { get; set; }
         public bool ir_stopa_2 { get; set; }
     }

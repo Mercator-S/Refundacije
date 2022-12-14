@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Mail;
 
 namespace Refundation_App_Services.Services.Impl
 {
     public class EmailSender : IEmailSender
     {
-        public void sendMail(string sendFrom, string sendTo, string subject, string body, bool isBodyHtml=true)
+        public void sendMail(string sendFrom, string sendTo, string subject, string body, bool isBodyHtml = true)
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.agrokor.hr", 25);

@@ -5,6 +5,11 @@
         <MudContainer>
             <MudGrid Class="d-flex justify-center">
                 <MudItem>
+                    <MudText Typo="Typo.caption">Izaberite mesec i godinu konačnog obračuna</MudText>
+                </MudItem>
+            </MudGrid>
+            <MudGrid Class="d-flex justify-center">
+                <MudItem>
                     <MudSelect @bind-Value="Year" T="int" Label="Godina" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
                         @for (int i = 2020; i <= 2023; i++)
                         {
@@ -27,7 +32,7 @@
     </DialogContent>
     <DialogActions>
         <MudButton Variant="Variant.Filled" Size="Size.Small" OnClick="Cancel" Color="Color.Error">Zatvori</MudButton>
-        <MudButton Variant="Variant.Filled" Size="Size.Small" OnClick="@(async () => await Submit(Year,Month))" Color="Color.Success">Kreiraj obracun</MudButton>
+        <MudButton Variant="Variant.Filled" Size="Size.Small" OnClick="@(async () => await Submit(Year,Month))" Color="Color.Success">Konačni obračun</MudButton>
     </DialogActions>
 </MudDialog>
 

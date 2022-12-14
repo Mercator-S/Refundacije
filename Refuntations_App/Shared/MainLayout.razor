@@ -5,7 +5,7 @@
 <MudSnackbarProvider />
 
 <AuthorizeView>
-     <Authorized>
+    <Authorized>
         <MudLayout>
             <MudAppBar Elevation="4" Style="@($"color:{Colors.Grey.Lighten5}; background:#df144b;")">
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Style="@($"color:{Colors.Grey.Lighten5};")" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
@@ -24,34 +24,32 @@
             <MudMainContent>
                 <ErrorBoundary @ref="errorBoundary">
                     <ChildContent>
-                        @Body
+                        <CascadingValue Value="closeNavMenu">
+                            @Body
+                        </CascadingValue>
                     </ChildContent>
                     <ErrorContent Context="Exeption">
-                        <ErrorPage />
+                        <NotFound />
                     </ErrorContent>
                 </ErrorBoundary>
             </MudMainContent>
         </MudLayout>
     </Authorized>
-
-   <NotAuthorized>
-       <Refuntations_App.Pages.LoginRedirect></Refuntations_App.Pages.LoginRedirect>
+    <NotAuthorized>
+        <Refuntations_App.Pages.LoginRedirect />
     </NotAuthorized>
 </AuthorizeView>
-   
 
-
-
-@code{
+@code {
     private MudTheme _theme = new();
     private bool _isDarkMode;
     bool _drawerOpen = true;
     EventCallback closeNavMenu => EventCallback.Factory.Create(this, DrawerToggle);
-    ErrorBoundary errorBoundary;
- protected override void OnInitialized()
+    ErrorBoundary? errorBoundary;
+    protected override void OnInitialized()
     {
-          _theme.Palette.Primary = new MudBlazor.Utilities.MudColor("#d90142");
-          _theme.Palette.Secondary = new MudBlazor.Utilities.MudColor("#4a4a4a");
+        _theme.Palette.Primary = new MudBlazor.Utilities.MudColor("#d90142");
+        _theme.Palette.Secondary = new MudBlazor.Utilities.MudColor("#4a4a4a");
     }
 
     protected override void OnParametersSet()
@@ -63,5 +61,4 @@
     {
         _drawerOpen = !_drawerOpen;
     }
-
 }

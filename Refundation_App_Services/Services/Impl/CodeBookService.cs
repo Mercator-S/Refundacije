@@ -1,11 +1,5 @@
 ﻿using Refundation_App_Services.Repositories;
 using Refuntations_App_Data.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace Refundation_App_Services.Services.Impl
 {
@@ -19,6 +13,7 @@ namespace Refundation_App_Services.Services.Impl
 
         public async Task<List<object>> DeleteEntities(List<object> entities, string targetGroup)
         {
+
             List<object> result = new List<object>();
             switch (targetGroup)
             {
@@ -59,7 +54,6 @@ namespace Refundation_App_Services.Services.Impl
                         forDelete.Add((Email)entity);
                     result = _codeBookRepository.DeleteRange(forDelete, targetGroup).Result;
                     break;
-
             }
             return result;
           
@@ -73,6 +67,7 @@ namespace Refundation_App_Services.Services.Impl
                 case "Interni dobavljači":
                     //  result=_codeBookRepository.DeleteInternalSupplier(((InternalSupplier)entity).id);
                     result = _codeBookRepository.Delete((InternalSupplier)entity);
+
                     break;
                 case "Inostrani dobavljači":
                     result = _codeBookRepository.Delete((ForeignSupplier)entity);

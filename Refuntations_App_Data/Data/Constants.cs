@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Refuntations_App_Data.Data
+﻿namespace Refuntations_App_Data.Data
 {
     public static class Constants
     {

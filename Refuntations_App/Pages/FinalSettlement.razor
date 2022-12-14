@@ -40,10 +40,10 @@
                     <MudTh Style="color:white;background-color:#dc3545">Sifra AA</MudTh>
                     <MudTh Style="color:white;background-color:#dc3545">Vrsta AA</MudTh>
                     <MudTh Style="color:white;background-color:#dc3545">Period</MudTh>
-                    <MudTh Style="color:white;background-color:#dc3545">Iznos refundacije PDV 10</MudTh>
-                    <MudTh Style="color:white;background-color:#dc3545">Iznos refundacije PDV 20</MudTh>
-                    <MudTh Style="color:white;background-color:#dc3545">Iznos realizovano PDV 10</MudTh>
-                    <MudTh Style="color:white;background-color:#dc3545">Iznos realizovano PDV 20</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Refundacije 10</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Refundacije 20</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Realizovano 10</MudTh>
+                    <MudTh Style="color:white;background-color:#dc3545">Realizovano 20</MudTh>
                     <MudTh Style="color:white;background-color:#dc3545">Datum realizovano</MudTh>
                     <MudTh Style="color:white;background-color:#dc3545">Status</MudTh>
                     <MudTh Style="color:white;background-color:#dc3545">Tip obrade</MudTh>
@@ -95,7 +95,7 @@
                         <MudIcon Icon="@(context.NP==true?@Icons.Filled.CheckCircleOutline:@Icons.Filled.Block)" Size="Size.Small" Color="@(context.NP==true?Color.Success:Color.Error)"></MudIcon>
                     </MudTd>
                     <MudTd Style="text-align:center" hidden="@(managementSettlements)" DataLabel="">
-                        <MudCheckBox @bind-Checked="context.NP"></MudCheckBox>
+                        <MudCheckBox @bind-Checked="context.Checked"  @oninput="(async ()=>await CheckedCheckBox(context))" Color="Color.Success" UnCheckedColor="Color.Default"></MudCheckBox>
                     </MudTd>
                 </RowTemplate>
                 <PagerContent>
