@@ -45,7 +45,7 @@ namespace Refuntations_App.Pages
                     ExcelTemplateLocation = "./IMPORT - INTERNI DOBAVLJACI.xlsx";
                     break;
                 case "Inostrani dobavljači":
-                    Columns = new List<string>( new string[] { "Šifra inostranog dobavljača", "Naziv inostranog dobavljača" });
+                    Columns = new List<string>(new string[] { "Šifra inostranog dobavljača", "Naziv inostranog dobavljača" });
                     ColumnsToShow = new List<string>(new string[] { "sifra_ino_dobavljac", "naziv_ino_dobavljac" });
                     ExcelTemplateLocation = "./IMPORT - INOSTRANI DOBAVLJACI.xlsx";
                     break;
@@ -77,7 +77,6 @@ namespace Refuntations_App.Pages
                          new string[] { "sifra", "sap_sifra", "naziv", "mail" });
                     ExcelTemplateLocation = "./IMPORT - INTERNI DOBAVLJACI - EMAIL ADRESE.xlsx";
                     break;
-
             }
             selectedElements = new List<object>();
             StateHasChanged();
@@ -103,10 +102,7 @@ namespace Refuntations_App.Pages
             else
             {
                 selectedElements.Add(e.Row.Item);
-
             }
-            //TargetedElement = e.Row.Item;
-
             StateHasChanged();
         }
         public async void OpenDialog()
@@ -116,7 +112,6 @@ namespace Refuntations_App.Pages
             parameters.Add("TargetEntities", selectedElements);
             parameters.Add("SelectedValue", mudSelect.SelectedValues.First());
             var result = await DialogService.Show<DeleteCodeBookEntityDialog>("Da li ste sigurni?", parameters, options).Result;
-
             if (result.Data != null)
             {
                 Elements = codeBookService.GetEntitiesAsync(SelectedValue).Result;
@@ -133,20 +128,18 @@ namespace Refuntations_App.Pages
                 filePath = file.Name;
                 await using FileStream fs = new FileStream(filePath, FileMode.Create);
                 await file.OpenReadStream().CopyToAsync(fs);
-
                 FileInfo = new FileInfo(filePath);
                 LoadAndSaveItems(FileInfo);
             }
             catch (Exception)
             {
+                throw;
             }
             finally
             {
                 if (FileInfo != null)
                     File.Delete(FileInfo.FullName);
             }
-
-
         }
 
         private async void LoadAndSaveItems(FileInfo fileInfo)
