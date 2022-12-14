@@ -1,7 +1,7 @@
 ﻿@using Refundation_App_Services.Services;
 <MudDialog>
     <DialogContent>
-       Klikom na Potvrdi, selektovani entitet će biti obrisan.
+       Klikom na Potvrdi, selektovani entiteti će biti obrisani.
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Cancel">Otkaži</MudButton>
@@ -10,7 +10,7 @@
 </MudDialog>
 @code {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-    [Parameter] public Object TargetEntity { get; set; }
+    [Parameter] public List<object> TargetEntities { get; set; }
     [Parameter] public string SelectedValue { get; set; }
 
     [Inject]
@@ -23,7 +23,7 @@
     {
         try
         {
-            var entity= _codeBookService.DeleteEntity(TargetEntity, SelectedValue);
+            var entity= _codeBookService.DeleteEntities(TargetEntities, SelectedValue);
              MudDialog.Close(DialogResult.Ok(entity));
         }
         catch(Exception e)

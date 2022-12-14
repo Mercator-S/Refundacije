@@ -8,25 +8,21 @@ namespace Refundation_App_Services.Services.Impl
         {
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.agrokor.hr", 25);
-
-            mail.From = new MailAddress(sendFrom);
-            mail.To.Add(sendTo);
-            mail.Subject = subject;
-            mail.IsBodyHtml = isBodyHtml;
-            mail.Body = body;
-
             try
-            {
+                {
+                mail.From = new MailAddress(sendFrom);
+                mail.To.Add(sendTo);
+                mail.Subject = subject;
+                mail.IsBodyHtml = isBodyHtml;
+                mail.Body = body;
                 SmtpServer.Send(mail);
-            }
+                }
             catch (SmtpFailedRecipientException exp)
-            {
-                MailMessage mailGreska = new MailMessage();
-                SmtpClient SmtpServerGreska = new SmtpClient("smtp.agrokor.hr", 25);
-                mailGreska.From = new MailAddress(sendFrom);
-                mailGreska.Subject = "Greska";
-                mailGreska.Body = "Neuspesno slanje na adresu: " + exp.FailedRecipient;
-                SmtpServerGreska.Send(mailGreska);
+                {
+                mail.From = new MailAddress(sendFrom);
+                mail.Subject = "Greska";
+                mail.Body = "Neuspesno slanje na adresu: " + exp.FailedRecipient;
+                SmtpServer.Send(mail);
             }
         }
     }

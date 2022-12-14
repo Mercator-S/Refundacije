@@ -1,8 +1,8 @@
-﻿@using System.Reflection;
+@using System.Reflection;
 
 
-<MudTable HorizontalScrollbar="true" Class="m-5" @ref="mudTable" Items="@Elements" Hover="true" Breakpoint="Breakpoint.Sm" Loading="false" LoadingProgressColor="Color.Info"
-          RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filter="new Func<Object,bool>(FilterFunc)">
+<MudTable  HorizontalScrollbar="true" Class="m-5" @ref="mudTable" Items="@Elements" Hover="true" Breakpoint="Breakpoint.Sm" Loading="false" LoadingProgressColor="Color.Info"
+RowClassFunc="@SelectedRowClassFunc" OnRowClick="RowClickEvent" T="Object" Filter="new Func<Object,bool>(FilterFunc)">
     <ToolBarContent>
         <MudText Typo="Typo.h6">Rezultat</MudText>
         <MudSpacer />
@@ -11,6 +11,7 @@
     <HeaderContent>
         @foreach (string column in Columns)
         {
+           
             <MudTh>@column</MudTh>
         }
     </HeaderContent>
@@ -25,8 +26,9 @@
             {
                 <MudTd Class="" DataLabel="@property.Name">@property.GetValue(context, null)</MudTd>
             }
-
+            
         }
+
     </RowTemplate>
     <PagerContent>
         <MudTablePager />
@@ -50,21 +52,24 @@
 
     [Parameter]
     public IEnumerable<Object> Elements { get; set; }
-    public Object clickedElement { get; set; } = null;
+    [Parameter]
+    public List<object> SelectedItems { get; set; }
     [Parameter]
     public List<string> Columns { get; set; }
     [Parameter]
     public List<string> ColumnsToShow { get; set; }
-    public string searchString { get; set; }
+    public string searchString{ get; set; }
     public int selectedRowNumber { get; set; } = -1;
 
     /*Delegate for passing element to parent component for further manipulation*/
     [Parameter]
-    public EventCallback<TableRowClickEventArgs<Object>> ElementChanged { get; set; }
+    public EventCallback<TableRowClickEventArgs<Object>> ElementsChanged { get; set; }
+    [Parameter]
+    public EventCallback<HashSet<object>> SelectionChange { get; set; }
 
     public string SelectedRowClassFunc(Object element, int rowNumber)
     {
-        if (clickedElement != null && clickedElement.Equals(element))
+        if(SelectedItems.Contains(element))
         {
             selectedRowNumber = rowNumber;
             return "selected";
@@ -75,21 +80,13 @@
             return string.Empty;
         }
         else
-        if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
-        {
-
-            selectedRowNumber = rowNumber;
-            return "selected";
-        }
-        else
         {
             return string.Empty;
         }
     }
     public async Task RowClickEvent(TableRowClickEventArgs<Object> tableRowClickEventArgs)
     {
-        clickedElement = tableRowClickEventArgs.Row.Item;
-        ElementChanged.InvokeAsync(tableRowClickEventArgs);
+         ElementsChanged.InvokeAsync(tableRowClickEventArgs);
     }
     public bool FilterFunc(Object element) => FilterFuncWithString(element, searchString);
 
@@ -109,7 +106,16 @@
     }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender)
-            clickedElement = null;
+       /* if (!firstRender)
+        {
+            
+        }
+
+    else
+        {
+        SelectedItems = new List<object>();
+        }*/
     }
+
+
 }
