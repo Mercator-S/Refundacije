@@ -14,12 +14,11 @@ namespace Refuntations_App.Dialog
         private IProcedureExecutor? procedureExecutor { get; set; }
         [Parameter]
         public EventCallback<List<FinalSettlementsViewModel>> finalSettlementsChanged { get; set; }
+        [Parameter]
+        public List<FinalSettlementsViewModel> finalSettlements { get; set; }
         public int Year { get; set; } = DateTime.Now.Year;
         public int Month { get; set; } = DateTime.Now.Month - 1;
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.TopCenter, DisableBackdropClick = true };
-        public List<FinalSettlementsViewModel> finalSettlements { get; set; }
-
-
         private async Task Submit(int Year, int Month)
         {
             DialogParameters parameteres = new DialogParameters();
@@ -36,7 +35,6 @@ namespace Refuntations_App.Dialog
                 MudDialog.Close(DialogResult.Ok(parameteres));
             }
         }
-
         void Cancel()
         {
             MudDialog.Close();
@@ -46,7 +44,8 @@ namespace Refuntations_App.Dialog
             DialogParameters parameteres = new DialogParameters
             {
                 { "Year", Year },
-                { "Month", Month }
+                { "Month", Month },
+                { "finalSettlements",finalSettlements}
             };
             DialogResult result = await DialogService.Show<QuestionForCreatingFs>("Kreiraj konačni obračun", parameteres, dialogOptions).Result;
             DialogParameters ReturnParameteres = (DialogParameters)result.Data;
