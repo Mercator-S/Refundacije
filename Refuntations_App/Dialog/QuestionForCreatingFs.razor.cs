@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Refundation_App_Services.Services;
+using Refuntations_App_Data.ViewModel;
+using System.Reflection.Metadata;
 
 namespace Refuntations_App.Dialog
 {
@@ -14,16 +16,25 @@ namespace Refuntations_App.Dialog
         public int Year { get; set; } = DateTime.Now.Year;
         [Parameter]
         public int Month { get; set; } = DateTime.Now.Month - 1;
+        [Parameter]
+        public List<FinalSettlementsViewModel> finalSettlements { get; set; }
+
         private async Task Submit()
         {
-            DialogParameters parameteres = new DialogParameters();
             var finalSettlements = await Task.Run(() => procedureExecutor.CreateFinalSettlement(Year, Month));
-            parameteres.Add("finalSettlements", finalSettlements);
+            DialogParameters parameteres = new DialogParameters
+            {
+                {"finalSettlements", finalSettlements }
+            };
             MudDialog.Close(DialogResult.Ok(parameteres));
         }
         void Cancel()
         {
-            MudDialog.Close();
+            DialogParameters parameteres = new DialogParameters
+            {
+                { "finalSettlements", finalSettlements }
+            };
+            MudDialog.Close(DialogResult.Ok(parameteres));
         }
     }
 }

@@ -16,7 +16,11 @@ namespace Refuntations_App.Pages
 
         public async Task ShowDialog()
         {
-            DialogResult result = await DialogService.Show<FinalSettlementDialog>("Konačni obračun", dialogOptions).Result;
+            DialogParameters parameteres = new DialogParameters
+            {
+                { "finalSettlements", finalSettlements }
+            };
+            DialogResult result = await DialogService.Show<FinalSettlementDialog>("Konačni obračun", parameteres, dialogOptions).Result;
             DialogParameters ReturnParameteres = (DialogParameters)result.Data;
             if (ReturnParameteres != null)
             {
