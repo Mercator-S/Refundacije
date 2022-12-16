@@ -1,0 +1,23 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudItem Class="d-flex justify-content-center">
+            <MudText Typo="Typo.h6" Style="font-weight:normal">
+                Menjate dobavljača pod imenom:
+            </MudText>
+        </MudItem>
+        <MudItem Class="d-flex justify-content-center">
+            <MudText>
+                <b>@partner</b>
+            </MudText>
+        </MudItem>
+        <MudSpacer />
+        <MudItem>
+            <MudAutocomplete T="string" Label="Izaberite dobavljaca" @bind-Value="searchString" MaxItems="partnerList.Count()" SearchFunc="@Search" />
+        </MudItem>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Error" OnClick="Cancel">Ne</MudButton>
+        <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Success" OnClick="Submit">Da</MudButton>
+    </DialogActions>
+</MudDialog>
+
