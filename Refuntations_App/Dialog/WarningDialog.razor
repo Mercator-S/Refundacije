@@ -1,0 +1,27 @@
+﻿<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icon" Color="@Color" Size="Size.Large"></MudIcon>&nbsp;&nbsp;
+            @Title
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        @WarningText<MudText Class="d-inline" Color="Color.Error">@StatusPart()</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton  Class="mr-2" Color="@Color" OnClick="Cancel">Razumem</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string WarningText { get; set; }
+    [Parameter] public string Status { get; set; }
+    [Parameter] public string Icon { get; set; }
+    [Parameter] public MudBlazor.Color Color { get; set; }
+    void Cancel() => MudDialog.Cancel();
+    private string StatusPart()
+    {
+        return Status == null ? "." : Status;
+    }
+}

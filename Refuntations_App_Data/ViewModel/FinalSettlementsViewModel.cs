@@ -33,5 +33,7 @@ namespace Refuntations_App_Data.ViewModel
         public bool Checked { get; set; }
         public bool ir_stopa_1 { get; set; }
         public bool ir_stopa_2 { get; set; }
+        public int Year { get; set; } = DateTime.Now.Year;
+        public int Month { get; set; } = DateTime.Now.Month - 1;
     }
 }

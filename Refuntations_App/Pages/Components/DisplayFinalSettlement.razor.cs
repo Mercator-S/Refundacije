@@ -40,6 +40,11 @@ namespace Refuntations_App.Pages.Components
             {
                 var dialogResult = ReturnParameteres.Select(ListOfNarudzbineReturn => ListOfNarudzbineReturn.Value).ToList();
                 finalSettlements = (List<FinalSettlementsViewModel>)dialogResult[0];
+                foreach(FinalSettlementsViewModel fs in finalSettlements)
+                {
+                    fs.Year= Year;
+                    fs.Month= Month;
+                }
             }
             return finalSettlements;
         }
