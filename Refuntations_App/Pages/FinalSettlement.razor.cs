@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using Microsoft.VisualBasic;
 using MudBlazor;
 using OfficeOpenXml.ConditionalFormatting;
@@ -12,6 +13,8 @@ namespace Refuntations_App.Pages
 {
     partial class FinalSettlement
     {
+        [Inject]
+        ISnackbar Snackbar { get; set; } = default!;
         public List<FinalSettlementsViewModel> finalSettlements { get; set; }
         private FilterFinalSettlement? filter;
         public List<FinalSettlementsViewModel> finalSettlementsList = new List<FinalSettlementsViewModel>();
@@ -34,7 +37,7 @@ namespace Refuntations_App.Pages
             DialogParameters ReturnParameteres = (DialogParameters)result.Data;
             if (ReturnParameteres != null)
             {
-                var dialogResult = ReturnParameteres.Select(ListOfNarudzbineReturn => ListOfNarudzbineReturn.Value).ToList();
+                var dialogResult = ReturnParameteres.Select(FinallSettlement => FinallSettlement.Value).ToList();
                 finalSettlements = (List<FinalSettlementsViewModel>)dialogResult[0];
             }
         }
@@ -58,6 +61,31 @@ namespace Refuntations_App.Pages
         public async Task ShowFilter()
         {
             await filter.ShowFilter();
+        }
+        public async Task ChangePartner()
+        {
+            if (finalSettlementsList.Select(x => x.Dobavljac).Distinct().Count() == 1)
+            {
+                DialogParameters parameteres = new DialogParameters
+                {
+                    { "finalSettlements", finalSettlementsList }
+                };
+
+                DialogResult result = await DialogService.Show<ChangePartnerDialog>("Izmena dobavljača", parameteres, dialogOptions).Result;
+                DialogParameters ReturnParameteres = (DialogParameters)result.Data;
+                if (ReturnParameteres != null)
+                {
+                    var dialogResult = ReturnParameteres.Select(ListOfNarudzbineReturn => ListOfNarudzbineReturn.Value).ToList();
+                    finalSettlementsList = new List<FinalSettlementsViewModel>();
+                    finalSettlements = (List<FinalSettlementsViewModel>)dialogResult[0];
+                }
+            }
+            else
+            {
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+                Snackbar.Configuration.VisibleStateDuration = 3000;
+                Snackbar.Add($"Morate izabrati terecenja sa istim dobavljačem", Severity.Error);
+            }
         }
         public async Task ExportCalculation()
         {
