@@ -20,6 +20,8 @@ namespace Refuntations_App.Pages
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.Center, DisableBackdropClick = true };
         public bool Hide { get; set; } = true;
         public bool managementSettlements { get; set; } = true;
+        private int Year { get; set; }
+        private int Month { get; set; }
 
 
         public async Task ShowDialog()
@@ -108,8 +110,13 @@ namespace Refuntations_App.Pages
 
         private bool IsStatusCreated(int fk_obracun)
         {
-            //todo: implement
-            return true;
+            int status= _procedureExecutor.GetCalculationStatus(Year, Month);
+            return status == 1;
+        }
+        public async void setYearAndMonthValue(HashSet<int> values)
+        {
+            this.Year = values.ElementAt(0);
+            this.Month = values.ElementAt(1);
         }
     }
 }

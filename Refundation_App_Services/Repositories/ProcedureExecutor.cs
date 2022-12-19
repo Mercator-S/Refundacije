@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LinqToDB;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Refundation_App_Services.Services;
@@ -66,7 +67,7 @@ namespace Refundation_App_Services.Repositories
     "Server=10.0.101.12;Database=Refundacije;Trusted_Connection=True;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;"))
                 {
                     sqlCon.Open();
-                    int result = Int32.Parse(new SqlCommand("EXEC usp_refundacije_konacni_obracun_provera_alternativnih_dobavljaca " +year.ToString()+","+month.ToString()+ ";",
+                    int result = Int32.Parse(new SqlCommand("EXEC usp_refundacije_konacni_obracun_provera_alternativnih_dobavljaca " + year.ToString() + "," + month.ToString() + ";",
                         sqlCon).ExecuteScalar().ToString());
                     sqlCon.Close();
                     return result;
@@ -77,7 +78,7 @@ namespace Refundation_App_Services.Repositories
                 Console.WriteLine(ex.Message);
                 throw;
             }
-          
+
         }
 
         public void ExportFinalCalculation(int year, int month)
@@ -86,11 +87,19 @@ namespace Refundation_App_Services.Repositories
                 OnlineUser loggedUser = userRepository.GetLoggedUser().Result;
                 _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_eksport_konacnog_obracuna {0},{1},{2}", year, month, loggedUser.UserName);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-           
+
         }
+        public int GetCalculationStatus(int Year, int Month)
+        {
+            List<FinalSettlementHeader> headers = _context.finalSettlementHeader.Where(x =>x.Active == true && x.Godina==Year && x.Mesec==Month).ToList();
+            return headers.ElementAt(0).Status;
+        }
+        
+
+        
     }
 }

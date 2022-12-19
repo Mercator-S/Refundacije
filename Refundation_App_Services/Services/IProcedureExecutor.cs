@@ -10,5 +10,6 @@ namespace Refundation_App_Services.Services
         public Task HandleNewEmailsAdded();
         int GetAlternativeSupplierFailures(int year, int month);
         void ExportFinalCalculation(int year, int month);
+        int GetCalculationStatus(int Year, int Month);
     }
 }
