@@ -5,7 +5,7 @@ using Refuntations_App_Data.Model;
 
 namespace Refuntations_App.Data
 {
-   
+
     public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -17,6 +17,7 @@ namespace Refuntations_App.Data
         public DbSet<FinalSettlementHeader> finalSettlementHeader => Set<FinalSettlementHeader>();
         public DbSet<FinalSettlements> finalSettlement => Set<FinalSettlements>();
         public DbSet<Email> emails => Set<Email>();
+        public DbSet<Partner> partner => Set<Partner>();
         public DbSet<EmailImport> emailsImport => Set<EmailImport>();
         public DbSet<InternalSupplier> internalSuppliers => Set<InternalSupplier>();
         public DbSet<ForeignSupplier> foreingSuppliers => Set<ForeignSupplier>();
@@ -28,9 +29,9 @@ namespace Refuntations_App.Data
         {
             base.OnModelCreating(builder);
 
-           builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "User", NormalizedName = "USER", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
             builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN", Id = Guid.NewGuid().ToString(), ConcurrencyStamp = Guid.NewGuid().ToString() });
         }
     }
-   
+
 }

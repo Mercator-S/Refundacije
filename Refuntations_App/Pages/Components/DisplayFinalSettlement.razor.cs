@@ -24,17 +24,17 @@ namespace Refuntations_App.Pages.Components
                 await finalSettlementsChanged.InvokeAsync(await procedureExecutor.GetFinalSettlement(Year, Month));
             else
             {
-                await finalSettlementsChanged.InvokeAsync(await CreateFinalSettlement(Year,Month));
+                await finalSettlementsChanged.InvokeAsync(await CreateFinalSettlement(Year, Month));
             }
         }
-        public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year,int Month)
+        public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month)
         {
             DialogParameters parameteres = new DialogParameters
             {
                 { "Year", Year },
                 { "Month", Month }
             };
-            DialogResult result = await DialogService.Show<QuestionForCreatingFs>("Kreiraj konačni obračun", parameteres,dialogOptions).Result;
+            DialogResult result = await DialogService.Show<QuestionForCreatingFs>("Kreiraj konačni obračun", parameteres, dialogOptions).Result;
             DialogParameters ReturnParameteres = (DialogParameters)result.Data;
             if (ReturnParameteres != null)
             {
