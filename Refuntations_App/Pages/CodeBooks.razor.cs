@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
-using Refundation_App_Services.Repositories;
 using Refundation_App_Services.Services;
-using Refuntations_App.Pages.Dialogs;
+using Refuntations_App.Dialog;
 using Refuntations_App_Data.Model;
 
 

@@ -89,7 +89,7 @@ namespace Refundation_App_Services.Repositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                throw ex;
             }
 
         }

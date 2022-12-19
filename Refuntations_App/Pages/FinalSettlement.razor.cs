@@ -77,8 +77,15 @@ namespace Refuntations_App.Pages
                     }
                     else
                     {
-                        _procedureExecutor.ExportFinalCalculation(finalSettlements.FirstOrDefault().Year, finalSettlements.FirstOrDefault().Month);
-                        showWarningDialog("Obaveštenje", "Terecenja uspesno eksportovana!\nU toku je generisanje eksporta, kada ono zavrsi sa radom dobicete obavestenje na Vaš mail.",null, @Icons.Filled.CircleNotifications, Color.Success);
+                        try {
+                            _procedureExecutor.ExportFinalCalculation(finalSettlements.FirstOrDefault().Year, finalSettlements.FirstOrDefault().Month);
+                            showWarningDialog("Obaveštenje", "Terecenja uspesno eksportovana!\nU toku je generisanje eksporta, kada ono zavrsi sa radom dobicete obavestenje na Vaš mail.", null, @Icons.Filled.CircleNotifications, Color.Success);
+                        }
+                        catch (Exception e)
+                        {
+                            showWarningDialog("Greška", "Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", null, @Icons.Filled.Error, Color.Error);
+
+                        }
                     }
                 }
             }

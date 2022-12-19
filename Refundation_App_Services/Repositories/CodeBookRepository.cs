@@ -1,11 +1,10 @@
 ﻿using Refundation_App_Services.Services;
-using Refundation_App_Services.Services.Impl;
 using Refuntations_App.Data;
 using Refuntations_App_Data.Model;
 using System.IO;
 
 
-namespace Refundation_App_Services.Repositories.Impl
+namespace Refundation_App_Services.Repositories
 {
     public class CodeBookRepository : ICodeBookRepository
     {
@@ -18,7 +17,7 @@ namespace Refundation_App_Services.Repositories.Impl
             _context = context;
             this.userRepository = userRepository;
             loggedUser = userRepository.GetLoggedUser().Result;
-            this.procedureExeturor = procedureExecutor;
+            procedureExeturor = procedureExecutor;
         }
         public async Task<IEnumerable<object>> Get(string type)
         {
@@ -43,7 +42,7 @@ namespace Refundation_App_Services.Repositories.Impl
                     return _context.emails.Where(e => e.active == true)
                 .ToList();
             }
-            return new List<Object> ();
+            return new List<object>();
 
         }
         public Task Add(List<object> entities, string type)
@@ -59,7 +58,7 @@ namespace Refundation_App_Services.Repositories.Impl
         }
         public async Task<object> Delete(InternalSupplier entity)
         {
-            InternalSupplier dbEntity = (InternalSupplier) _context.Find(typeof(InternalSupplier),entity.id);
+            InternalSupplier dbEntity = (InternalSupplier)_context.Find(typeof(InternalSupplier), entity.id);
             dbEntity.active = false;
             dbEntity.d_upd = DateTime.Now;
             dbEntity.k_upd = loggedUser.UserName;
@@ -115,13 +114,13 @@ namespace Refundation_App_Services.Repositories.Impl
         public async Task<List<object>> DeleteRange(List<InternalSupplier> entities, string targetGroup)
         {
             List<object> dbEntities = new List<object>();
-           foreach(InternalSupplier entity in entities)
+            foreach (InternalSupplier entity in entities)
             {
                 InternalSupplier dbEntity = (InternalSupplier)_context.Find(typeof(InternalSupplier), entity.id);
                 dbEntity.active = false;
                 dbEntity.d_upd = DateTime.Now;
                 dbEntity.k_upd = loggedUser.UserName;
-                dbEntities.Add(dbEntity);            
+                dbEntities.Add(dbEntity);
             }
             _context.SaveChanges();
             return dbEntities;

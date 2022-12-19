@@ -1,12 +1,12 @@
 ﻿using OfficeOpenXml;
-using Refundation_App_Services.Repositories;
+using Refundation_App_Services.Services;
 using Refuntations_App_Data.Data;
 using Refuntations_App_Data.Model;
 using System.Net.WebSockets;
 
-namespace Refundation_App_Services.Services.Impl
+namespace Refundation_App_Services.Repositories
 {
-     public class FileLoader : IFileLoader
+    public class FileLoader : IFileLoader
     {
         private readonly IUserRepository userRepository;
         public FileLoader(IUserRepository userRepository)
@@ -85,7 +85,7 @@ namespace Refundation_App_Services.Services.Impl
                             {
                                 //first column is Id and should be blank
                                 case 1:
-                                    item.sifra_int_dobavljac = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
+                                    item.sifra_int_dobavljac = int.Parse(worksheet.Cells[row, column].Value.ToString());
                                     break;
                                 case 2:
                                     item.naziv_int_dobavljac = worksheet.Cells[row, column].Value.ToString();
@@ -98,7 +98,7 @@ namespace Refundation_App_Services.Services.Impl
                         item.d_upd = DateTime.Now;
                         item.k_ins = user.UserName;
                         item.k_upd = user.UserName;
-                       // items.Add(item);
+                        // items.Add(item);
                         resp.Add(item);
                     }
                     catch (Exception e)
@@ -111,7 +111,7 @@ namespace Refundation_App_Services.Services.Impl
             }
             return resp;
 
-           // return items;
+            // return items;
         }
         private List<object> extractForeignSuppliersAsync(ExcelWorksheet worksheet, int totalColumn, int totalRow, out List<int> fails, out string error)
         {
@@ -140,7 +140,7 @@ namespace Refundation_App_Services.Services.Impl
                             {
                                 //first column is Id and should be blank
                                 case 1:
-                                    item.sifra_ino_dobavljac = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
+                                    item.sifra_ino_dobavljac = int.Parse(worksheet.Cells[row, column].Value.ToString());
                                     break;
                                 case 2:
                                     item.naziv_ino_dobavljac = worksheet.Cells[row, column].Value.ToString();
@@ -191,7 +191,7 @@ namespace Refundation_App_Services.Services.Impl
                         switch (column)
                         {
                             case 1:
-                                item.brojac = Int64.Parse(worksheet.Cells[row, column].Value.ToString());
+                                item.brojac = long.Parse(worksheet.Cells[row, column].Value.ToString());
                                 break;
                             case 2:
                                 item.SAP_sifra_dobavljac = worksheet.Cells[row, column].Value.ToString();
@@ -203,13 +203,13 @@ namespace Refundation_App_Services.Services.Impl
                                 item.SAP_kljuc = worksheet.Cells[row, column].Value.ToString();
                                 break;
                             case 5:
-                                item.iznos = Double.Parse(worksheet.Cells[row, column].Value.ToString());
+                                item.iznos = double.Parse(worksheet.Cells[row, column].Value.ToString());
                                 break;
                             case 6:
-                                item.mesec = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
+                                item.mesec = int.Parse(worksheet.Cells[row, column].Value.ToString());
                                 break;
                             case 7:
-                                item.godina = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
+                                item.godina = int.Parse(worksheet.Cells[row, column].Value.ToString());
                                 break;
                         }
                     }
@@ -315,13 +315,13 @@ namespace Refundation_App_Services.Services.Impl
                             switch (column)
                             {
                                 case 1:
-                                    item.sifra_aa = Int32.Parse(worksheet.Cells[row, column].Value.ToString());
+                                    item.sifra_aa = int.Parse(worksheet.Cells[row, column].Value.ToString());
                                     break;
                                 case 2:
                                     item.naziv_aa = worksheet.Cells[row, column].Value.ToString();
                                     break;
                                 case 3:
-                                    item.PDV = Decimal.Parse(worksheet.Cells[row, column].Value.ToString());
+                                    item.PDV = decimal.Parse(worksheet.Cells[row, column].Value.ToString());
                                     break;
                                 case 4:
                                     item.SAP_Kljuc = worksheet.Cells[row, column].Value.ToString();
