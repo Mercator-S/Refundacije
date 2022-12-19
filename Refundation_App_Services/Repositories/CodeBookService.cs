@@ -1,7 +1,7 @@
-﻿using Refundation_App_Services.Repositories;
+﻿using Refundation_App_Services.Services;
 using Refuntations_App_Data.Model;
 
-namespace Refundation_App_Services.Services.Impl
+namespace Refundation_App_Services.Repositories
 {
     public class CodeBookService : ICodeBookService
     {
@@ -21,7 +21,7 @@ namespace Refundation_App_Services.Services.Impl
                     List<InternalSupplier> internalSuppliers = new List<InternalSupplier>();
                     foreach (object entity in entities)
                         internalSuppliers.Add((InternalSupplier)entity);
-                       result =_codeBookRepository.DeleteRange(internalSuppliers, targetGroup).Result;
+                    result = _codeBookRepository.DeleteRange(internalSuppliers, targetGroup).Result;
                     break;
                 case "Inostrani dobavljači":
                     List<ForeignSupplier> foreignSuppliers = new List<ForeignSupplier>();
@@ -56,12 +56,12 @@ namespace Refundation_App_Services.Services.Impl
                     break;
             }
             return result;
-          
+
         }
 
         public object DeleteEntity(object entity, string targetGroup)
         {
-            object result=null;
+            object result = null;
             switch (targetGroup)
             {
                 case "Interni dobavljači":

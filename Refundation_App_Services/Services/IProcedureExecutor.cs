@@ -11,5 +11,8 @@ namespace Refundation_App_Services.Services
         public Task HandleNewEmailsAdded();
         Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements, string sap_id);
         Task<List<Partner>> GetPartner(int Year, int Month);
+        int GetAlternativeSupplierFailures(int year, int month);
+        void  ExportFinalCalculation(int year, int month);
+        int GetCalculationStatus(int Year, int Month);
     }
 }

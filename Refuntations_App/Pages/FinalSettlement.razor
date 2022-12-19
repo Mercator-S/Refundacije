@@ -7,7 +7,7 @@
 <MudContainer Class="mt-5" MaxWidth="MaxWidth.ExtraLarge">
     <MudGrid Class="d-flex justify-center mt-10">
         <MudItem hidden="@(finalSettlements!=null?true:false)" xs="12" md="4" lg="5">
-            <DisplayFinalSettlement @bind-finalSettlements="finalSettlements"/>
+            <DisplayFinalSettlement @bind-finalSettlements="finalSettlements" SetYearAndMonth="@setYearAndMonthValue" />
         </MudItem>
     </MudGrid>
     <MudGrid Class="d-flex justify-center mt-5 mb-5">
@@ -15,6 +15,9 @@
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium" StartIcon="@Icons.Filled.CheckCircle">Prihvati terecenja</MudButton>
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.ImportExport">Export obracuna</MudButton>
             <MudButton Class="align-self-center ml-3" OnClick="@(async()=>await ChangePartner())" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.Edit">Izmena dobavljaca</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium" StartIcon="@Icons.Filled.CheckCircle" >Prihvati terecenja</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.ImportExport" OnClick="@ExportCalculation">Export obracuna</MudButton>
+            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.Edit">Izmena dobavljaca</MudButton>
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveCircle">Ponisti terecenja</MudButton>
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.StopCircle">Storniraj terecenja</MudButton>
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveRedEye">Pregled naplate</MudButton>

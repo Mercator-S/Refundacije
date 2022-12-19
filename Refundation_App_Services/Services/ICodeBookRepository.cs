@@ -7,18 +7,18 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Refundation_App_Services.Repositories
+namespace Refundation_App_Services.Services
 {
     public interface ICodeBookRepository
     {
         public Task Add(List<object> entities, string type);
         public Task<IEnumerable<object>> Get(string type);
-        public  Task<object> Delete(InternalSupplier entity);
-        public  Task<object> Delete(ForeignSupplier entity);
-        public  Task<object> Delete(AAPdvSAPKeyMaterial entity);
-        public  Task<object> Delete(CounterSapIdSapKeyAmount entity);
-        public  Task<object> Delete(CategoryInternalOrderCostLocation entity);
-        public  Task<object> Delete(Email entity);
+        public Task<object> Delete(InternalSupplier entity);
+        public Task<object> Delete(ForeignSupplier entity);
+        public Task<object> Delete(AAPdvSAPKeyMaterial entity);
+        public Task<object> Delete(CounterSapIdSapKeyAmount entity);
+        public Task<object> Delete(CategoryInternalOrderCostLocation entity);
+        public Task<object> Delete(Email entity);
         public Task<List<object>> DeleteRange(List<InternalSupplier> entities, string targetGroup);
         public Task<List<object>> DeleteRange(List<ForeignSupplier> entities, string targetGroup);
         public Task<List<object>> DeleteRange(List<AAPdvSAPKeyMaterial> entities, string targetGroup);
