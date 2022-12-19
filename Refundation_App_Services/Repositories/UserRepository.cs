@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Refundation_App_Services.Services;
 using Refuntations_App_Data.Model;
 
-namespace Refundation_App_Services.Repositories.Impl
+namespace Refundation_App_Services.Repositories
 {
     public class UserRepository : IUserRepository
     {
