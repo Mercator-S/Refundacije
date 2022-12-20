@@ -8,11 +8,12 @@ namespace Refundation_App_Services.Services
         Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Year, int Month);
         Task<bool> CheckFinalSettlement(int Year, int Month);
         Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month);
-        public Task HandleNewEmailsAdded();
+        Task HandleNewEmailsAdded();
         Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements, string sap_id);
         Task<List<Partner>> GetPartner(int Year, int Month);
+        Task<List<FinalSettlementsViewModel>> ReversalOfSettlementDialog(DateTime? date, List<FinalSettlementsViewModel> finalSettlements);
         int GetAlternativeSupplierFailures(int year, int month);
-        void  ExportFinalCalculation(int year, int month);
+        void ExportFinalCalculation(int year, int month);
         int GetCalculationStatus(int Year, int Month);
     }
 }

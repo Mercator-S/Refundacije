@@ -1,0 +1,16 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudItem Class="d-flex justify-content-center mt-5">
+            <MudText>Izaberite datum storniranja:</MudText>
+        </MudItem>
+        <MudSpacer />
+        <MudItem Class="d-flex justify-content-center mt-2 mb-2" xs="12" lg="6">
+            <MudDatePicker Label="Datum storniranja" @bind-Date="date" DateFormat="dd.MM.yyyy" />
+        </MudItem>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Error" OnClick="Cancel">Odustani</MudButton>
+        <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Success" OnClick="(async ()=> await Submit())">Storniraj</MudButton>
+    </DialogActions>
+</MudDialog>
+

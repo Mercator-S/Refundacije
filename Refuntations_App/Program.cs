@@ -17,7 +17,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<OnlineUser>(options => {
+builder.Services.AddDefaultIdentity<OnlineUser>(options =>
+{
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
@@ -33,20 +34,24 @@ builder.Services.AddDefaultIdentity<OnlineUser>(options => {
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?-._@+";
     options.User.RequireUniqueEmail = true;
 
-} )
+})
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddMudServices();
+
 builder.Services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<OnlineUser>>();
-builder.Services.AddMudServices();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-builder.Services.AddMudServices();
 builder.Services.AddScoped<ICodeBookService, CodeBookService>();
 builder.Services.AddScoped<IFileLoader, FileLoader>();
 builder.Services.AddScoped<ICodeBookRepository, CodeBookRepository>();
 builder.Services.AddScoped<IProcedureExecutor, ProcedureExecutor>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRefundationRepository, RefundationRepository>();
+
+
 
 var mapperConfiguration = new MapperConfiguration(configuration =>
 {
