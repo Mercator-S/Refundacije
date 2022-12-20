@@ -81,6 +81,30 @@ namespace Refuntations_App.Pages
                 Snackbar.Add($"Morate izabrati terecenja sa istim dobavljačem", Severity.Error);
             }
         }
+        public async Task ReversalOfSettlement()
+        {
+            if (finalSettlementsList.Select(x => x.status_stavke_obracuna).All(x => x == "U Obradi") && finalSettlementsList.Select(x => x.status_stavke_obracuna).Distinct().Count() >= 1)
+            {
+                DialogParameters parameteres = new DialogParameters
+                {
+                    { "finalSettlements", finalSettlementsList }
+                };
+                DialogResult result = await DialogService.Show<ReversalOfSettlementDialog>("Storniranje terecenja", parameteres, dialogOptions).Result;
+                DialogParameters ReturnParameteres = (DialogParameters)result.Data;
+                if (ReturnParameteres != null)
+                {
+                    var dialogResult = ReturnParameteres.Select(ListOfNarudzbineReturn => ListOfNarudzbineReturn.Value).ToList();
+                    finalSettlementsList = new List<FinalSettlementsViewModel>();
+                    finalSettlements = (List<FinalSettlementsViewModel>)dialogResult[0];
+                }
+            }
+            else
+            {
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+                Snackbar.Configuration.VisibleStateDuration = 3000;
+                Snackbar.Add($"Morate izabrati terećenja sa statusom \"U Obradi\" i morate izabrati minimum jedno terećenje.", Severity.Error);
+            }
+        }
         public async Task ExportCalculation()
         {
             if (!IsStatusCreated(finalSettlements.ElementAt(0).fk_obracun))

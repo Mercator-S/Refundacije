@@ -14,9 +14,9 @@
         <MudItem hidden="@(managementSettlements)">
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium" StartIcon="@Icons.Filled.CheckCircle">Prihvati terecenja</MudButton>
             <MudButton Class="align-self-center ml-3" OnClick="@(async()=>await ChangePartner())" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.Edit">Izmena dobavljaca</MudButton>
-            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.ImportExport" OnClick="@ExportCalculation">Export obracuna</MudButton>
+            <MudButton Class="align-self-center ml-3" OnClick="ExportCalculation" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.ImportExport">Export obracuna</MudButton>
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveCircle">Ponisti terecenja</MudButton>
-            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.StopCircle">Storniraj terecenja</MudButton>
+            <MudButton Class="align-self-center ml-3" OnClick="@(async()=>await ReversalOfSettlement())" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.StopCircle">Storniraj terecenja</MudButton>
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveRedEye">Pregled naplate</MudButton>
         </MudItem>
     </MudGrid>

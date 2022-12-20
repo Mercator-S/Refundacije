@@ -15,11 +15,13 @@ namespace Refundation_App_Services.Repositories
         private readonly IMapper _mapper;
         private ApplicationDbContext _context { get; set; }
         private IUserRepository userRepository { get; set; }
-        public ProcedureExecutor(ApplicationDbContext contextFactory, IMapper mapper, IUserRepository userRepository)
+        private IRefundationRepository _refundationRepository { get; set; }
+        public ProcedureExecutor(ApplicationDbContext contextFactory, IMapper mapper, IUserRepository userRepository, IRefundationRepository refundationRepository)
         {
             _mapper = mapper;
             _context = contextFactory;
             this.userRepository = userRepository;
+            _refundationRepository = refundationRepository;
         }
         public async Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Years, int Months)
         {
@@ -58,20 +60,25 @@ namespace Refundation_App_Services.Repositories
             _context.Database.ExecuteSqlRaw("EXEC usp_import_mailova {0}", loggedUser.UserName);
             return null;
         }
-
         public async Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements, string sap_id)
         {
-            string itemsId = "";
-            foreach (var settlement in finalSettlements)
-            {
-                itemsId += settlement.id_iznos_stopa_1 != null ? settlement.id_iznos_stopa_1 : settlement.id_iznos_stopa_2;
-                itemsId += ',';
-            }
-            itemsId = itemsId.Remove(itemsId.Length - 1);
+            string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
             var items = new SqlParameter("@stavke", itemsId);
             var sapId = new SqlParameter("@sap_sifra_dob", sap_id);
-            var user = new SqlParameter("@korisnik", "obrad");
+            var user = new SqlParameter("@korisnik", userRepository.GetLoggedUser().Result.UserName);
             _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_konacni_obracun_izmena_dobavljaca @stavke, @sap_sifra_dob, @korisnik ", items, sapId, user);
+            int year = finalSettlements.Select(x => x.datum_od_aa.Value.Year).First();
+            int month = finalSettlements.Select(x => x.datum_od_aa.Value.Month).First();
+            //Optimize the code to not call the stored procedure.
+            return await GetFinalSettlement(year, month);
+        }
+        public async Task<List<FinalSettlementsViewModel>> ReversalOfSettlementDialog(DateTime? date, List<FinalSettlementsViewModel> finalSettlements)
+        {
+            string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
+            var items = new SqlParameter("@dokumenta", itemsId);
+            var dateTime = new SqlParameter("@datum", date);
+            var user = new SqlParameter("@korisnik", userRepository.GetLoggedUser().Result.UserName);
+            _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_konacni_obracun_storniranje_i_export @dokumenta, @datum, @korisnik ", items, dateTime, user);
             int year = finalSettlements.Select(x => x.datum_od_aa.Value.Year).First();
             int month = finalSettlements.Select(x => x.datum_od_aa.Value.Month).First();
             //Optimize the code to not call the stored procedure.
