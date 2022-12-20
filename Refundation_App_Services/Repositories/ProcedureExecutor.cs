@@ -21,9 +21,9 @@ namespace Refundation_App_Services.Repositories
             _context = contextFactory;
             this.userRepository = userRepository;
         }
-        public async Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Year, int Month)
+        public async Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Years, int Months)
         {
-            return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXEC  usp_refundacije_prikaz_konacni_obracun {0},{1}", Year, Month).ToList());
+            return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXEC  usp_refundacije_prikaz_konacni_obracun {0},{1}", Years, Months).ToList());
         }
         public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month)
         {
@@ -34,8 +34,8 @@ namespace Refundation_App_Services.Repositories
             var parameterReturn = new SqlParameter
             {
                 ParameterName = "ReturnValue",
-                SqlDbType = System.Data.SqlDbType.Int,
-                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = SqlDbType.Int,
+                Direction = ParameterDirection.Output,
             };
             _context.Database.ExecuteSqlRaw("exec @returnValue = usp_refundacije_konacni_obracun @godina, @mesec, @korisnik ", parameterReturn, godina, mesec, korisnik);
             int returnValue = (int)parameterReturn.Value;
@@ -59,31 +59,46 @@ namespace Refundation_App_Services.Repositories
             return null;
         }
 
+        public async Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements, string sap_id)
+        {
+            string itemsId = "";
+            foreach (var settlement in finalSettlements)
+            {
+                itemsId += settlement.id_iznos_stopa_1 != null ? settlement.id_iznos_stopa_1 : settlement.id_iznos_stopa_2;
+                itemsId += ',';
+            }
+            itemsId = itemsId.Remove(itemsId.Length - 1);
+            var items = new SqlParameter("@stavke", itemsId);
+            var sapId = new SqlParameter("@sap_sifra_dob", sap_id);
+            var user = new SqlParameter("@korisnik", "obrad");
+            _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_konacni_obracun_izmena_dobavljaca @stavke, @sap_sifra_dob, @korisnik ", items, sapId, user);
+            int year = finalSettlements.Select(x => x.datum_od_aa.Value.Year).First();
+            int month = finalSettlements.Select(x => x.datum_od_aa.Value.Month).First();
+            //Optimize the code to not call the stored procedure.
+            return await GetFinalSettlement(year, month);
+        }
+        public async Task<List<Partner>> GetPartner(int Year, int Month)
+        {
+            return _context.partner.FromSqlRaw("EXEC usp_refundacije_konacni_obracun_prikaz_dobavljaca {0},{1}", Year, Month).ToList();
+        }
         public int GetAlternativeSupplierFailures(int year, int month)
+        {
+            var godina = new SqlParameter("@godina", year);
+            var mesec = new SqlParameter("@mesec", month);
+            var parameterReturn = new SqlParameter
+            {
+                ParameterName = "ReturnValue",
+                SqlDbType = SqlDbType.Int,
+                Direction = ParameterDirection.Output,
+            };
+            _context.Database.ExecuteSqlRaw("exec @returnValue = usp_refundacije_konacni_obracun_provera_alternativnih_dobavljaca @godina, @mesec", parameterReturn, godina, mesec);
+            int returnValue = (int)parameterReturn.Value;
+            return returnValue;
+        }
+        public void ExportFinalCalculation(int year, int month)
         {
             try
             {
-                using (var sqlCon = new SqlConnection(
-    "Server=10.0.101.12;Database=Refundacije;Trusted_Connection=True;MultipleActiveResultSets=False;Encrypt=False;TrustServerCertificate=False;"))
-                {
-                    sqlCon.Open();
-                    int result = Int32.Parse(new SqlCommand("EXEC usp_refundacije_konacni_obracun_provera_alternativnih_dobavljaca " + year.ToString() + "," + month.ToString() + ";",
-                        sqlCon).ExecuteScalar().ToString());
-                    sqlCon.Close();
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw;
-            }
-
-        }
-
-        public void ExportFinalCalculation(int year, int month)
-        {
-            try {
                 OnlineUser loggedUser = userRepository.GetLoggedUser().Result;
                 _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_eksport_konacnog_obracuna {0},{1},{2}", year, month, loggedUser.UserName);
             }
@@ -91,15 +106,12 @@ namespace Refundation_App_Services.Repositories
             {
                 throw ex;
             }
-
         }
         public int GetCalculationStatus(int Year, int Month)
         {
-            List<FinalSettlementHeader> headers = _context.finalSettlementHeader.Where(x =>x.Active == true && x.Godina==Year && x.Mesec==Month).ToList();
+            List<FinalSettlementHeader> headers = _context.finalSettlementHeader.Where(x => x.Active == true && x.Godina == Year && x.Mesec == Month).ToList();
             return headers.ElementAt(0).Status;
         }
-        
 
-        
     }
 }

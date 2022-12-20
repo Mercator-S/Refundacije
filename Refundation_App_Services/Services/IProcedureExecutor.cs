@@ -1,4 +1,5 @@
-﻿using Refuntations_App_Data.ViewModel;
+﻿using Refuntations_App_Data.Model;
+using Refuntations_App_Data.ViewModel;
 
 namespace Refundation_App_Services.Services
 {
@@ -8,6 +9,8 @@ namespace Refundation_App_Services.Services
         Task<bool> CheckFinalSettlement(int Year, int Month);
         Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month);
         public Task HandleNewEmailsAdded();
+        Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements, string sap_id);
+        Task<List<Partner>> GetPartner(int Year, int Month);
         int GetAlternativeSupplierFailures(int year, int month);
         void  ExportFinalCalculation(int year, int month);
         int GetCalculationStatus(int Year, int Month);

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Refundation_App_Services.Services;
-using Refuntations_App_Data.Model;
 using Refuntations_App_Data.ViewModel;
 
 namespace Refuntations_App.Dialog
