@@ -3,6 +3,7 @@ using MudBlazor;
 using Refundation_App_Services.Services;
 using Refuntations_App.Dialog;
 using Refuntations_App.Pages.Components;
+using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.ViewModel;
 
 namespace Refuntations_App.Pages
@@ -19,8 +20,7 @@ namespace Refuntations_App.Pages
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.Center, DisableBackdropClick = true };
         public bool Hide { get; set; } = true;
         public bool managementSettlements { get; set; } = true;
-        private int Year { get; set; }
-        private int Month { get; set; }
+        public YearAndMonth yearAndMonth { get; set; }
         public async Task ShowDialog()
         {
             DialogParameters parameteres = new DialogParameters
@@ -48,7 +48,7 @@ namespace Refuntations_App.Pages
                 finalSettlementsList.Remove(FinalSettlements);
             }
         }
-        public async Task ManagementSettlements()
+        public void ManagementSettlements()
         {
             managementSettlements = !managementSettlements;
         }
@@ -62,9 +62,9 @@ namespace Refuntations_App.Pages
             {
                 DialogParameters parameteres = new DialogParameters
                 {
-                    { "finalSettlements", finalSettlementsList }
+                    { "finalSettlements", finalSettlementsList },
+                    {"yearAndMonth",yearAndMonth }
                 };
-
                 DialogResult result = await DialogService.Show<ChangePartnerDialog>("Izmena dobavljača", parameteres, dialogOptions).Result;
                 DialogParameters ReturnParameteres = (DialogParameters)result.Data;
                 if (ReturnParameteres != null)
@@ -83,11 +83,12 @@ namespace Refuntations_App.Pages
         }
         public async Task ReversalOfSettlement()
         {
-            if (finalSettlementsList.Select(x => x.status_stavke_obracuna).All(x => x == "U Obradi") && finalSettlementsList.Select(x => x.status_stavke_obracuna).Distinct().Count() >= 1)
+            if (finalSettlementsList.Select(x => x.status_stavke_obracuna).All(x => x == "Fakturisan") && finalSettlementsList.Select(x => x.status_stavke_obracuna).Distinct().Count() >= 1)
             {
                 DialogParameters parameteres = new DialogParameters
                 {
-                    { "finalSettlements", finalSettlementsList }
+                    { "finalSettlements", finalSettlementsList },
+                    {"yearAndMonth",yearAndMonth }
                 };
                 DialogResult result = await DialogService.Show<ReversalOfSettlementDialog>("Storniranje terecenja", parameteres, dialogOptions).Result;
                 DialogParameters ReturnParameteres = (DialogParameters)result.Data;
@@ -105,6 +106,63 @@ namespace Refuntations_App.Pages
                 Snackbar.Add($"Morate izabrati terećenja sa statusom \"U Obradi\" i morate izabrati minimum jedno terećenje.", Severity.Error);
             }
         }
+        public async Task AcceptanceSettlement()
+        {
+            if (finalSettlementsList.Select(x => x.status_stavke_obracuna).All(x => x == "Kreiran" || x == "Eksportovan") && finalSettlementsList.Select(x => x.status_stavke_obracuna).Distinct().Count() >= 1)
+            {
+                string dialogText = "Da li želite da prihvatite odabrana terecenja?";
+                int function = 4;
+                DialogParameters parameteres = new DialogParameters
+                {
+                    { "finalSettlements", finalSettlementsList },
+                    { "dialogText", dialogText },
+                    { "function", function },
+                     {"yearAndMonth",yearAndMonth }
+                };
+                DialogResult result = await DialogService.Show<QuestionDialog>("Prihvatanje terecenja", parameteres, dialogOptions).Result;
+                DialogParameters ReturnParameteres = (DialogParameters)result.Data;
+                if (ReturnParameteres != null)
+                {
+                    var dialogResult = ReturnParameteres.Select(ListOfNarudzbineReturn => ListOfNarudzbineReturn.Value).ToList();
+                    finalSettlementsList = new List<FinalSettlementsViewModel>();
+                    finalSettlements = (List<FinalSettlementsViewModel>)dialogResult[0];
+                }
+            }
+            else
+            {
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+                Snackbar.Configuration.VisibleStateDuration = 3000;
+                Snackbar.Add($"Morate izabrati terećenja sa statusom \"Kreiran\" ili \"Eksportovan\" takodje morate izabrati minimum jedno terećenje.", Severity.Error);
+            }
+        }
+        public async Task CancellationOfSettlement()
+        {
+            if (finalSettlementsList.Select(x => x.status_stavke_obracuna).All(x => x == "Kreiran") && finalSettlementsList.Select(x => x.status_stavke_obracuna).Distinct().Count() >= 1)
+            {
+                string dialogText = "Da li želite da poništite odabrana terecenja?";
+                int function = 5;
+                DialogParameters parameteres = new DialogParameters
+                {
+                    { "finalSettlements", finalSettlementsList },
+                    { "dialogText", dialogText },
+                    { "function", function }
+                };
+                DialogResult result = await DialogService.Show<QuestionDialog>("Ponistavanje terecenja", parameteres, dialogOptions).Result;
+                DialogParameters ReturnParameteres = (DialogParameters)result.Data;
+                if (ReturnParameteres != null)
+                {
+                    var dialogResult = ReturnParameteres.Select(ListOfNarudzbineReturn => ListOfNarudzbineReturn.Value).ToList();
+                    finalSettlementsList = new List<FinalSettlementsViewModel>();
+                    finalSettlements = (List<FinalSettlementsViewModel>)dialogResult[0];
+                }
+            }
+            else
+            {
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+                Snackbar.Configuration.VisibleStateDuration = 3000;
+                Snackbar.Add($"Morate izabrati terećenja sa statusom \"Kreiran\" takodje morate izabrati minimum jedno terećenje.", Severity.Error);
+            }
+        }
         public async Task ExportCalculation()
         {
             if (!IsStatusCreated(finalSettlements.ElementAt(0).fk_obracun))
@@ -116,7 +174,7 @@ namespace Refuntations_App.Pages
                 var confirmation = await ConfirmDecisionAsync();
                 if (confirmation)
                 {
-                    int alternativeFailureNumber = _procedureExecutor.GetAlternativeSupplierFailures(finalSettlements.FirstOrDefault().Year, finalSettlements.FirstOrDefault().Month);
+                    int alternativeFailureNumber = _procedureExecutor.GetAlternativeSupplierFailures(yearAndMonth.Year, yearAndMonth.Month);
                     if (alternativeFailureNumber > 0)
                     {
                         showWarningDialog("Upozorenje", "Postoje interni dobavljaci koji nisu prebaceni na alternativne dobavljace.", null, @Icons.Filled.Warning, Color.Warning);
@@ -125,7 +183,7 @@ namespace Refuntations_App.Pages
                     {
                         try
                         {
-                            _procedureExecutor.ExportFinalCalculation(finalSettlements.FirstOrDefault().Year, finalSettlements.FirstOrDefault().Month);
+                            _procedureExecutor.ExportFinalCalculation(yearAndMonth.Year, yearAndMonth.Month);
                             showWarningDialog("Obaveštenje", "Terecenja uspesno eksportovana!\nU toku je generisanje eksporta, kada ono zavrsi sa radom dobicete obavestenje na Vaš mail.", null, @Icons.Filled.CircleNotifications, Color.Success);
                         }
                         catch (Exception e)
@@ -139,9 +197,11 @@ namespace Refuntations_App.Pages
         private async Task<bool> ConfirmDecisionAsync()
         {
             var options = new DialogOptions { CloseOnEscapeKey = true };
-            var parameters = new DialogParameters();
-            parameters.Add("Title", "Potvrda");
-            parameters.Add("Content", "Da li ste sigurni da želite da eksportujete trebovanja dobavljačima?");
+            var parameters = new DialogParameters
+            {
+                { "Title", "Potvrda" },
+                { "Content", "Da li ste sigurni da želite da eksportujete trebovanja dobavljačima?" }
+            };
             var result = await DialogService.Show<ConfirmationDialog>("Potvrda", parameters, options).Result;
             if (result != null && !result.Cancelled) return true;
             return false;
@@ -161,13 +221,12 @@ namespace Refuntations_App.Pages
         }
         private bool IsStatusCreated(int fk_obracun)
         {
-            int status = _procedureExecutor.GetCalculationStatus(Year, Month);
+            int status = _procedureExecutor.GetCalculationStatus(yearAndMonth.Year, yearAndMonth.Month);
             return status == 1;
         }
-        public async void setYearAndMonthValue(HashSet<int> values)
+        public void setYearAndMonthValue(YearAndMonth values)
         {
-            this.Year = values.ElementAt(0);
-            this.Month = values.ElementAt(1);
+            yearAndMonth = values;
         }
     }
 }

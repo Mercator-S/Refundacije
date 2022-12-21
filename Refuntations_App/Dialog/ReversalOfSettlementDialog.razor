@@ -1,11 +1,13 @@
 ﻿<MudDialog>
     <DialogContent>
-        <MudItem Class="d-flex justify-content-center mt-5">
+        <MudItem Class="d-flex justify-content-center mt-2">
             <MudText>Izaberite datum storniranja:</MudText>
         </MudItem>
         <MudSpacer />
-        <MudItem Class="d-flex justify-content-center mt-2 mb-2" xs="12" lg="6">
-            <MudDatePicker Label="Datum storniranja" @bind-Date="date" DateFormat="dd.MM.yyyy" />
+        <MudItem Class="d-flex justify-content-center mt-5 mb-2">
+            <MudItem xs="6">
+                <MudDatePicker Label="Datum storniranja" @bind-Date="date" DateFormat="dd.MM.yyyy" />
+            </MudItem>
         </MudItem>
     </DialogContent>
     <DialogActions>

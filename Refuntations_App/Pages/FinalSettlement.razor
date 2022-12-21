@@ -12,10 +12,10 @@
     </MudGrid>
     <MudGrid Class="d-flex justify-center mt-5 mb-5">
         <MudItem hidden="@(managementSettlements)">
-            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium" StartIcon="@Icons.Filled.CheckCircle">Prihvati terecenja</MudButton>
+            <MudButton Class="align-self-center ml-3" OnClick="@(async()=>await AcceptanceSettlement())" Variant="Variant.Filled" Color="Color.Success" Size="Size.Medium" StartIcon="@Icons.Filled.CheckCircle">Prihvati terecenja</MudButton>
             <MudButton Class="align-self-center ml-3" OnClick="@(async()=>await ChangePartner())" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.Edit">Izmena dobavljaca</MudButton>
             <MudButton Class="align-self-center ml-3" OnClick="ExportCalculation" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Medium" StartIcon="@Icons.Filled.ImportExport">Export obracuna</MudButton>
-            <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveCircle">Ponisti terecenja</MudButton>
+            <MudButton Class="align-self-center ml-3" OnClick="@(async()=>await CancellationOfSettlement())" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveCircle">Ponisti terecenja</MudButton>
             <MudButton Class="align-self-center ml-3" OnClick="@(async()=>await ReversalOfSettlement())" Variant="Variant.Filled" Color="Color.Error" Size="Size.Medium" StartIcon="@Icons.Filled.StopCircle">Storniraj terecenja</MudButton>
             <MudButton Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium" StartIcon="@Icons.Filled.RemoveRedEye">Pregled naplate</MudButton>
         </MudItem>
@@ -30,7 +30,7 @@
                         @*<MudTextField @bind-Value="TextValue" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0" />*@
                     </MudItem>
                     <MudSpacer />
-                    <MudButton OnClick="@(async ()=>await ManagementSettlements())" Class="align-self-center" Variant="Variant.Filled" Color="Color.Surface" Size="Size.Small" StartIcon="@Icons.Filled.Edit">Upravljanje obracunima</MudButton>
+                    <MudButton OnClick="ManagementSettlements" Class="align-self-center" Variant="Variant.Filled" Color="Color.Surface" Size="Size.Small" StartIcon="@Icons.Filled.Edit">Upravljanje obracunima</MudButton>
                     <MudButton OnClick="@(async ()=>await ShowFilter())" Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Warning" Size="Size.Small" StartIcon="@Icons.Filled.FilterAlt">Filter</MudButton>
                     <MudButton OnClick="@(async ()=>await ShowDialog())" Class="align-self-center ml-3" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" StartIcon="@Icons.Filled.ReadMore">Prikaz</MudButton>
                 </ToolBarContent>

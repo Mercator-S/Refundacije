@@ -2,8 +2,8 @@
 using MudBlazor;
 using Refundation_App_Services.Services;
 using Refuntations_App.Dialog;
+using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.ViewModel;
-using System.Numerics;
 
 namespace Refuntations_App.Pages.Components
 {
@@ -16,17 +16,18 @@ namespace Refuntations_App.Pages.Components
         [Parameter]
         public EventCallback<List<FinalSettlementsViewModel>> finalSettlementsChanged { get; set; }
         [Parameter]
-        public EventCallback<HashSet<int>> SetYearAndMonth { get; set; }
+        public EventCallback<YearAndMonth> SetYearAndMonth { get; set; }
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.TopCenter, DisableBackdropClick = true };
         public int Year { get; set; } = DateTime.Now.Year;
         public int Month { get; set; } = DateTime.Now.Month - 1;
         public async Task GetFinalSettlements(int Year, int Month)
         {
             var result = await procedureExecutor.CheckFinalSettlement(Year, Month);
-            if (result) {
+            if (result)
+            {
                 await finalSettlementsChanged.InvokeAsync(await procedureExecutor.GetFinalSettlement(Year, Month));
-                SetYearAndMonth.InvokeAsync(new HashSet<int> { Year, Month });
-            }    
+                await SetYearAndMonth.InvokeAsync(new YearAndMonth(Year,Month));
+            }
             else
             {
                 await finalSettlementsChanged.InvokeAsync(await CreateFinalSettlement(Year, Month));
@@ -45,10 +46,10 @@ namespace Refuntations_App.Pages.Components
             {
                 var dialogResult = ReturnParameteres.Select(ListOfNarudzbineReturn => ListOfNarudzbineReturn.Value).ToList();
                 finalSettlements = (List<FinalSettlementsViewModel>)dialogResult[0];
-                foreach(FinalSettlementsViewModel fs in finalSettlements)
+                foreach (FinalSettlementsViewModel fs in finalSettlements)
                 {
-                    fs.Year= Year;
-                    fs.Month= Month;
+                    fs.Year = Year;
+                    fs.Month = Month;
                 }
             }
             return finalSettlements;
