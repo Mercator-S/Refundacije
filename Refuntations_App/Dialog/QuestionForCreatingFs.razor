@@ -3,7 +3,18 @@
         Da li želite da kreirate obracun za period <b>@Month-@Year</b> ?
     </DialogContent>
     <DialogActions>
-        <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Error" OnClick="Cancel">Ne</MudButton>
-        <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Success" OnClick="(async ()=>await Submit())">Da</MudButton>
+        <MudButton Variant="Variant.Filled" hidden="@_processing" Size="Size.Small" Color="Color.Error" OnClick="Cancel">Ne</MudButton>
+        <MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Success" Disabled="@_processing" OnClick="(async ()=>await Submit())">
+            @if (_processing)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                <MudText Class="ms-2">Kreiranje...</MudText>
+            }
+            else
+            {
+                <MudText>Da</MudText>
+            }
+        </MudButton>
+       @*<MudButton Variant="Variant.Filled" Size="Size.Small" Color="Color.Success" OnClick="(async ()=>await Submit())">Da</MudButton>*@
     </DialogActions>
 </MudDialog>
