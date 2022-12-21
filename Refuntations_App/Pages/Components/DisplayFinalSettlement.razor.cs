@@ -31,6 +31,7 @@ namespace Refuntations_App.Pages.Components
             else
             {
                 await finalSettlementsChanged.InvokeAsync(await CreateFinalSettlement(Year, Month));
+                await SetYearAndMonth.InvokeAsync(new YearAndMonth(Year, Month));
             }
         }
         public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month)
