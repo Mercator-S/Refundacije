@@ -18,14 +18,17 @@ namespace Refuntations_App.Dialog
         public int Month { get; set; } = DateTime.Now.Month - 1;
         [Parameter]
         public List<FinalSettlementsViewModel> finalSettlements { get; set; }
+        public bool _processing { get; set; } = false;
 
         private async Task Submit()
         {
+            _processing = true;
             var finalSettlements = await Task.Run(() => procedureExecutor.CreateFinalSettlement(Year, Month));
             DialogParameters parameteres = new DialogParameters
             {
                 {"finalSettlements", finalSettlements }
             };
+            _processing = false;
             MudDialog.Close(DialogResult.Ok(parameteres));
         }
         void Cancel()
