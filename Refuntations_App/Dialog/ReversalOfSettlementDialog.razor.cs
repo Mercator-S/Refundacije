@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Refundation_App_Services.Repositories;
 using Refundation_App_Services.Services;
+using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.ViewModel;
 
 namespace Refuntations_App.Dialog
@@ -10,14 +10,16 @@ namespace Refuntations_App.Dialog
     {
         [CascadingParameter]
         MudDialogInstance? MudDialog { get; set; }
-        [Parameter]
-        public List<FinalSettlementsViewModel> finalSettlements { get; set; }
         [Inject]
         IProcedureExecutor procedureExecutor { get; set; }
+        [Parameter]
+        public List<FinalSettlementsViewModel> finalSettlements { get; set; }
+        [Parameter]
+        public YearAndMonth yearAndMonth{ get; set; }
         DateTime? date = DateTime.Today;
         private async Task Submit()
         {
-            var result = await procedureExecutor.ReversalOfSettlementDialog(date, finalSettlements);
+            var result = await procedureExecutor.ReversalOfSettlementDialog(date, yearAndMonth, finalSettlements);
             DialogParameters parameteres = new DialogParameters
                 {
                     { "finalSettlements", result }

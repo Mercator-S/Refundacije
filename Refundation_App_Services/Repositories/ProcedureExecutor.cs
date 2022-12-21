@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Refundation_App_Services.Services;
 using Refuntations_App.Data;
+using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.Model;
 using Refuntations_App_Data.ViewModel;
 using System.Data;
@@ -58,33 +59,48 @@ namespace Refundation_App_Services.Repositories
         {
             OnlineUser loggedUser = userRepository.GetLoggedUser().Result;
             _context.Database.ExecuteSqlRaw("EXEC usp_import_mailova {0}", loggedUser.UserName);
+            //The return value cannot be null
             return null;
         }
-        public async Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements, string sap_id)
+        public async Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements,YearAndMonth yearAndMonth, string sap_id)
         {
             string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
             var items = new SqlParameter("@stavke", itemsId);
             var sapId = new SqlParameter("@sap_sifra_dob", sap_id);
             var user = new SqlParameter("@korisnik", userRepository.GetLoggedUser().Result.UserName);
             _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_konacni_obracun_izmena_dobavljaca @stavke, @sap_sifra_dob, @korisnik ", items, sapId, user);
-            int year = finalSettlements.Select(x => x.datum_od_aa.Value.Year).First();
-            int month = finalSettlements.Select(x => x.datum_od_aa.Value.Month).First();
             //Optimize the code to not call the stored procedure.
-            return await GetFinalSettlement(year, month);
+            return await GetFinalSettlement(yearAndMonth.Year, yearAndMonth.Month);
         }
-        public async Task<List<FinalSettlementsViewModel>> ReversalOfSettlementDialog(DateTime? date, List<FinalSettlementsViewModel> finalSettlements)
+        public async Task<List<FinalSettlementsViewModel>> ReversalOfSettlementDialog(DateTime? date, YearAndMonth yearAndMonth,List<FinalSettlementsViewModel> finalSettlements)
         {
             string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
             var items = new SqlParameter("@dokumenta", itemsId);
             var dateTime = new SqlParameter("@datum", date);
             var user = new SqlParameter("@korisnik", userRepository.GetLoggedUser().Result.UserName);
             _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_konacni_obracun_storniranje_i_export @dokumenta, @datum, @korisnik ", items, dateTime, user);
-            int year = finalSettlements.Select(x => x.datum_od_aa.Value.Year).First();
-            int month = finalSettlements.Select(x => x.datum_od_aa.Value.Month).First();
             //Optimize the code to not call the stored procedure.
-            return await GetFinalSettlement(year, month);
+            return await GetFinalSettlement(yearAndMonth.Year, yearAndMonth.Month);
         }
-        public async Task<List<Partner>> GetPartner(int Year, int Month)
+        public async Task<List<FinalSettlementsViewModel>> AcceptanceSettlement(List<FinalSettlementsViewModel> finalSettlements,YearAndMonth yearAndMonth)
+        {
+            string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
+            var items = new SqlParameter("@dokumenta", itemsId);
+            var user = new SqlParameter("@korisnik", userRepository.GetLoggedUser().Result.UserName);
+            _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_konacni_obracun_prihvatanje @dokumenta, @korisnik", items, user);
+            //Optimize the code to not call the stored procedure.
+            return await GetFinalSettlement(yearAndMonth.Year, yearAndMonth.Month);
+        }
+        public async Task<List<FinalSettlementsViewModel>> CancellationOfSettlement(List<FinalSettlementsViewModel> finalSettlements, YearAndMonth yearAndMonth)
+        {
+            string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
+            var items = new SqlParameter("@dokumenta", itemsId);
+            var user = new SqlParameter("@korisnik", userRepository.GetLoggedUser().Result.UserName);
+            _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_konacni_obracun_ponistavanje @dokumenta, @korisnik", items, user);
+            //Optimize the code to not call the stored procedure.
+            return await GetFinalSettlement(yearAndMonth.Year, yearAndMonth.Month);
+        }
+        public List<Partner> GetPartner(int Year, int Month)
         {
             return _context.partner.FromSqlRaw("EXEC usp_refundacije_konacni_obracun_prikaz_dobavljaca {0},{1}", Year, Month).ToList();
         }
