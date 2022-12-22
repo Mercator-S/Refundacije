@@ -80,7 +80,7 @@
                         @context.Iznos_realizovano_stopa_2.Value.ToString("N")
                     </MudTd>
                     <MudTd DataLabel="Datum realizovano">
-                        @context.Datum_realizovano
+                        @(context.Datum_realizovano==null?context.Datum_realizovano:context.Datum_realizovano.Value.ToString("dd.MM.yyyy"))
                     </MudTd>
                     <MudTd DataLabel="Status">
                         @context.status_stavke_obracuna
