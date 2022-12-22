@@ -58,7 +58,7 @@ namespace Refuntations_App.Pages
         }
         public async Task ChangePartner()
         {
-            if (finalSettlementsList.Select(x => x.Dobavljac).Distinct().Count() == 1)
+            if (finalSettlementsList.Select(x => x.status_stavke_obracuna).All(x => x == "Kreiran") && finalSettlementsList.Select(x => x.Dobavljac).Distinct().Count() == 1)
             {
                 DialogParameters parameteres = new DialogParameters
                 {
@@ -145,7 +145,8 @@ namespace Refuntations_App.Pages
                 {
                     { "finalSettlements", finalSettlementsList },
                     { "dialogText", dialogText },
-                    { "function", function }
+                    { "function", function },
+                    {"yearAndMonth",yearAndMonth }
                 };
                 DialogResult result = await DialogService.Show<QuestionDialog>("Ponistavanje terecenja", parameteres, dialogOptions).Result;
                 DialogParameters ReturnParameteres = (DialogParameters)result.Data;
