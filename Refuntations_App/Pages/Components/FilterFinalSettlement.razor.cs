@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.CodeAnalysis;
 using Refuntations_App_Data.Model;
 using Refuntations_App_Data.ViewModel;
 
@@ -52,8 +53,8 @@ namespace Refuntations_App.Pages.Components
             && x.Sifra_AA == (filterModel.codeAa != null ? filterModel.codeAa : x.Sifra_AA)
             && x.datum_od_aa == (filterModel.periodOf != null ? filterModel.periodOf : x.datum_od_aa)
             && x.status_stavke_obracuna == (filterModel.Status != null ? filterModel.Status : x.status_stavke_obracuna)
-            && x.ir_stopa_1 == (filterModel.PDV10 == true ? true : x.ir_stopa_1)
-            && x.ir_stopa_2 == (filterModel.PDV20 == true ? true : x.ir_stopa_2)
+            && x.ir_stopa_1 == (filterModel.PDV10 == true ? true : (filterModel.PDV20 == true ? false : x.ir_stopa_1))
+            && x.ir_stopa_2 == (filterModel.PDV20 == true ? true : (filterModel.PDV10 == true ? false : x.ir_stopa_2))
             && x.datum_do_aa == (filterModel.periodTo != null ? filterModel.periodTo : x.datum_do_aa)).ToList();
             await finalSettlementsChanged.InvokeAsync(finalSettlements);
         }
