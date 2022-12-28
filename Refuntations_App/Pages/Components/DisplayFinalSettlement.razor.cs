@@ -24,8 +24,17 @@ namespace Refuntations_App.Pages.Components
         {
             var result = await procedureExecutor.CheckFinalSettlement(Year, Month);
             if (result) {
-                await finalSettlementsChanged.InvokeAsync(await procedureExecutor.GetFinalSettlement(Year, Month));
-                SetYearAndMonth.InvokeAsync(new HashSet<int> { Year, Month });
+                try
+                {
+                    await finalSettlementsChanged.InvokeAsync(await procedureExecutor.GetFinalSettlement(Year, Month));
+                    SetYearAndMonth.InvokeAsync(new HashSet<int> { Year, Month });
+
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+               
             }    
             else
             {

@@ -48,6 +48,7 @@ namespace Refundation_App_Services.Repositories
         public Task Add(List<object> entities, string type)
         {
             _context.AddRange(entities);
+            _context.SaveChanges();
             if (type.Equals("Dobavljači - Email adrese"))
             {
                 procedureExeturor.HandleNewEmailsAdded();

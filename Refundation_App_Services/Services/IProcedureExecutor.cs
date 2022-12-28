@@ -14,5 +14,6 @@ namespace Refundation_App_Services.Services
         int GetAlternativeSupplierFailures(int year, int month);
         void  ExportFinalCalculation(int year, int month);
         int GetCalculationStatus(int Year, int Month);
+        void AcceptSettements(string itemsId);
     }
 }

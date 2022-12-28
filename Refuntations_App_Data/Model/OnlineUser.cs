@@ -6,9 +6,10 @@ namespace Refuntations_App_Data.Model
 {
     public class OnlineUser: IdentityUser
     {
-        [Required]
+        [Required(ErrorMessage ="Ovo polje je obavezno.")]
+        [EmailAddress(ErrorMessage ="Nevalidna email adresa.")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Ovo polje je obavezno.")]
         public string? Password{ get; set; }
         public bool Active { get; set; } = true;
         public int K_Ins { get; set; }

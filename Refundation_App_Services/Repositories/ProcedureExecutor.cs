@@ -113,5 +113,9 @@ namespace Refundation_App_Services.Repositories
             return headers.ElementAt(0).Status;
         }
 
+        public void AcceptSettements(string itemsId)
+        {
+          //  _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_PrihvacanjeTerecenjeKO_stavke {0}", itemsId);
+        }
     }
 }
