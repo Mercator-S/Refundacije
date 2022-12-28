@@ -169,7 +169,10 @@ namespace Refuntations_App.Pages
         {
             if (!IsStatusCreated(finalSettlements.ElementAt(0).fk_obracun))
             {
-                showWarningDialog("Upozorenje", "Možete eksportovati samo izveštaj koji je u statusu: ", " KREIRAN.", @Icons.Filled.Warning, MudBlazor.Color.Warning);
+                //showWarningDialog("Upozorenje", "Možete eksportovati samo izveštaj koji je u statusu: ", " KREIRAN.", @Icons.Filled.Warning, MudBlazor.Color.Warning);
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+                Snackbar.Configuration.VisibleStateDuration = 3000;
+                Snackbar.Add($"Možete eksportovati samo izveštaj koji je u statusu: KREIRAN.", Severity.Error);
             }
             else
             {
@@ -179,18 +182,27 @@ namespace Refuntations_App.Pages
                     int alternativeFailureNumber = _procedureExecutor.GetAlternativeSupplierFailures(yearAndMonth.Year, yearAndMonth.Month);
                     if (alternativeFailureNumber > 0)
                     {
-                        showWarningDialog("Upozorenje", "Postoje interni dobavljaci koji nisu prebaceni na alternativne dobavljace.", null, @Icons.Filled.Warning, MudBlazor.Color.Warning);
+                        // showWarningDialog("Upozorenje", "Postoje interni dobavljaci koji nisu prebaceni na alternativne dobavljace.", null, @Icons.Filled.Warning, MudBlazor.Color.Warning);
+                        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+                        Snackbar.Configuration.VisibleStateDuration = 3000;
+                        Snackbar.Add($"Postoje interni dobavljaci koji nisu prebaceni na alternativne dobavljace.", Severity.Error);
                     }
                     else
                     {
                         try
                         {
                             _procedureExecutor.ExportFinalCalculation(yearAndMonth.Year, yearAndMonth.Month);
-                            showWarningDialog("Obaveštenje", "Terecenja uspesno eksportovana!\nU toku je generisanje eksporta, kada ono zavrsi sa radom dobicete obavestenje na Vaš mail.", null, @Icons.Filled.CircleNotifications, MudBlazor.Color.Success);
+                            //showWarningDialog("Obaveštenje", "Terecenja uspesno eksportovana!\nU toku je generisanje eksporta, kada ono zavrsi sa radom dobicete obavestenje na Vaš mail.", null, @Icons.Filled.CircleNotifications, MudBlazor.Color.Success);
+                            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+                            Snackbar.Configuration.VisibleStateDuration = 3000;
+                            Snackbar.Add($"Terecenja uspesno eksportovana!\nU toku je generisanje eksporta, kada ono zavrsi sa radom dobicete obavestenje na Vaš mail.", Severity.Success);
                         }
                         catch (Exception e)
                         {
-                            showWarningDialog("Greška", "Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", null, @Icons.Filled.Error, MudBlazor.Color.Error);
+                           // showWarningDialog("Greška", "Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", null, @Icons.Filled.Error, MudBlazor.Color.Error);
+                            Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
+                            Snackbar.Configuration.VisibleStateDuration = 3000;
+                            Snackbar.Add($"Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", Severity.Error);
                         }
                     }
                 }
