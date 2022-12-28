@@ -90,7 +90,7 @@ namespace Refuntations_App.Pages
         }
         public string GetDownloadPath()
         {
-            return "/download?fileName=" + ExcelTemplateLocation;
+            return "download?fileName=" + ExcelTemplateLocation;
         }
         public async void ElementChangedHandler(TableRowClickEventArgs<Object> e)
         {

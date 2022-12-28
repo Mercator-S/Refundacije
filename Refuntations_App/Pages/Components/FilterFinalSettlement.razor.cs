@@ -25,7 +25,7 @@ namespace Refuntations_App.Pages.Components
         public List<DateTime?> periodOfAA = new List<DateTime?>();
         public List<DateTime?> periodToAA = new List<DateTime?>();
         public List<string?> Status = new List<string?>();
-
+       
         public async Task ShowFilter()
         {
             if (displayFinalSettlements == null)
