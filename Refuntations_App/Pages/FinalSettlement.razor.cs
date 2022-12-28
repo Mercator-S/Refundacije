@@ -186,7 +186,7 @@ namespace Refuntations_App.Pages
                         try
                         {
                             _procedureExecutor.ExportFinalCalculation(yearAndMonth.Year, yearAndMonth.Month);
-                            showWarningDialog("Obaveštenje", "Terecenja uspesno eksportovana!\nU toku je generisanje eksporta, kada ono zavrsi sa radom dobicete obavestenje na Vaš mail.", null, @Icons.Filled.CircleNotifications, Color.Success);
+                            showWarningDialog("Obaveštenje", "Terecenja uspesno eksportovana!\nU toku je generisanje eksporta, kada ono zavrsi sa radom dobicete obavestenje na Vaš mail.", null, @Icons.Filled.CircleNotifications, MudBlazor.Color.Success);
                         }
                         catch (Exception e)
                         {
