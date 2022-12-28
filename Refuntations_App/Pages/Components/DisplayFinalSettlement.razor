@@ -32,7 +32,17 @@
     </MudGrid>
     <MudGrid Class="d-flex justify-center">
         <MudItem Class="mb-3 mt-3">
-            <MudButton Variant="Variant.Filled" Size="Size.Small" OnClick="@(async ()=> await GetFinalSettlements(Year,Month))" Color="Color.Success">Konačni obračun</MudButton>
+            <MudButton Variant="Variant.Filled" Size="Size.Small" Disabled="@_processing" OnClick="@(async ()=> await GetFinalSettlements(Year,Month))" Color="Color.Success">
+                @if (_processing)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                    <MudText Class="ms-2">Obrada...</MudText>
+                }
+                else
+                {
+                    <MudText>Konacni Obracun</MudText>
+                }
+            </MudButton>
         </MudItem>
     </MudGrid>
 </MudPaper>
