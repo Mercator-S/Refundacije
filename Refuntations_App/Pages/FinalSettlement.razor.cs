@@ -5,6 +5,7 @@ using Refuntations_App.Dialog;
 using Refuntations_App.Pages.Components;
 using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.ViewModel;
+using System.Drawing;
 
 namespace Refuntations_App.Pages
 {
@@ -168,7 +169,7 @@ namespace Refuntations_App.Pages
         {
             if (!IsStatusCreated(finalSettlements.ElementAt(0).fk_obracun))
             {
-                showWarningDialog("Upozorenje", "Možete eksportovati samo izveštaj koji je u statusu: ", " KREIRAN.", @Icons.Filled.Warning, Color.Warning);
+                showWarningDialog("Upozorenje", "Možete eksportovati samo izveštaj koji je u statusu: ", " KREIRAN.", @Icons.Filled.Warning, MudBlazor.Color.Warning);
             }
             else
             {
@@ -178,7 +179,7 @@ namespace Refuntations_App.Pages
                     int alternativeFailureNumber = _procedureExecutor.GetAlternativeSupplierFailures(yearAndMonth.Year, yearAndMonth.Month);
                     if (alternativeFailureNumber > 0)
                     {
-                        showWarningDialog("Upozorenje", "Postoje interni dobavljaci koji nisu prebaceni na alternativne dobavljace.", null, @Icons.Filled.Warning, Color.Warning);
+                        showWarningDialog("Upozorenje", "Postoje interni dobavljaci koji nisu prebaceni na alternativne dobavljace.", null, @Icons.Filled.Warning, MudBlazor.Color.Warning);
                     }
                     else
                     {
@@ -189,7 +190,7 @@ namespace Refuntations_App.Pages
                         }
                         catch (Exception e)
                         {
-                            showWarningDialog("Greška", "Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", null, @Icons.Filled.Error, Color.Error);
+                            showWarningDialog("Greška", "Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", null, @Icons.Filled.Error, MudBlazor.Color.Error);
                         }
                     }
                 }
@@ -229,5 +230,43 @@ namespace Refuntations_App.Pages
         {
             yearAndMonth = values;
         }
-    }
+        public void AcceptSettlement()
+        {
+            var res =  showConfirmationDialog("Da li ste sigurni da želite da prihvatite izabrana terećenja");
+            if (!res.IsCanceled)
+            {
+                string itemsId = "";
+
+                foreach (var settlement in finalSettlementsList)
+                {
+                    itemsId += settlement.id_iznos_stopa_1 != null ? settlement.id_iznos_stopa_1 += ',' : "";
+                    itemsId += settlement.id_iznos_stopa_2 != null ? settlement.id_iznos_stopa_2 += ',' : "";
+                }
+                itemsId = itemsId.Remove(itemsId.Length - 1);
+
+
+                _procedureExecutor.AcceptSettements(itemsId);
+            }
+        }
+
+            public Task<DialogResult> showConfirmationDialog(string v)
+            {
+                var options = new DialogOptions { CloseOnEscapeKey = true };
+                var parameters = new DialogParameters
+            {
+                     { "Title", "Potvrda" },
+                { "Content", v },
+
+            };
+                var res = DialogService.Show<ConfirmationDialog>("Potvrda", parameters, options).Result;
+                return res;
+            }
+
+             public bool IsAcceptanceDisabled()
+            {
+                return finalSettlementsList.Count == 0;
+            }
+
+        }
+    
 }

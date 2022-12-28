@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Refuntations_App_Data.Model
 {
-    [Table("tab_refundacije_sif_AA_PDV_SAPKljuc_Materijal_NEW")]
+    [Table("tab_refundacije_sif_AA_PDV_SAPKljuc_Materijal")]
     public class AAPdvSAPKeyMaterial
     {
         [Key]
