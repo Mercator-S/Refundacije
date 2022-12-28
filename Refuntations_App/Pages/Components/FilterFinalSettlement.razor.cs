@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.CodeAnalysis;
 using Refuntations_App_Data.Model;
 using Refuntations_App_Data.ViewModel;
 
@@ -36,22 +37,24 @@ namespace Refuntations_App.Pages.Components
                 Hide = !Hide;
                 await closeNavMenu.InvokeAsync();
                 await HideChanged.InvokeAsync(Hide);
-                partnerName = finalSettlements.Select(x => x.Dobavljac).Distinct().OrderBy(x => x).ToList();
-                category = finalSettlements.Select(x => x.Kategorija).Distinct().OrderBy(x => x).ToList();
-                codeAA = finalSettlements.Select(x => x.Sifra_AA).Distinct().OrderBy(x => x.Value).ToList();
-                periodOfAA = finalSettlements.Select(x => x.datum_od_aa).Distinct().OrderBy(x => x.Value).ToList();
-                periodToAA = finalSettlements.Select(x => x.datum_do_aa).Distinct().OrderBy(x => x.Value).ToList();
-                Status = finalSettlements.Select(x => x.status_stavke_obracuna).Distinct().OrderBy(x => x).ToList();
+                partnerName = displayFinalSettlements.Select(x => x.Dobavljac).Distinct().OrderBy(x => x).ToList();
+                category = displayFinalSettlements.Select(x => x.Kategorija).Distinct().OrderBy(x => x).ToList();
+                codeAA = displayFinalSettlements.Select(x => x.Sifra_AA).Distinct().OrderBy(x => x.Value).ToList();
+                periodOfAA = displayFinalSettlements.Select(x => x.datum_od_aa).Distinct().OrderBy(x => x.Value).ToList();
+                periodToAA = displayFinalSettlements.Select(x => x.datum_do_aa).Distinct().OrderBy(x => x.Value).ToList();
+                Status = displayFinalSettlements.Select(x => x.status_stavke_obracuna).Distinct().OrderBy(x => x).ToList();
             }
         }
         public async Task ApplyFilter(FilterModel? filterModel)
         {
+            finalSettlements = displayFinalSettlements;
             finalSettlements = finalSettlements.Where(x => x.Dobavljac == (filterModel.partnerName != null ? filterModel.partnerName : x.Dobavljac)
             && x.Kategorija == (filterModel.categoryName != null ? filterModel.categoryName : x.Kategorija)
             && x.Sifra_AA == (filterModel.codeAa != null ? filterModel.codeAa : x.Sifra_AA)
             && x.datum_od_aa == (filterModel.periodOf != null ? filterModel.periodOf : x.datum_od_aa)
-            && x.ir_stopa_1 == (filterModel.PDV10 != null ? filterModel.PDV10 : x.ir_stopa_1)
-            && x.ir_stopa_2 == (filterModel.PDV20 != null ? filterModel.PDV20 : x.ir_stopa_2)
+            && x.status_stavke_obracuna == (filterModel.Status != null ? filterModel.Status : x.status_stavke_obracuna)
+            && x.ir_stopa_1 == (filterModel.PDV10 == true ? true : (filterModel.PDV20 == true ? false : x.ir_stopa_1))
+            && x.ir_stopa_2 == (filterModel.PDV20 == true ? true : (filterModel.PDV10 == true ? false : x.ir_stopa_2))
             && x.datum_do_aa == (filterModel.periodTo != null ? filterModel.periodTo : x.datum_do_aa)).ToList();
             await finalSettlementsChanged.InvokeAsync(finalSettlements);
         }

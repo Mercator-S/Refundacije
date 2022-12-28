@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Refundation_App_Services.Services;
+using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.Model;
 using Refuntations_App_Data.ViewModel;
 
@@ -15,16 +16,18 @@ namespace Refuntations_App.Dialog
         public List<Partner> partnerList { get; set; }
         [Parameter]
         public List<FinalSettlementsViewModel> finalSettlements { get; set; }
+        [Parameter]
+        public YearAndMonth yearAndMonth { get; set; }
         [Inject]
         IProcedureExecutor procedureExecutor { get; set; }
         private string searchString;
         protected override async Task OnInitializedAsync()
         {
-            partnerList = await procedureExecutor.GetPartner(finalSettlements.Select(x => x.datum_do_aa.Value.Year).First(), finalSettlements.Select(x => x.datum_do_aa.Value.Month).First());
+            partnerList = procedureExecutor.GetPartner(yearAndMonth.Year, yearAndMonth.Month);
         }
         public async Task Submit()
         {
-            var result = await procedureExecutor.ChangePartner(finalSettlements, partnerList.Where(x => x.naziv_partnera == searchString).Select(x => x.sap_sifra_dob).First().ToString());
+            var result = await procedureExecutor.ChangePartner(finalSettlements, yearAndMonth, partnerList.Where(x => x.naziv_partnera == searchString).Select(x => x.sap_sifra_dob).First().ToString());
             if (result != null)
             {
                 DialogParameters parameteres = new DialogParameters
