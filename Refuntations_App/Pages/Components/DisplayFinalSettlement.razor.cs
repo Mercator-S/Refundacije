@@ -19,7 +19,7 @@ namespace Refuntations_App.Pages.Components
         public EventCallback<YearAndMonth> SetYearAndMonth { get; set; }
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.TopCenter, DisableBackdropClick = true };
         public int Year { get; set; } = DateTime.Now.Year;
-        public int Month { get; set; } = DateTime.Now.Month - 1;
+        public int Month { get; set; } = DateTime.Now.Month;
         public bool _processing { get; set; } = false;
         public async Task GetFinalSettlements(int Year, int Month)
         {
