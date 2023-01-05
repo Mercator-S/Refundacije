@@ -20,9 +20,11 @@ namespace Refuntations_App.Pages.Components
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.TopCenter, DisableBackdropClick = true };
         public int Year { get; set; } = DateTime.Now.Year;
         public int Month { get; set; } = DateTime.Now.Month - 1;
+        public bool _processing { get; set; } = false;
         public async Task GetFinalSettlements(int Year, int Month)
         {
-            var result = await procedureExecutor.CheckFinalSettlement(Year, Month);
+            _processing= true;
+            var result = await Task.Run(() => procedureExecutor.CheckFinalSettlement(Year, Month));
             if (result)
             {
                 await finalSettlementsChanged.InvokeAsync(await procedureExecutor.GetFinalSettlement(Year, Month));
@@ -33,6 +35,7 @@ namespace Refuntations_App.Pages.Components
                 await finalSettlementsChanged.InvokeAsync(await CreateFinalSettlement(Year, Month));
                 await SetYearAndMonth.InvokeAsync(new YearAndMonth(Year, Month));
             }
+            _processing = false;
         }
         public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month)
         {
