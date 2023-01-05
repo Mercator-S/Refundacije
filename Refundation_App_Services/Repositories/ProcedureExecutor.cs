@@ -26,7 +26,17 @@ namespace Refundation_App_Services.Repositories
         }
         public async Task<List<FinalSettlementsViewModel>> GetFinalSettlement(int Years, int Months)
         {
-            return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXEC  usp_refundacije_prikaz_konacni_obracun {0},{1}", Years, Months).ToList());
+            try
+            {
+                return _mapper.Map<List<FinalSettlementsViewModel>>(_context.finalSettlement.FromSqlRaw("EXEC  usp_refundacije_prikaz_konacni_obracun {0},{1}", Years, Months).ToList());
+            }
+            catch (Exception E)
+            {
+
+                Console.WriteLine(E.Message);
+                return new List<FinalSettlementsViewModel>();
+            }
+           
         }
         public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month)
         {
