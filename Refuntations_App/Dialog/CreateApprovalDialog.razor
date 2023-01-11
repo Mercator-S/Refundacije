@@ -1,0 +1,29 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudContainer>
+            <MudGrid Class="d-flex justify-center">
+                <MudItem>
+                    <MudText Typo="Typo.caption">Izaberite datum dokumenta ili datum prijema</MudText>
+                </MudItem>
+            </MudGrid>
+            <MudGrid Class="d-flex justify-center">
+                <MudItem>
+                    <MudDatePicker Label="Datum dokumenta" Variant="Variant.Outlined" @bind-Date="documentDate" />
+                </MudItem>
+            </MudGrid>
+            <MudGrid Class="d-flex justify-center">
+                <MudItem>
+                    <MudDatePicker Label="Datum prijema" Variant="Variant.Outlined" @bind-Date="dateOfReceipt" />
+                </MudItem>
+            </MudGrid>
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Filled" Size="Size.Small" OnClick="Cancel" Color="Color.Error">Zatvori</MudButton>
+        <MudButton Variant="Variant.Filled" Size="Size.Small" OnClick="@(async () => await GetNewApprovals(documentDate,dateOfReceipt))" Color="Color.Success">Unos odobrenja</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+
+

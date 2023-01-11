@@ -32,11 +32,11 @@ namespace Refundation_App_Services.Repositories
             }
             catch (Exception E)
             {
-
+                //?
                 Console.WriteLine(E.Message);
                 return new List<FinalSettlementsViewModel>();
             }
-           
+
         }
         public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month)
         {
@@ -72,7 +72,7 @@ namespace Refundation_App_Services.Repositories
             //The return value cannot be null
             return null;
         }
-        public async Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements,YearAndMonth yearAndMonth, string sap_id)
+        public async Task<List<FinalSettlementsViewModel>> ChangePartner(List<FinalSettlementsViewModel> finalSettlements, YearAndMonth yearAndMonth, string sap_id)
         {
             string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
             var items = new SqlParameter("@stavke", itemsId);
@@ -82,7 +82,7 @@ namespace Refundation_App_Services.Repositories
             //Optimize the code to not call the stored procedure.
             return await GetFinalSettlement(yearAndMonth.Year, yearAndMonth.Month);
         }
-        public async Task<List<FinalSettlementsViewModel>> ReversalOfSettlementDialog(DateTime? date, YearAndMonth yearAndMonth,List<FinalSettlementsViewModel> finalSettlements)
+        public async Task<List<FinalSettlementsViewModel>> ReversalOfSettlementDialog(DateTime? date, YearAndMonth yearAndMonth, List<FinalSettlementsViewModel> finalSettlements)
         {
             string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
             var items = new SqlParameter("@dokumenta", itemsId);
@@ -92,7 +92,7 @@ namespace Refundation_App_Services.Repositories
             //Optimize the code to not call the stored procedure.
             return await GetFinalSettlement(yearAndMonth.Year, yearAndMonth.Month);
         }
-        public async Task<List<FinalSettlementsViewModel>> AcceptanceSettlement(List<FinalSettlementsViewModel> finalSettlements,YearAndMonth yearAndMonth)
+        public async Task<List<FinalSettlementsViewModel>> AcceptanceSettlement(List<FinalSettlementsViewModel> finalSettlements, YearAndMonth yearAndMonth)
         {
             string itemsId = await _refundationRepository.MakeIdFromList(finalSettlements);
             var items = new SqlParameter("@dokumenta", itemsId);
@@ -143,12 +143,25 @@ namespace Refundation_App_Services.Repositories
         public int GetCalculationStatus(int Year, int Month)
         {
             List<FinalSettlementHeader> headers = _context.finalSettlementHeader.Where(x => x.Active == true && x.Godina == Year && x.Mesec == Month).ToList();
-            return headers.ElementAt(0).Status;
+            return headers[0].Status;
         }
 
         public void AcceptSettements(string itemsId)
         {
-          //  _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_PrihvacanjeTerecenjeKO_stavke {0}", itemsId);
+            //?
+            //  _context.Database.ExecuteSqlRaw("EXEC usp_refundacije_PrihvacanjeTerecenjeKO_stavke {0}", itemsId);
+        }
+        public async Task<List<Approvals>> GetApprovals(long status)
+        {
+            return _context.approvals.FromSqlRaw("EXEC usp_refundacije_prikaz_odobrenja {0}", status).ToList();
+        }
+        public async Task<List<ApprovalStatus>> GetApprovalStatus()
+        {
+            return _context.approvalStatuses.ToList();
+        }
+        public async Task<List<Approvals>> GetNewApprovals(DateTime? documentDate, DateTime? dateOfReceipt)
+        {
+            return _context.approvals.FromSqlRaw("EXEC usp_refundacije_odobrenja_unos_prikaz {0},{1}", documentDate, dateOfReceipt).ToList();
         }
     }
 }

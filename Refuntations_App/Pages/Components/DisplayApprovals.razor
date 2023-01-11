@@ -1,0 +1,37 @@
+﻿<MudPaper Elevation="3">
+    <MudGrid Class="d-flex justify-center">
+        <MudItem>
+            <MudText Typo="Typo.h5"><b>Odobrenja</b></MudText>
+        </MudItem>
+    </MudGrid>
+    <MudGrid Class="d-flex justify-center">
+        <MudItem Class="mb-3">
+            <MudText Typo="Typo.caption">Izaberite status odobrenja</MudText>
+        </MudItem>
+    </MudGrid>
+    <MudGrid Class="d-flex justify-center">
+        <MudItem xs=12 sm="12" md="12" lg="5">
+            <MudSelect @bind-Value="statusId" T="long" Label="Status odobrenja" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                @foreach (var a in approvalStatuses)
+                {
+                    <MudSelectItem T="long" Value="a.Id">@a.status[0]@a.status.Substring(1).ToLower()</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+    </MudGrid>
+    <MudGrid Class="d-flex justify-center">
+        <MudItem Class="mb-3 mt-3">
+            <MudButton Variant="Variant.Filled" Size="Size.Small" Disabled="@_processing" OnClick="@(async ()=> await GetApprovals(statusId))" Color="Color.Success">
+                @if (_processing)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                    <MudText Class="ms-2">Obrada...</MudText>
+                }
+                else
+                {
+                    <MudText>Odobrenja</MudText>
+                }
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+</MudPaper>

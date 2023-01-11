@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Refundation_App_Services.Services;
+using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.ViewModel;
 
 namespace Refuntations_App.Dialog
@@ -15,22 +16,22 @@ namespace Refuntations_App.Dialog
         public EventCallback<List<FinalSettlementsViewModel>> finalSettlementsChanged { get; set; }
         [Parameter]
         public List<FinalSettlementsViewModel> finalSettlements { get; set; }
-        public int Year { get; set; } = DateTime.Now.Year;
-        public int Month { get; set; } = DateTime.Now.Month - 1;
+        [Parameter]
+        public YearAndMonth yearAndMonth { get; set; }
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.TopCenter, DisableBackdropClick = true };
-        private async Task Submit(int Year, int Month)
+        private async Task Submit(YearAndMonth yearAndMonth)
         {
             DialogParameters parameteres = new DialogParameters();
-            var result = await Task.Run(() => procedureExecutor.CheckFinalSettlement(Year, Month));
+            var result = await Task.Run(() => procedureExecutor.CheckFinalSettlement(yearAndMonth.Year, yearAndMonth.Month));
             if (result)
             {
-                var finalSettlements = await Task.Run(() => procedureExecutor.GetFinalSettlement(Year, Month));
+                var finalSettlements = await Task.Run(() => procedureExecutor.GetFinalSettlement(yearAndMonth.Year, yearAndMonth.Month));
                 parameteres.Add("finalSettlements", finalSettlements);
                 MudDialog.Close(DialogResult.Ok(parameteres));
             }
             else
             {
-                parameteres.Add("finalSettlements", await CreateFinalSettlement(Year, Month));
+                parameteres.Add("finalSettlements", await CreateFinalSettlement(yearAndMonth));
                 MudDialog.Close(DialogResult.Ok(parameteres));
             }
         }
@@ -38,12 +39,12 @@ namespace Refuntations_App.Dialog
         {
             MudDialog.Close();
         }
-        public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(int Year, int Month)
+        public async Task<List<FinalSettlementsViewModel>> CreateFinalSettlement(YearAndMonth yearAndMonth)
         {
             DialogParameters parameteres = new DialogParameters
             {
-                { "Year", Year },
-                { "Month", Month },
+                { "Year", yearAndMonth.Year },
+                { "Month", yearAndMonth.Month },
                 { "finalSettlements",finalSettlements}
             };
             DialogResult result = await DialogService.Show<QuestionForCreatingFs>("Kreiraj konačni obračun", parameteres, dialogOptions).Result;

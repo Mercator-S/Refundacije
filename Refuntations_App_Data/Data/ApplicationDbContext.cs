@@ -24,6 +24,8 @@ namespace Refuntations_App.Data
         public DbSet<AAPdvSAPKeyMaterial> aaPdvSapKeyMaterijals => Set<AAPdvSAPKeyMaterial>();
         public DbSet<CategoryInternalOrderCostLocation> categoryInternalOrderCostLocations => Set<CategoryInternalOrderCostLocation>();
         public DbSet<CounterSapIdSapKeyAmount> counterSapIdSadKeyAmounts => Set<CounterSapIdSapKeyAmount>();
+        public DbSet<Approvals> approvals => Set<Approvals>();
+        public DbSet<ApprovalStatus> approvalStatuses => Set<ApprovalStatus>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

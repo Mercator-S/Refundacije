@@ -5,7 +5,6 @@ using Refuntations_App.Dialog;
 using Refuntations_App.Pages.Components;
 using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.ViewModel;
-using System.Drawing;
 
 namespace Refuntations_App.Pages
 {
@@ -13,20 +12,21 @@ namespace Refuntations_App.Pages
     {
         [Inject]
         ISnackbar Snackbar { get; set; } = default!;
-        public List<FinalSettlementsViewModel> finalSettlements { get; set; }
-        private FilterFinalSettlement? filter;
-        public List<FinalSettlementsViewModel> finalSettlementsList = new List<FinalSettlementsViewModel>();
         [Inject]
         private IProcedureExecutor _procedureExecutor { get; set; }
         DialogOptions dialogOptions = new DialogOptions() { MaxWidth = MaxWidth.Small, FullWidth = true, Position = DialogPosition.Center, DisableBackdropClick = true };
-        public bool Hide { get; set; } = true;
-        public bool managementSettlements { get; set; } = true;
+        public List<FinalSettlementsViewModel> finalSettlements { get; set; }
+        public List<FinalSettlementsViewModel> finalSettlementsList = new List<FinalSettlementsViewModel>();
+        private FilterFinalSettlement? filter;
         public YearAndMonth yearAndMonth { get; set; }
+        public bool Hide { get; set; } = true;
+        public bool managementSettlements { get; set; } = false;
         public async Task ShowDialog()
         {
             DialogParameters parameteres = new DialogParameters
             {
-                { "finalSettlements", finalSettlements }
+                { "finalSettlements", finalSettlements },
+                { "yearAndMonth",yearAndMonth}
             };
             DialogResult result = await DialogService.Show<FinalSettlementDialog>("Konačni obračun", parameteres, dialogOptions).Result;
             DialogParameters ReturnParameteres = (DialogParameters)result.Data;
@@ -48,10 +48,6 @@ namespace Refuntations_App.Pages
                 FinalSettlements.Checked = false;
                 finalSettlementsList.Remove(FinalSettlements);
             }
-        }
-        public void ManagementSettlements()
-        {
-            managementSettlements = !managementSettlements;
         }
         public async Task ShowFilter()
         {
@@ -199,7 +195,7 @@ namespace Refuntations_App.Pages
                         }
                         catch (Exception e)
                         {
-                           // showWarningDialog("Greška", "Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", null, @Icons.Filled.Error, MudBlazor.Color.Error);
+                            // showWarningDialog("Greška", "Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", null, @Icons.Filled.Error, MudBlazor.Color.Error);
                             Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomLeft;
                             Snackbar.Configuration.VisibleStateDuration = 3000;
                             Snackbar.Add($"Greška prilikom eksportovanja terećenja. Pokušajte ponovo, ili kontaktirajte tim podrške.", Severity.Error);
@@ -244,7 +240,7 @@ namespace Refuntations_App.Pages
         }
         public void AcceptSettlement()
         {
-            var res =  showConfirmationDialog("Da li ste sigurni da želite da prihvatite izabrana terećenja");
+            var res = showConfirmationDialog("Da li ste sigurni da želite da prihvatite izabrana terećenja");
             if (!res.IsCanceled)
             {
                 string itemsId = "";
@@ -261,24 +257,24 @@ namespace Refuntations_App.Pages
             }
         }
 
-            public Task<DialogResult> showConfirmationDialog(string v)
-            {
-                var options = new DialogOptions { CloseOnEscapeKey = true };
-                var parameters = new DialogParameters
+        public Task<DialogResult> showConfirmationDialog(string v)
+        {
+            var options = new DialogOptions { CloseOnEscapeKey = true };
+            var parameters = new DialogParameters
             {
                      { "Title", "Potvrda" },
                 { "Content", v },
 
             };
-                var res = DialogService.Show<ConfirmationDialog>("Potvrda", parameters, options).Result;
-                return res;
-            }
-
-             public bool IsAcceptanceDisabled()
-            {
-                return finalSettlementsList.Count == 0;
-            }
-
+            var res = DialogService.Show<ConfirmationDialog>("Potvrda", parameters, options).Result;
+            return res;
         }
-    
+
+        public bool IsAcceptanceDisabled()
+        {
+            return finalSettlementsList.Count == 0;
+        }
+
+    }
+
 }
