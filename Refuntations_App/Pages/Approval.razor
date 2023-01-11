@@ -1,0 +1,106 @@
+﻿@page "/Approvals"
+@inject IDialogService DialogService
+@using Refuntations_App.Pages.Components;
+
+<MudContainer Class="mt-5" MaxWidth="MaxWidth.ExtraLarge">
+    <MudGrid Class="d-flex justify-center mt-10">
+        <MudItem hidden="@(approvals!=null?true:false)" xs="12" md="4" lg="5">
+            <DisplayApprovals getApprovals="GetApprovals" />
+        </MudItem>
+    </MudGrid>
+    @if (managementApprovals)
+    {
+        <MudGrid Class="d-flex justify-center mt-4 mb-6">
+            <MudItem Class="d-flex justify-center" xs="4" lg="2">
+                <MudButton Variant="Variant.Filled" OnClick="CreateApprovalDialog" Color="Color.Success" Size="Size.Medium" StartIcon="@Icons.Material.Filled.AddCircleOutline">Unos odobrenja</MudButton>
+            </MudItem>
+            <MudItem Class="d-flex justify-center" xs="4" lg="2">
+                <MudButton Variant="Variant.Filled" Color="Color.Info" Size="Size.Medium" StartIcon="@Icons.Material.Filled.LowPriority">Uparivanje terecenja</MudButton>
+            </MudItem>
+        </MudGrid>
+    }
+    <MudGrid Class="d-flex justify-center">
+        <MudTable Items="@approvals" Dense="true" Hover="true">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Odobrenja</MudText>
+                <MudSpacer />
+                <MudButton OnClick="(()=>managementApprovals=!managementApprovals)" Class="align-self-center" Variant="Variant.Filled" Color="Color.Surface" Size="Size.Small" StartIcon="@Icons.Filled.Edit">Upravljanje obracunima</MudButton>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh Style="color:white;background-color:#dc3545">Id</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Šifra dobavljača</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">SAP šifra</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">PIB</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Naziv dobavljača</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Broj dokumenta</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Datum dokumenta</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Datum knjiženja</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Status odobrenja</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">SEF status</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Zadnja promene SEF</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Porez 10%</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">PDV 10</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Porez 20%</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">PDV 20</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Neto</MudTh>
+                <MudTh Style="color:white;background-color:#dc3545">Bruto</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Id">
+                    @context.Id
+                </MudTd>
+                <MudTd DataLabel="sifra_dobavljaca">
+                    @context.sifra_dobavljaca
+                </MudTd>
+                <MudTd DataLabel="sifra_dobavljaca_SAP">
+                    @context.sifra_dobavljaca_SAP
+                </MudTd>
+                <MudTd DataLabel="PIB">
+                    @context.PIB
+                </MudTd>
+                <MudTd DataLabel="naziv_dobavljaca">
+                    @context.naziv_dobavljaca
+                </MudTd>
+                <MudTd DataLabel="broj_dokumenta_dob">
+                    @context.broj_dokumenta
+                </MudTd>
+                <MudTd DataLabel="datum_dokumenta_dob">
+                    @context.datum_dokumenta
+                </MudTd>
+                <MudTd DataLabel="datum_knjizenja">
+                    @context.datum_knjizenja
+                </MudTd>
+                <MudTd DataLabel="Status odobrenja">
+                    @context.status_odobrenja
+                </MudTd>
+                <MudTd DataLabel="SEF_status">
+                    @context.SEF_status
+                </MudTd>
+                <MudTd DataLabel="SEF_status_datum_zadnje_promene">
+                    @context.zadnja_promena_SEF
+                </MudTd>
+                <MudTd DataLabel="iznos_poreske_osnovice_1">
+                    @context.Iznos_poreza_10
+                </MudTd>
+                <MudTd DataLabel="iznos_pdv_1">
+                    @context.PDV_10
+                </MudTd>
+                <MudTd DataLabel="iznos_poreske_osnovice_2">
+                    @context.Iznos_poreza_20
+                </MudTd>
+                <MudTd DataLabel="iznos_pdv_2">
+                    @context.PDV_20
+                </MudTd>
+                <MudTd DataLabel="iznos_neto">
+                    @context.iznos_neto
+                </MudTd>
+                <MudTd DataLabel="iznos_bruto">
+                    @context.iznos_bruto
+                </MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager HorizontalAlignment="HorizontalAlignment.Center" />
+            </PagerContent>
+        </MudTable>
+    </MudGrid>
+</MudContainer>

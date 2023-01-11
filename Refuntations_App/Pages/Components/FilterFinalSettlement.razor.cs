@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.CodeAnalysis;
-using Refuntations_App_Data.Model;
+using Refuntations_App.Shared;
+using Refuntations_App_Data.CustomModel;
 using Refuntations_App_Data.ViewModel;
 
 namespace Refuntations_App.Pages.Components

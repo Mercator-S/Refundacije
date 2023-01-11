@@ -132,7 +132,7 @@ namespace Refuntations_App.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    // _emailSender.sendMail(Constants.IT_SUPPORT_MAIL, Input.Email, "Registracija - Kredencijali za logovanje na  Mercator Refundacije", "Dobrodošli u Mercator Refundacije. Vaši kredencijali za pristup su:\nEmail: "+Input.Email+"\nPassword: "+Input.Password+".", false);
+                     _emailSender.sendMail(Constants.IT_SUPPORT_MAIL, Input.Email, "Registracija - Kredencijali za logovanje na  Mercator Refundacije", "Dobrodošli u Mercator Refundacije. Vaši kredencijali za pristup su:\nEmail: "+Input.Email+"\nPassword: "+Input.Password+ "\nAplikaciji pristupate putem sledećeg linka: https://websrbg01v.mercator.si/Refundacije .", false);
 
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)

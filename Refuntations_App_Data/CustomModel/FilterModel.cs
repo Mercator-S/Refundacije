@@ -1,4 +1,4 @@
-﻿namespace Refuntations_App_Data.Model
+﻿namespace Refuntations_App_Data.CustomModel
 {
     public class FilterModel
     {

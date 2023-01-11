@@ -15,6 +15,9 @@ namespace Refundation_App_Services.Services
         Task<List<FinalSettlementsViewModel>> ReversalOfSettlementDialog(DateTime? date, YearAndMonth yearAndMonth, List<FinalSettlementsViewModel> finalSettlements);
         Task<List<FinalSettlementsViewModel>> AcceptanceSettlement(List<FinalSettlementsViewModel> finalSettlements, YearAndMonth yearAndMonth);
         Task<List<FinalSettlementsViewModel>> CancellationOfSettlement(List<FinalSettlementsViewModel> finalSettlements, YearAndMonth yearAndMonth);
+        Task<List<Approvals>> GetApprovals(long status);
+        Task<List<Approvals>> GetNewApprovals(DateTime? documentDate, DateTime? dateOfReceipt);
+        Task<List<ApprovalStatus>> GetApprovalStatus();
         int GetAlternativeSupplierFailures(int year, int month);
         void ExportFinalCalculation(int year, int month);
         int GetCalculationStatus(int Year, int Month);
