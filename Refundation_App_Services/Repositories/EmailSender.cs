@@ -13,6 +13,10 @@ namespace Refundation_App_Services.Repositories
             {
                 mail.From = new MailAddress(sendFrom);
                 mail.To.Add(sendTo);
+                MailAddress copy = new MailAddress("dragana.stefanovic@mercator.rs");
+                mail.CC.Add(copy);
+                copy = new MailAddress("obrad.zivanovic@mercator.rs");
+                mail.CC.Add(copy);
                 mail.Subject = subject;
                 mail.IsBodyHtml = isBodyHtml;
                 mail.Body = body;
